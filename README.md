@@ -7,7 +7,7 @@
 	- 장민재(Jang, Min Jae)
 	- 최희은(Choi, Hennie
 	- Kang, Hyun Su
-	- Yun, Dong Hyun
+	- 윤동현(Youn, Dong Hyun)
   
 
 ### 프로젝트 소개
