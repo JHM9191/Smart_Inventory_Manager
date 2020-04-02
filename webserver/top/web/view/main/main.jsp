@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 <title>TOP Smart Inventory Management System</title>
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
@@ -12,6 +12,8 @@
 
 <!-- Fonts and icons -->
 <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
 	WebFont.load({
 		google : {

@@ -17,16 +17,16 @@ Circles.create({
 
 //Notify
 $.notify({
-	icon: 'flaticon-alarm-1',
-	title: 'Azzara',
-	message: 'Premium Bootstrap 4 Admin Dashboard',
-},{
-	type: 'info',
-	placement: {
-		from: "bottom",
-		align: "right"
+	icon : 'flaticon-alarm-1',
+	title : 'TOP Smart Inventory Management System',
+	message : 'Welcome~',
+}, {
+	type : 'info',
+	placement : {
+		from : "bottom",
+		align : "right"
 	},
-	time: 1000,
+	time : 1000,
 });
 
 // JQVmap
