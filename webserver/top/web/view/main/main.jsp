@@ -40,107 +40,119 @@
 <body>
 	<div class="wrapper">
 
-		<jsp:include page="header.jsp" />
+		<c:choose>
+			<c:when test="${loginId == null }">
+				<jsp:include page="../user/login.jsp" />
+			</c:when>
 
-		<jsp:include page="sidebar.jsp" />
+			<c:otherwise>
+				<jsp:include page="header.jsp" />
+				<jsp:include page="sidebar.jsp" />
 
-		<!--  Center Page Here! -->
-		<div class="main-panel">
-			<div class="content">
-				<div class="page-inner">
-
-
-
-					<!-- Inventory Summary START! -->
-					<c:choose>
-						<c:when test="${inventory == null }">
-							<jsp:include page="empty.jsp" />
-						</c:when>
-						<c:otherwise>
-							<jsp:include page="${inventory }.jsp" />
-						</c:otherwise>
-					</c:choose>
-					<!-- Inventory Summary END! -->
-
-					<!-- Product Suggestion START! -->
-					<c:choose>
-						<c:when test="${suggestion == null }">
-							<jsp:include page="empty.jsp" />
-						</c:when>
-						<c:otherwise>
-							<jsp:include page="${suggestion }.jsp" />
-						</c:otherwise>
-					</c:choose>
-					<!-- Product Suggestion END! -->
-
-					<!-- Visual Analysis START! -->
-					<c:choose>
-						<c:when test="${analysis == null }">
-							<jsp:include page="empty.jsp" />
-						</c:when>
-						<c:otherwise>
-							<jsp:include page="${analysis }.jsp" />
-						</c:otherwise>
-					</c:choose>
-					<!-- Visual Analysis END! -->
+				<!--  Center Page Here! -->
+				<div class="main-panel">
+					<div class="content">
+						<div class="page-inner">
+							<!-- Real Time Inventory START! -->
+							<c:choose>
+								<c:when test="${inventory_realtime == null }">
+									<jsp:include page="empty.jsp" />
+								</c:when>
+								<c:otherwise>
+									<jsp:include page="${inventory_realtime }.jsp" />
+								</c:otherwise>
+							</c:choose>
+							<!-- Real Time Inventory END! -->
 
 
+							<!-- Inventory List START! -->
+							<c:choose>
+								<c:when test="${inventory_list == null }">
+									<jsp:include page="empty.jsp" />
+								</c:when>
+								<c:otherwise>
+									<jsp:include page="${inventory_list }.jsp" />
+								</c:otherwise>
+							</c:choose>
+							<!-- Inventory List END! -->
+
+							<!-- Product Suggestion START! -->
+							<c:choose>
+								<c:when test="${suggestion == null }">
+									<jsp:include page="empty.jsp" />
+								</c:when>
+								<c:otherwise>
+									<jsp:include page="${suggestion }.jsp" />
+								</c:otherwise>
+							</c:choose>
+							<!-- Product Suggestion END! -->
+
+							<!-- Visual Analysis START! -->
+							<c:choose>
+								<c:when test="${analysis == null }">
+									<jsp:include page="empty.jsp" />
+								</c:when>
+								<c:otherwise>
+									<jsp:include page="${analysis }.jsp" />
+								</c:otherwise>
+							</c:choose>
+							<!-- Visual Analysis END! -->
+						</div>
+					</div>
 				</div>
-			</div>
-
-		</div>
-
-
+			</c:otherwise>
+		</c:choose>
 	</div>
-	</div>
-	<!--   Core JS Files   -->
-	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
-	<script src="assets/js/core/popper.min.js"></script>
-	<script src="assets/js/core/bootstrap.min.js"></script>
+</body>
 
-	<!-- jQuery UI -->
-	<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-	<script
-		src="assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<!--   Core JS Files   -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
 
-	<!-- jQuery Scrollbar -->
-	<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<!-- jQuery UI -->
+<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script
+	src="assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
-	<!-- Moment JS -->
-	<script src="assets/js/plugin/moment/moment.min.js"></script>
+<!-- jQuery Scrollbar -->
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-	<!-- Chart JS -->
-	<script src="assets/js/plugin/chart.js/chart.min.js"></script>
+<!-- Moment JS -->
+<script src="assets/js/plugin/moment/moment.min.js"></script>
 
-	<!-- jQuery Sparkline -->
-	<script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<!-- Chart JS -->
+<script src="assets/js/plugin/chart.js/chart.min.js"></script>
 
-	<!-- Chart Circle -->
-	<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+<!-- jQuery Sparkline -->
+<script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
-	<!-- Datatables -->
-	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+<!-- Chart Circle -->
+<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
 
-	<!-- Bootstrap Notify -->
-	<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<!-- Datatables -->
+<script src="assets/js/plugin/datatables/datatables.min.js"></script>
 
-	<!-- Bootstrap Toggle -->
-	<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<!-- Bootstrap Notify -->
+<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-	<!-- jQuery Vector Maps -->
-	<script src="assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
-	<script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+<!-- Bootstrap Toggle -->
+<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
-	<!-- Google Maps Plugin -->
-	<script src="assets/js/plugin/gmaps/gmaps.js"></script>
+<!-- jQuery Vector Maps -->
+<script src="assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 
-	<!-- Sweet Alert -->
-	<script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+<!-- Google Maps Plugin -->
+<script src="assets/js/plugin/gmaps/gmaps.js"></script>
 
-	<!-- Azzara JS -->
-	<script src="assets/js/ready.min.js"></script>
+<!-- Sweet Alert -->
+<script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
-	<!-- Azzara DEMO methods, don't include it in your project! -->
-	<script src="assets/js/setting-demo.js"></script>
-	<script src="assets/js/demo.js"></script>
+<!-- Azzara JS -->
+<script src="assets/js/ready.min.js"></script>
+
+<!-- Azzara DEMO methods, don't include it in your project! -->
+<script src="assets/js/setting-demo.js"></script>
+<script src="assets/js/demo.js"></script>
 </html>

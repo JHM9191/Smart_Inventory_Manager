@@ -1,9 +1,17 @@
 package top.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
@@ -13,16 +21,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import top.model.Container;
-import top.model.Item;
-import top.model.Warehouse;
+import top.frame.Biz;
+import top.vo.RealTimeData;
+import top.vo.WarehouseVO;
 
 @Controller
 public class MainController {
 
+	@Resource(name = "wbiz")
+	Biz<String, WarehouseVO> wbiz;
+
 	@RequestMapping("/main.top")
-	public ModelAndView main(ModelAndView mv, HttpServletResponse res) {
-		mv.addObject("inventory", "../inventory/inventory_summary");
+	public ModelAndView main(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
+
+		HttpSession session = req.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+		System.out.println(u_id);
+
+		mv.addObject("uid", u_id);
+
+		
+		// uid가 null이 아닐때
+		
+		for (WarehouseVO w : wbiz.get()) {
+			System.out.println(w);
+		}
+
+		mv.addObject("inventory_list_data", wbiz.get());
+
+		mv.addObject("inventory_realtime", "../inventory/inventory_rt");
+		mv.addObject("inventory_list", "../inventory/inventory_list");
 		mv.addObject("suggestion", null);
 		mv.addObject("analysis", null);
 		mv.setViewName("main/main");
@@ -32,26 +60,105 @@ public class MainController {
 		return mv;
 	}
 
+	@RequestMapping("/getRTInventoryData.top")
+	@ResponseBody
+	public ArrayList<RealTimeData> getRTInventoryData(ModelAndView mv) {
+		return getRealTimeInventory(wbiz.get());
+	}
+
+	/**
+	 * This method converts total inventory data list into real-time data summary
+	 * list.
+	 * 
+	 * @author johyunmin
+	 * @param warehouseData
+	 * @return JSONArray
+	 */
+	public JSONArray getRealTimeInventory(ArrayList<WarehouseVO> warehouseData) {
+		ArrayList<RealTimeData> realTimeDataList = new ArrayList<RealTimeData>();
+		int cnt_status = 0;
+		int temp = 0;
+		for (int i = 0; i < warehouseData.size(); i++) {
+			WarehouseVO w = warehouseData.get(i);
+			if (i == 0) {
+				if (warehouseData.get(i).getItem_status().equals("Inventory")) {
+					cnt_status++;
+				}
+			} else if (i > 0 && i < warehouseData.size() - 1) {
+				if (warehouseData.get(i).getItem_code().equals(warehouseData.get(i - 1).getItem_code())) {
+					if (warehouseData.get(i).getItem_status().equals("Inventory")) {
+						cnt_status++;
+					}
+				} else {
+					WarehouseVO wh = warehouseData.get(i - 1);
+					realTimeDataList.add(new RealTimeData(wh.getWarehouse_ID(), wh.getItem_code(), wh.getItem_name(),
+							cnt_status, ((double) cnt_status / ((double) i - (double) temp)) * 100));
+					temp = i;
+					cnt_status = 1;
+				}
+			} else {
+				if (warehouseData.get(i).getItem_code().equals(warehouseData.get(i - 1).getItem_code())) {
+					if (warehouseData.get(i).getItem_status().equals("Inventory")) {
+						cnt_status++;
+					}
+				}
+				WarehouseVO wh = warehouseData.get(i - 1);
+				realTimeDataList.add(new RealTimeData(wh.getWarehouse_ID(), wh.getItem_code(), wh.getItem_name(),
+						cnt_status, ((double) cnt_status / ((double) i + 1.0 - (double) temp)) * 100));
+				break;
+
+			}
+		}
+
+		// remaining ascending order sorting.
+		realTimeDataList.sort(new Comparator<RealTimeData>() {
+			@Override
+			public int compare(RealTimeData o1, RealTimeData o2) {
+				double remaining0 = o1.getRemaining();
+				double remaining1 = o2.getRemaining();
+				if (remaining0 == remaining1)
+					return 0;
+				else if (remaining0 > remaining1)
+					return 1;
+				else
+					return -1;
+			}
+		});
+		System.out.println(realTimeDataList);
+
+		return convertToJSONArray(realTimeDataList);
+	}
+
+	public JSONArray convertToJSONArray(ArrayList<RealTimeData> realTimeDataList) {
+		JSONArray ja = new JSONArray();
+		for (int i = 0; i < realTimeDataList.size(); i++) {
+			JSONObject jo = new JSONObject();
+			jo.put("wh_ID", realTimeDataList.get(i).getWh_ID());
+			jo.put("item_code", realTimeDataList.get(i).getItem_code());
+			jo.put("item_name", realTimeDataList.get(i).getItem_name());
+			jo.put("item_quantity", realTimeDataList.get(i).getItem_quantity());
+			jo.put("remaining", realTimeDataList.get(i).getRemaining());
+			ja.add(jo);
+		}
+
+		System.out.println(ja);
+		return ja;
+	}
+
 	@RequestMapping("/")
 	public ModelAndView main_simple(ModelAndView mv) {
 		mv.setViewName("main/main");
 		return mv;
 	}
 
-//	@RequestMapping("/inventory_summary.top")
-//	public String inventory_summary() {
-//
-//		return "redirect:inventory_summary.top";
-//
-//	}
-
 	// Does work yet..
 	@RequestMapping("/abc.top")
 	@ResponseBody
-	public void abc(HttpServletResponse res) {
+	public void abc(HttpServletResponse res) throws IOException {
 		RConnection conn = null;
+		PrintWriter out = null;
 		try {
-			conn = new RConnection();
+			conn = new RConnection("192.168.64.3");
 			conn.setStringEncoding("utf8");
 			System.out.println("Connection OK");
 
@@ -65,10 +172,32 @@ public class MainController {
 
 //			conn.eval("source('~/Documents/Final_project/R_codes/top_inventory_analysis.R', encoding='UTF-8')");
 //			conn.eval("setwd(\"~/Documents/Final_project/R_codes\")");
-			conn.eval("source('~/Documents/Final_project/R_codes/test.R', encoding='UTF-8')");
-			System.out.println("r2()");
-			REXP rexp = conn.eval("r2()");
-//			REXP rexp = conn.eval("abc()");
+//			conn.eval("source('~/Documents/Final_project/R_codes/test.R', encoding='UTF-8')");
+//			conn.eval("source('C:/R/workspace/day04/remote.R', encoding='UTF-8')");
+
+			// working sources
+//			conn.eval("source('C:/R/workspace/R_script_files/test.R', encoding = 'UTF-8')");
+			conn.eval("source('C:/R/workspace/R_script_files/top_inventory_analysis.R', encoding = 'UTF-8')");
+
+//			System.out.println("r3()");
+//			REXP rexp = conn.eval("r3()");
+//			RList rlist = rexp.asList();
+//
+//			String years[] = rlist.at("year").asStrings();
+//			double datas[] = rlist.at("data").asDoubles();
+////
+//			JSONArray ja = new JSONArray();
+//			for (double d : datas) {
+//				ja.add(d);
+//			}
+//
+//			res.setContentType("text/json; charset=UTF-8");
+//			out = res.getWriter();
+//			out.write(ja.toJSONString());
+//
+//			System.out.println(ja);
+
+			REXP rexp = conn.eval("abc()");
 			double d[] = rexp.asDoubles();
 			for (double dd : d) {
 				System.out.println(dd);
@@ -77,50 +206,18 @@ public class MainController {
 			e.printStackTrace();
 		} finally {
 			conn.close();
+//			out.close();
 		}
 
 	}
 
-	@RequestMapping("/rt_inventory")
-	public void rt_inventory() {
-		
-		Item item01_1 = new Item("itemId01_1", "itemCode01", "itemName01", "itemCategory01", null, null);
-		Item item01_2 = new Item("itemId01_2", "itemCode01", "itemName01", "itemCategory01", null, null);
-		Item item01_3 = new Item("itemId01_3", "itemCode01", "itemName01", "itemCategory01", null, null);
-		Item item01_4 = new Item("itemId01_4", "itemCode01", "itemName01", "itemCategory01", null, null);
-		Item item01_5 = new Item("itemId01_5", "itemCode01", "itemName01", "itemCategory01", null, null);
-		Item item02_1 = new Item("itemId02_1", "itemCode02", "itemName02", "itemCategory02", null, null);
-		Item item02_2 = new Item("itemId02_2", "itemCode02", "itemName02", "itemCategory02", null, null);
-		Item item02_3 = new Item("itemId02_3", "itemCode02", "itemName02", "itemCategory02", null, null);
-		Item item02_4 = new Item("itemId02_4", "itemCode02", "itemName02", "itemCategory02", null, null);
-		Item item02_5 = new Item("itemId02_5", "itemCode02", "itemName02", "itemCategory02", null, null);
-		
-		ArrayList<Item> itemList = new ArrayList<Item>();
-
-		
-		itemList.add(item01_1);
-		itemList.add(item01_2);
-		itemList.add(item01_3);
-		itemList.add(item01_4);
-		itemList.add(item01_5);
-		itemList.add(item02_1);
-		itemList.add(item02_2);
-		itemList.add(item02_3);
-		itemList.add(item02_4);
-		itemList.add(item02_5);
-		
-		
-		Container container01 = new Container("containerId01", "containerName01", "100", null, null, null, null);
-		Container container02 = new Container("containerId02", "containerName02", "200", null, null, null, null);
-
-		ArrayList<Container> conList = new ArrayList<Container>();
-		conList.add(container01);
-		conList.add(container02);
-		
-		
-		Warehouse warehouse = new Warehouse("warehouseId01", "warehouseName01", "warehouseAddress01", conList, itemList);
-	
-		System.out.println(warehouse);
-	}
+//	@RequestMapping("/login.top")
+//	public ModelAndView login(ModelAndView mv, HttpServletRequest req) {
+//		HttpSession session = req.getSession();
+//		session.setAttribute("loginid", "ID01");
+//		mv.setViewName("main");
+//
+//		return mv;
+//	}
 
 }

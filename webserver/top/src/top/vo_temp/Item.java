@@ -1,5 +1,6 @@
-package top.model;
+package top.vo_temp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Item {
@@ -8,19 +9,21 @@ public class Item {
 	String code;
 	String name;
 	String category;
-	Date regDate;
-	Date expireDate;
+	String state;
+	LocalDateTime regDate;
+	LocalDateTime expireDate;
 
 	public Item() {
 
 	}
 
-	public Item(String id, String code, String name, String category, Date regDate, Date expireDate) {
+	public Item(String id, String code, String name, String category, String state, LocalDateTime regDate, LocalDateTime expireDate) {
 		super();
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.category = category;
+		this.state = state;
 		this.regDate = regDate;
 		this.expireDate = expireDate;
 	}
@@ -57,26 +60,34 @@ public class Item {
 		this.category = category;
 	}
 
-	public Date getRegDate() {
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public LocalDateTime getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
 
-	public Date getExpireDate() {
+	public LocalDateTime getExpireDate() {
 		return expireDate;
 	}
 
-	public void setExpireDate(Date expireDate) {
+	public void setExpireDate(LocalDateTime expireDate) {
 		this.expireDate = expireDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", code=" + code + ", name=" + name + ", category=" + category + ", regDate="
-				+ regDate + ", expireDate=" + expireDate + "]";
+		return "Item [id=" + id + ", code=" + code + ", name=" + name + ", category=" + category + ", state=" + state
+				+ ", regDate=" + regDate + ", expireDate=" + expireDate + "]";
 	}
 
 }

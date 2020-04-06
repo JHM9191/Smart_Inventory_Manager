@@ -1,4 +1,4 @@
-package top.model;
+package top.vo_temp;
 
 import java.util.ArrayList;
 
@@ -8,20 +8,17 @@ public class Warehouse {
 	String name;
 	String address;
 	ArrayList<Container> containerList;
-	ArrayList<Item> itemList;
 
 	public Warehouse() {
 
 	}
 
-	public Warehouse(String iD, String name, String address, ArrayList<Container> containerList,
-			ArrayList<Item> itemList) {
+	public Warehouse(String iD, String name, String address, ArrayList<Container> containerList) {
 		super();
 		ID = iD;
 		this.name = name;
 		this.address = address;
 		this.containerList = containerList;
-		this.itemList = itemList;
 	}
 
 	public String getID() {
@@ -56,18 +53,10 @@ public class Warehouse {
 		this.containerList = containerList;
 	}
 
-	public ArrayList<Item> getItemList() {
-		return itemList;
-	}
-
-	public void setItemList(ArrayList<Item> itemList) {
-		this.itemList = itemList;
-	}
-
 	@Override
 	public String toString() {
 		return "Warehouse [ID=" + ID + ", name=" + name + ", address=" + address + ", containerList=" + containerList
-				+ ", itemList=" + itemList + "]";
+				+ "]";
 	}
 
 }

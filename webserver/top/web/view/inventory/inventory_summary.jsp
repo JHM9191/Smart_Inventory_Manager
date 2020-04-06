@@ -1,3 +1,7 @@
+<%-- <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 	$(document)
 			.ready(
@@ -37,41 +41,52 @@
 						<thead>
 							<tr>
 								<th>Warehouse ID</th>
+								<th>Container ID</th>
+								<th>Item ID</th>
 								<th>Item Code</th>
 								<th>Item Name</th>
-								<th>Container ID</th>
-								<th>Quantity Remaining</th>
+								<th>Category</th>
+								<th>Production Date</th>
 								<th>Status</th>
 								<th style="width: 10%"></th>
 							</tr>
 						</thead>
 						
 						<tbody>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>
-									<div class="form-button-action">
-										<button type="button" data-toggle="tooltip" title=""
-											class="btn btn-link btn-primary btn-lg"
-											data-original-title="Edit Task">
-											<i class="fa fa-edit"></i>
-										</button>
-										<button type="button" data-toggle="tooltip" title=""
-											class="btn btn-link btn-danger" data-original-title="Remove">
-											<i class="fa fa-times"></i>
-										</button>
-									</div>
-								</td>
-							</tr>
+							<c:forEach var="i" items="${rt_inventory_list }" >
+								<c:forEach var="con" items="${i.containerList }" >
+									<c:forEach var="item" items="${con.itemList }" >
+										<tr>
+											<td>${i.name }</td>
+											<td>${con.id }</td>
+											<td>${item.id }</td>
+											<td>${item.code }</td>
+											<td>${item.name }</td>
+											<td>${item.category }</td>
+											<td>${item.regDate }</td>
+											<td>${item.state }</td>
+											<td>
+												<div class="form-button-action">
+													<button type="button" data-toggle="tooltip" title=""
+														class="btn btn-link btn-primary btn-lg"
+														data-original-title="Edit Task">
+														<i class="fa fa-edit"></i>
+													</button>
+													<button type="button" data-toggle="tooltip" title=""
+														class="btn btn-link btn-danger" data-original-title="Remove">
+														<i class="fa fa-times"></i>
+													</button>
+												</div>
+											</td>
+									
+										</tr>
+									</c:forEach>
+								</c:forEach>	
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</div> --%>
