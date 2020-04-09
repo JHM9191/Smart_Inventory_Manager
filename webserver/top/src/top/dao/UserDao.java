@@ -7,26 +7,21 @@ import org.springframework.stereotype.Repository;
 
 import top.frame.Dao;
 import top.mapper.UserMapper;
-import top.vo.User;
+import top.vo.UserVO;
 
-
-@Repository("udao")
-public class UserDao implements Dao<String, User > {
+@Repository("userdao")
+public class UserDao implements Dao<String, UserVO> {
 	@Autowired
-	UserMapper um;
-	
-	// Login ÇÒ¶§ 
+	UserMapper usermapper;
+
 	@Override
-	public User select(String u_id) {
-		
-		return um.select(u_id);
+	public UserVO select(String userID) {
+		return usermapper.select(userID);
 	}
 
 	@Override
-	public ArrayList<User> selectall() {
-		return um.selectall();
+	public ArrayList<UserVO> selectall() {
+		return usermapper.selectall();
 	}
-	
-	
-	
+
 }

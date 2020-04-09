@@ -8,26 +8,22 @@ import org.springframework.stereotype.Service;
 
 import top.frame.Biz;
 import top.frame.Dao;
-import top.vo.UserVO;
+import top.vo.ContainerVO;
 
-@Service("userbiz")
-public class UserBiz implements Biz<String, UserVO> {
+@Service("containerbiz")
+public class ContainerBiz implements Biz<String, ContainerVO> {
 
-	@Resource(name = "userdao")
-	Dao<String, UserVO> dao;
-	
+	@Resource(name = "containerdao")
+	Dao<String, ContainerVO> dao;
+
 	@Override
-	public UserVO get(String id) {
+	public ContainerVO get(String id) {
 		return dao.select(id);
 	}
 
 	@Override
-	public ArrayList<UserVO> get() {
+	public ArrayList<ContainerVO> get() {
 		return dao.selectall();
 	}
-	
-	
-	
-
 
 }

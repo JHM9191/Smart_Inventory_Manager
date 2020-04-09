@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.mapper.ChainMapper">
+	<select id="select" parameterType="String" resultType="chain">
+		SELECT * FROM CHAIN WHERE chainID=#{chainID}
+	</select>
+	<select id="selectall" resultType="chain">
+		SELECT * FROM CHAIN
+	</select>
+</mapper>

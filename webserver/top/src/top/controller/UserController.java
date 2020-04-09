@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import top.frame.Biz;
-import top.vo.User;
+import top.vo.UserVO;
 
 @Controller
 public class UserController {
 
-	@Resource(name = "ubiz")
-	Biz<String, User> ubiz;
+	@Resource(name = "userbiz")
+	Biz<String, UserVO> userbiz;
 
 	@RequestMapping("/login.top")
 	public ModelAndView login(HttpServletRequest request) {
@@ -39,17 +39,16 @@ public class UserController {
 	@RequestMapping("/loginimpl.top")
 	public String loginimpl(HttpServletRequest request, ModelAndView mv) {
 
-		
 		String u_id = request.getParameter("ID");
 		String u_pwd = request.getParameter("password");
 		System.out.println(u_id + " : " + u_pwd);
-		User dbuser = null;
+		UserVO dbuser = null;
 		try {
-			dbuser = ubiz.get(u_id);
+			dbuser = userbiz.get(u_id);
 			System.out.println(dbuser);
-			if (dbuser.getU_id() != null) {
-				if (dbuser.getU_pwd().equals(u_pwd)) {
-					System.out.println("dbuser : " + dbuser.getU_id());
+			if (dbuser.getUserID() != null) {
+				if (dbuser.getUserPwd().equals(u_pwd)) {
+					System.out.println("dbuser : " + dbuser.getUserID());
 					HttpSession session = request.getSession();
 					session.setAttribute("loginid", u_id);
 					System.out.println("id 비번 일치---");
@@ -60,9 +59,7 @@ public class UserController {
 		} catch (Exception e) {
 			System.out.println("id값이 다를때 ");
 			return "redirect:main.top";
-
 		}
-
 		return "redirect:main.top";
 	}
 }

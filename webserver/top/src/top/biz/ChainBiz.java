@@ -8,21 +8,21 @@ import org.springframework.stereotype.Service;
 
 import top.frame.Biz;
 import top.frame.Dao;
-import top.vo.WarehouseVO;
+import top.vo.ChainVO;
 
-@Service("wbiz")
-public class WarehouseBiz implements Biz<String, WarehouseVO> {
+@Service("chainbiz")
+public class ChainBiz implements Biz<String, ChainVO> {
 
-	@Resource(name = "wdao")
-	Dao<String, WarehouseVO> dao;
+	@Resource(name = "chaindao")
+	Dao<String, ChainVO> dao;
 
 	@Override
-	public WarehouseVO get(String id) {
+	public ChainVO get(String id) {
 		return dao.select(id);
 	}
 
 	@Override
-	public ArrayList<WarehouseVO> get() {
+	public ArrayList<ChainVO> get() {
 		return dao.selectall();
 	}
 

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.UserMapper">
 	<select id="select" parameterType="String" resultType="user">
-		SELECT * FROM USERS WHERE u_id=#{u_id}
+		SELECT * FROM USERS WHERE userID=#{userID}
 	</select>
 	<select id="selectall" resultType="user">
 		SELECT * FROM USERS

@@ -4,13 +4,21 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="top.vo.User" alias="user" />
-		<typeAlias type="top.vo.WarehouseVO" alias="warehouse" />
+		<typeAlias type="top.vo.UserVO" alias="user" />
+		<typeAlias type="top.vo.IngredientVO" alias="ingredient" />
+		<typeAlias type="top.vo.ChainVO" alias="chain" />
+		<typeAlias type="top.vo.ContainerVO" alias="container" />
+		<typeAlias type="top.vo.InventoryVO" alias="inventory" />
+		<typeAlias type="top.vo.TruckVO" alias="truck" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="top/mybatis/usermapper.xml" />
-		<mapper resource="top/mybatis/warehousemapper.xml" />
+		<mapper resource="top/mybatis/ingredientmapper.xml" />
+		<mapper resource="top/mybatis/chainmapper.xml" />
+		<mapper resource="top/mybatis/containermapper.xml" />
+		<mapper resource="top/mybatis/inventorymapper.xml" />
+		<mapper resource="top/mybatis/truckmapper.xml" />
 	</mappers>
 </configuration>
 

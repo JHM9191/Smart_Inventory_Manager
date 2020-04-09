@@ -2,12 +2,12 @@ package top.mapper;
 
 import java.util.ArrayList;
 
-import top.vo.User;
+import top.vo.UserVO;
 
 public interface UserMapper {
 
-	public User select(String u_id);
+	public UserVO select(String userID);
 
-	public ArrayList<User> selectall();
+	public ArrayList<UserVO> selectall();
 
 }
