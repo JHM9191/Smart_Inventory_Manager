@@ -7,9 +7,21 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
+	
+	// Show main page
 	@RequestMapping("/")
 	public ModelAndView main_simple(ModelAndView mv) {
 		mv.setViewName("main/main");
 		return mv;
 	}
+	
+	// Login
+	
+	
+	
+	// Register
+	
+	
+
+	// 
 }

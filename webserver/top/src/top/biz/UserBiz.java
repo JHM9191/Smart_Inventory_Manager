@@ -17,8 +17,8 @@ public class UserBiz implements Biz<String, UserVO> {
 	Dao<String, UserVO> dao;
 	
 	@Override
-	public UserVO get(String id) {
-		return dao.select(id);
+	public UserVO get(String userID) {
+		return dao.select(userID);
 	}
 
 	@Override

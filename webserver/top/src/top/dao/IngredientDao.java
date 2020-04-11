@@ -9,14 +9,14 @@ import top.frame.Dao;
 import top.mapper.IngredientMapper;
 import top.vo.IngredientVO;
 
-@Repository("ingredientdao")
+@Repository("ingdao")
 public class IngredientDao implements Dao<String, IngredientVO> {
 	@Autowired
 	IngredientMapper ingredientmapper;
 
 	@Override
-	public IngredientVO select(String ingredientID) {
-		return ingredientmapper.select(ingredientID);
+	public IngredientVO select(String ingID) {
+		return ingredientmapper.select(ingID);
 	}
 
 	@Override

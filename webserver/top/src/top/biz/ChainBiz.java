@@ -17,8 +17,8 @@ public class ChainBiz implements Biz<String, ChainVO> {
 	Dao<String, ChainVO> dao;
 
 	@Override
-	public ChainVO get(String id) {
-		return dao.select(id);
+	public ChainVO get(String chainID) {
+		return dao.select(chainID);
 	}
 
 	@Override

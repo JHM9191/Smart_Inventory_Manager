@@ -10,15 +10,15 @@ import top.frame.Biz;
 import top.frame.Dao;
 import top.vo.ContainerVO;
 
-@Service("containerbiz")
+@Service("conbiz")
 public class ContainerBiz implements Biz<String, ContainerVO> {
 
-	@Resource(name = "containerdao")
+	@Resource(name = "condao")
 	Dao<String, ContainerVO> dao;
 
 	@Override
-	public ContainerVO get(String id) {
-		return dao.select(id);
+	public ContainerVO get(String conID) {
+		return dao.select(conID);
 	}
 
 	@Override

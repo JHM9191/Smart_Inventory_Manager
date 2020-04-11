@@ -6,7 +6,7 @@ import top.vo.IngredientVO;
 
 public interface IngredientMapper {
 
-	public IngredientVO select(String ingredientID);
+	public IngredientVO select(String ingID);
 
 	public ArrayList<IngredientVO> selectall();
 

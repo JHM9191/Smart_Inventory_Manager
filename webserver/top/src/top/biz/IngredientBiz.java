@@ -10,15 +10,15 @@ import top.frame.Biz;
 import top.frame.Dao;
 import top.vo.IngredientVO;
 
-@Service("ingredientbiz")
+@Service("ingbiz")
 public class IngredientBiz implements Biz<String, IngredientVO> {
 
-	@Resource(name = "ingredientdao")
+	@Resource(name = "ingdao")
 	Dao<String, IngredientVO> dao;
 
 	@Override
-	public IngredientVO get(String id) {
-		return dao.select(id);
+	public IngredientVO get(String ingID) {
+		return dao.select(ingID);
 	}
 
 	@Override

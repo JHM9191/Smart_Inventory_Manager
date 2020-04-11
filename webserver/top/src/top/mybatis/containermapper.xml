@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.ContainerMapper">
 	<select id="select" parameterType="String" resultType="container">
-		SELECT * FROM CONTAINER WHERE containerID=#{containerID}
+		SELECT * FROM CONTAINER WHERE conID=#{conID}
 	</select>
 	<select id="selectall" resultType="container">
 		SELECT * FROM CONTAINER

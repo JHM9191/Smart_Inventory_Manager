@@ -11,8 +11,34 @@ public class Test {
 	public static void main(String[] args) {
 		AbstractApplicationContext factory = new GenericXmlApplicationContext("myspring.xml");
 
-		Biz<String, IngredientVO> biz = (Biz) factory.getBean("ingredientbiz");
-
+		
+		// Headquarter
+		
+		
+		
+		// User
+		
+		
+		
+		// Ingredient
+		Biz<String, IngredientVO> biz = (Biz) factory.getBean("ingbiz");
+		for (IngredientVO i : biz.get()) {
+			System.out.println(i);
+		}
+		// Tested. Result : OK
+		
+		
+		// Chain
+		
+		
+		// Container
+		
+		
+		// Order
+		
+		
+		// Sales
+	
 	}
 
 }

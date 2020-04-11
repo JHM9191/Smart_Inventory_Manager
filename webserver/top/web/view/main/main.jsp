@@ -30,6 +30,18 @@
 	});
 </script>
 
+<!-- Fonts and icons -->
+	<script src="assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Open+Sans:300,400,600,700"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['assets/css/fonts.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
 <!-- CSS Files -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/azzara.min.css">
@@ -65,16 +77,16 @@
 							<!-- Real Time Inventory END! -->
 
 
-							<!-- Inventory List START! -->
+							<!-- Ingredient List START! -->
 							<c:choose>
-								<c:when test="${inventory_list == null }">
+								<c:when test="${ingredientListTable == null }">
 									<jsp:include page="empty.jsp" />
 								</c:when>
 								<c:otherwise>
-									<jsp:include page="${inventory_list }.jsp" />
+									<jsp:include page="${ingredientListTable }.jsp" />
 								</c:otherwise>
 							</c:choose>
-							<!-- Inventory List END! -->
+							<!-- Ingredient List END! -->
 
 							<!-- Product Suggestion START! -->
 							<c:choose>

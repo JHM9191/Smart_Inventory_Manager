@@ -10,15 +10,14 @@ public class UserVO {
 	String userEmail;
 	String userPhone;
 	LocalDateTime userRegDate;
-	String userCompanyName;
-	String userCompanyAddress;
+	String chainID;
 
 	public UserVO() {
 
 	}
 
 	public UserVO(String userID, String userName, String userPwd, String userEmail, String userPhone,
-			LocalDateTime userRegDate, String userCompanyName, String userCompanyAddress) {
+			LocalDateTime userRegDate, String chainID) {
 		super();
 		this.userID = userID;
 		this.userName = userName;
@@ -26,8 +25,7 @@ public class UserVO {
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.userRegDate = userRegDate;
-		this.userCompanyName = userCompanyName;
-		this.userCompanyAddress = userCompanyAddress;
+		this.chainID = chainID;
 	}
 
 	public String getUserID() {
@@ -78,27 +76,19 @@ public class UserVO {
 		this.userRegDate = userRegDate;
 	}
 
-	public String getUserCompanyName() {
-		return userCompanyName;
+	public String getChainID() {
+		return chainID;
 	}
 
-	public void setUserCompanyName(String userCompanyName) {
-		this.userCompanyName = userCompanyName;
-	}
-
-	public String getUserCompanyAddress() {
-		return userCompanyAddress;
-	}
-
-	public void setUserCompanyAddress(String userCompanyAddress) {
-		this.userCompanyAddress = userCompanyAddress;
+	public void setChainID(String chainID) {
+		this.chainID = chainID;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userID=" + userID + ", userName=" + userName + ", userPwd=" + userPwd + ", userEmail=" + userEmail
-				+ ", userPhone=" + userPhone + ", userRegDate=" + userRegDate + ", userCompanyName=" + userCompanyName
-				+ ", userCompanyAddress=" + userCompanyAddress + "]";
+		return "UserVO [userID=" + userID + ", userName=" + userName + ", userPwd=" + userPwd + ", userEmail="
+				+ userEmail + ", userPhone=" + userPhone + ", userRegDate=" + userRegDate + ", chainID=" + chainID
+				+ "]";
 	}
 
 }

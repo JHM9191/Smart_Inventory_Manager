@@ -4,157 +4,222 @@ import java.time.LocalDateTime;
 
 public class IngredientVO {
 
-	String ingredientID;
-	String ingredientCode;
-	String ingredientName;
-	double ingredientPrice;
-	String ingredientUnit;
-	String ingredientBrand;
-	String ingredientCategory;
+	String ingID;
+	String ingCategory;
+	String ingName;
+	double ingPrice;
+	String ingUnit;
+	String ingBrand;
 	String ingredientType;
-	double ingredientWeight;
-	LocalDateTime ingredientRegDate;
-	String ingredientPurchaseLink;
-	int ingredientPurchaseCount;
-	String ingredientImageName;
+	double ingWeight;
+	LocalDateTime ingRegDate;
+	String ingLink;
+	int ingLinkCount;
+	String ingImgName;
 
 	public IngredientVO() {
 
 	}
 
-	public IngredientVO(String ingredientID, String ingredientCode, String ingredientName, double ingredientPrice,
-			String ingredientUnit, String ingredientBrand, String ingredientCategory, String ingredientType,
-			double ingredientWeight, LocalDateTime ingredientRegDate, String ingredientPurchaseLink,
-			int ingredientPurchaseCount, String ingredientImageName) {
+	
+	public IngredientVO(String ingID, String ingCategory, String ingName, double ingPrice, String ingUnit,
+			String ingBrand, String ingredientType, double ingWeight, LocalDateTime ingRegDate, String ingLink,
+			int ingLinkCount, String ingImgName) {
 		super();
-		this.ingredientID = ingredientID;
-		this.ingredientCode = ingredientCode;
-		this.ingredientName = ingredientName;
-		this.ingredientPrice = ingredientPrice;
-		this.ingredientUnit = ingredientUnit;
-		this.ingredientBrand = ingredientBrand;
-		this.ingredientCategory = ingredientCategory;
+		this.ingID = ingID;
+		this.ingCategory = ingCategory;
+		this.ingName = ingName;
+		this.ingPrice = ingPrice;
+		this.ingUnit = ingUnit;
+		this.ingBrand = ingBrand;
 		this.ingredientType = ingredientType;
-		this.ingredientWeight = ingredientWeight;
-		this.ingredientRegDate = ingredientRegDate;
-		this.ingredientPurchaseLink = ingredientPurchaseLink;
-		this.ingredientPurchaseCount = ingredientPurchaseCount;
-		this.ingredientImageName = ingredientImageName;
+		this.ingWeight = ingWeight;
+		this.ingRegDate = ingRegDate;
+		this.ingLink = ingLink;
+		this.ingLinkCount = ingLinkCount;
+		this.ingImgName = ingImgName;
 	}
 
-	public String getIngredientID() {
-		return ingredientID;
+
+
+
+
+
+	public String getIngID() {
+		return ingID;
 	}
 
-	public void setIngredientID(String ingredientID) {
-		this.ingredientID = ingredientID;
+
+
+
+	public void setIngID(String ingID) {
+		this.ingID = ingID;
 	}
 
-	public String getIngredientCode() {
-		return ingredientCode;
+
+
+
+	public String getIngCategory() {
+		return ingCategory;
 	}
 
-	public void setIngredientCode(String ingredientCode) {
-		this.ingredientCode = ingredientCode;
+
+
+
+	public void setIngCategory(String ingCategory) {
+		this.ingCategory = ingCategory;
 	}
 
-	public String getIngredientName() {
-		return ingredientName;
+
+
+
+	public String getIngName() {
+		return ingName;
 	}
 
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
+
+
+
+	public void setIngName(String ingName) {
+		this.ingName = ingName;
 	}
 
-	public double getIngredientPrice() {
-		return ingredientPrice;
+
+
+
+	public double getIngPrice() {
+		return ingPrice;
 	}
 
-	public void setIngredientPrice(double ingredientPrice) {
-		this.ingredientPrice = ingredientPrice;
+
+
+
+	public void setIngPrice(double ingPrice) {
+		this.ingPrice = ingPrice;
 	}
 
-	public String getIngredientUnit() {
-		return ingredientUnit;
+
+
+
+	public String getIngUnit() {
+		return ingUnit;
 	}
 
-	public void setIngredientUnit(String ingredientUnit) {
-		this.ingredientUnit = ingredientUnit;
+
+
+
+	public void setIngUnit(String ingUnit) {
+		this.ingUnit = ingUnit;
 	}
 
-	public String getIngredientBrand() {
-		return ingredientBrand;
+
+
+
+	public String getIngBrand() {
+		return ingBrand;
 	}
 
-	public void setIngredientBrand(String ingredientBrand) {
-		this.ingredientBrand = ingredientBrand;
+
+
+
+	public void setIngBrand(String ingBrand) {
+		this.ingBrand = ingBrand;
 	}
 
-	public String getIngredientCategory() {
-		return ingredientCategory;
-	}
 
-	public void setIngredientCategory(String ingredientCategory) {
-		this.ingredientCategory = ingredientCategory;
-	}
+
 
 	public String getIngredientType() {
 		return ingredientType;
 	}
 
+
+
+
 	public void setIngredientType(String ingredientType) {
 		this.ingredientType = ingredientType;
 	}
 
-	public double getIngredientWeight() {
-		return ingredientWeight;
+
+
+
+	public double getIngWeight() {
+		return ingWeight;
 	}
 
-	public void setIngredientWeight(double ingredientWeight) {
-		this.ingredientWeight = ingredientWeight;
+
+
+
+	public void setIngWeight(double ingWeight) {
+		this.ingWeight = ingWeight;
 	}
 
-	public LocalDateTime getIngredientRegDate() {
-		return ingredientRegDate;
+
+
+
+	public LocalDateTime getIngRegDate() {
+		return ingRegDate;
 	}
 
-	public void setIngredientRegDate(LocalDateTime ingredientRegDate) {
-		this.ingredientRegDate = ingredientRegDate;
+
+
+
+	public void setIngRegDate(LocalDateTime ingRegDate) {
+		this.ingRegDate = ingRegDate;
 	}
 
-	public String getIngredientPurchaseLink() {
-		return ingredientPurchaseLink;
+
+
+
+	public String getIngLink() {
+		return ingLink;
 	}
 
-	public void setIngredientPurchaseLink(String ingredientPurchaseLink) {
-		this.ingredientPurchaseLink = ingredientPurchaseLink;
+
+
+
+	public void setIngLink(String ingLink) {
+		this.ingLink = ingLink;
 	}
 
-	public int getIngredientPurchaseCount() {
-		return ingredientPurchaseCount;
+
+
+
+	public int getIngLinkCount() {
+		return ingLinkCount;
 	}
 
-	public void setIngredientPurchaseCount(int ingredientPurchaseCount) {
-		this.ingredientPurchaseCount = ingredientPurchaseCount;
+
+
+
+	public void setIngLinkCount(int ingLinkCount) {
+		this.ingLinkCount = ingLinkCount;
 	}
 
-	public String getIngredientImageName() {
-		return ingredientImageName;
+
+
+
+	public String getIngImgName() {
+		return ingImgName;
 	}
 
-	public void setIngredientImageName(String ingredientImageName) {
-		this.ingredientImageName = ingredientImageName;
+
+
+
+	public void setIngImgName(String ingImgName) {
+		this.ingImgName = ingImgName;
 	}
+
+
+
 
 	@Override
 	public String toString() {
-		return "IngredientVO [ingredientID=" + ingredientID + ", ingredientCode=" + ingredientCode + ", ingredientName="
-				+ ingredientName + ", ingredientPrice=" + ingredientPrice + ", ingredientUnit=" + ingredientUnit
-				+ ", ingredientBrand=" + ingredientBrand + ", ingredientCategory=" + ingredientCategory
-				+ ", ingredientType=" + ingredientType + ", ingredientWeight=" + ingredientWeight
-				+ ", ingredientRegDate=" + ingredientRegDate + ", ingredientPurchaseLink=" + ingredientPurchaseLink
-				+ ", ingredientPurchaseCount=" + ingredientPurchaseCount + ", ingredientImageName="
-				+ ingredientImageName + "]";
+		return "IngredientVO [ingID=" + ingID + ", ingCategory=" + ingCategory + ", ingName=" + ingName + ", ingPrice="
+				+ ingPrice + ", ingUnit=" + ingUnit + ", ingBrand=" + ingBrand + ", ingredientType=" + ingredientType
+				+ ", ingWeight=" + ingWeight + ", ingRegDate=" + ingRegDate + ", ingLink=" + ingLink + ", ingLinkCount="
+				+ ingLinkCount + ", ingImgName=" + ingImgName + "]";
 	}
 
+	
 }

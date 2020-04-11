@@ -7,18 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import top.frame.Dao;
 import top.mapper.ContainerMapper;
-import top.mapper.UserMapper;
 import top.vo.ContainerVO;
-import top.vo.UserVO;
 
-@Repository("containerdao")
+@Repository("condao")
 public class ContainerDao implements Dao<String, ContainerVO> {
 	@Autowired
 	ContainerMapper containermapper;
 
 	@Override
-	public ContainerVO select(String containerID) {
-		return containermapper.select(containerID);
+	public ContainerVO select(String conID) {
+		return containermapper.select(conID);
 	}
 
 	@Override

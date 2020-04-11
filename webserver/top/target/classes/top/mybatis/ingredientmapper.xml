@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.IngredientMapper">
 	<select id="select" parameterType="String" resultType="ingredient">
-		SELECT * FROM INGREDIENT WHERE ingredientID=#{ingredientID}
+		SELECT * FROM INGREDIENT WHERE ingID=#{ingID}
 	</select>
 	<select id="selectall" resultType="ingredient">
 		SELECT * FROM INGREDIENT

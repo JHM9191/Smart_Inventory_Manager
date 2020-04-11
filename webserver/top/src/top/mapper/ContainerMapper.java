@@ -6,7 +6,7 @@ import top.vo.ContainerVO;
 
 public interface ContainerMapper {
 
-	public ContainerVO select(String containerID);
+	public ContainerVO select(String conID);
 
 	public ArrayList<ContainerVO> selectall();
 

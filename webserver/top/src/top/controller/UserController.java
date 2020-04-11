@@ -17,6 +17,8 @@ public class UserController {
 	@Resource(name = "userbiz")
 	Biz<String, UserVO> userbiz;
 
+	
+	// login 
 	@RequestMapping("/login.top")
 	public ModelAndView login(HttpServletRequest request) {
 
@@ -27,6 +29,7 @@ public class UserController {
 		return mv;
 	}
 
+	// logout
 	@RequestMapping("/logout.top")
 	public String logout(HttpServletRequest request, ModelAndView mv) {
 		HttpSession session = request.getSession();
@@ -62,4 +65,20 @@ public class UserController {
 		}
 		return "redirect:main.top";
 	}
+	
+	
+	// register
+	
+	
+	
+	// show mypage
+	
+	
+	
+	
+	// modify mypage
+	
+	
+	
+	
 }

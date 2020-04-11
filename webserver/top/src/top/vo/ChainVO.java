@@ -8,19 +8,19 @@ public class ChainVO {
 	String chainName;
 	String chainAddress;
 	LocalDateTime chainRegDate;
-	String userID;
+	String hqID;
 
 	public ChainVO() {
 
 	}
 
-	public ChainVO(String chainID, String chainName, String chainAddress, LocalDateTime chainRegDate, String userID) {
+	public ChainVO(String chainID, String chainName, String chainAddress, LocalDateTime chainRegDate, String hqID) {
 		super();
 		this.chainID = chainID;
 		this.chainName = chainName;
 		this.chainAddress = chainAddress;
 		this.chainRegDate = chainRegDate;
-		this.userID = userID;
+		this.hqID = hqID;
 	}
 
 	public String getChainID() {
@@ -55,18 +55,18 @@ public class ChainVO {
 		this.chainRegDate = chainRegDate;
 	}
 
-	public String getUserID() {
-		return userID;
+	public String getHqID() {
+		return hqID;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setHqID(String hqID) {
+		this.hqID = hqID;
 	}
 
 	@Override
 	public String toString() {
 		return "ChainVO [chainID=" + chainID + ", chainName=" + chainName + ", chainAddress=" + chainAddress
-				+ ", chainRegDate=" + chainRegDate + ", userID=" + userID + "]";
+				+ ", chainRegDate=" + chainRegDate + ", hqID=" + hqID + "]";
 	}
 
 }
