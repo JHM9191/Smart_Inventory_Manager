@@ -12,15 +12,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	<context:component-scan base-package="top.*" />
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-
+	<aop:aspectj-autoproxy />
 	<mvc:annotation-driven />
 	<tx:annotation-driven
 		transaction-manager="txManager" />
-
-
-
-
 	<!-- ViewResolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -33,7 +28,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="500000000" />
 	</bean>
-
 	<!-- Multi language -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -57,24 +51,21 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
-			<!-- 70.12.113.219 -->
-			<!-- 192.168.0.6 -->
+		<!-- 70.12.113.219 -->
+		<!-- 192.168.0.6 -->
 		<property name="url"
 			value="jdbc:oracle:thin:@15.165.163.102:1521:XE" />
 		<property name="username" value="top" />
 		<property name="password" value="111111" />
-		<!-- <property name="url"
-			value="jdbc:oracle:thin:@70.12.113.219:1521:xe" />
-		<property name="username" value="sp365" />
-		<property name="password" value="0365" /> -->
+		<!-- <property name="url" value="jdbc:oracle:thin:@70.12.113.219:1521:xe" 
+			/> <property name="username" value="sp365" /> <property name="password" value="0365" 
+			/> -->
 	</bean>
-
 	<!-- 2. Transaction Setting -->
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
 	<!-- 3. MyBatis Setting -->
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -82,13 +73,11 @@
 		<property name="configLocation"
 			value="classpath:top/mybatis/mybatis.xml" />
 	</bean>
-
 	<!-- 4. Spring Mybatis Connect -->
 	<bean id="sqlSessionTemplate"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-
 	<!-- 5. Mapper Setting -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="top.mapper" />

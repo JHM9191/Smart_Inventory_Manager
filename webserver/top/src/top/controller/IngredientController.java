@@ -13,7 +13,7 @@ import top.vo.IngredientVO;
 @Controller
 public class IngredientController {
 
-	@Resource(name = "ingredientbiz")
+	@Resource(name = "ingbiz")
 	Biz<String, IngredientVO> biz;
 
 	

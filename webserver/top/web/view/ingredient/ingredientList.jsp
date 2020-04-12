@@ -26,12 +26,11 @@
 						<thead>
 							<tr>
 								<th>ingredient ID</th>
-								<th>ingredient Code</th>
+								<th>ingredient Category</th>
 								<th>ingredient Name</th>
 								<th>ingredient Price</th>
 								<th>ingredient Unit</th>
 								<th>ingredient Brand</th>
-								<th>ingredient Category</th>
 								<th>ingredient Type</th>
 								<th>ingredient Weight</th>
 								<th>ingredient Register Date</th>
@@ -44,20 +43,19 @@
 						<tbody>
 							<c:forEach var="i" items="${ingredientListData }">
 								<tr>
-									<td>${i.ingredientID }</td>
-									<td>${i.ingredientCode }</td>
-									<td>${i.ingredientName }</td>
-									<td>${i.ingredientPrice }</td>
-									<td>${i.ingredientUnit }</td>
-									<td>${i.ingredientBrand }</td>
-									<td>${i.ingredientCategory }</td>
-									<td>${i.ingredientType }</td>
-									<td>${i.ingredientWeight }</td>
-									<td>${i.ingredientRegDate }</td>
-									<td><a href="${i.ingredientPurchaseLink }">${i.ingredientName }
+									<td>${i.ingID }</td>
+									<td>${i.ingCategory }</td>
+									<td>${i.ingName }</td>
+									<td>${i.ingPrice }</td>
+									<td>${i.ingUnit }</td>
+									<td>${i.ingBrand }</td>
+									<td>${i.ingType }</td>
+									<td>${i.ingWeight }</td>
+									<td>${i.ingRegDate }</td>
+									<td><a href="${i.ingLink }">${i.ingName }
 											구매하기</a></td>
-									<td>${i.ingredientPurchaseCount }</td>
-									<td>${i.ingredientImageName }</td>
+									<td>${i.ingLinkCount }</td>
+									<td>${i.ingImgName }</td>
 									<td>
 										<div class="form-button-action">
 											<button type="button" data-toggle="tooltip" title="수정"
