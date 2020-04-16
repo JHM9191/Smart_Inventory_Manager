@@ -24,4 +24,20 @@ public class SalesDao implements Dao<String, SalesVO> {
 		return salesmapper.selectall();
 	}
 
+	public ArrayList<SalesVO> selectYear(String year) {
+		return salesmapper.selectYear(year);
+	}
+	
+	public ArrayList<SalesVO> selectMonth(String year, String chainID) {
+		return salesmapper.selectMonth(year, chainID);
+	}
+
+	public ArrayList<SalesVO> selectYearly(String salesID) {
+		return salesmapper.selectYearly(salesID);
+	}
+
+	public ArrayList<SalesVO> selectMonthly(String salesID) {
+		return salesmapper.selectMonthly(salesID);
+	}
+
 }

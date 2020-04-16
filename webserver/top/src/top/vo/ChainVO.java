@@ -1,20 +1,18 @@
 package top.vo;
 
-import java.time.LocalDateTime;
-
 public class ChainVO {
 
 	String chainID;
 	String chainName;
 	String chainAddress;
-	LocalDateTime chainRegDate;
+	String chainRegDate;
 	String hqID;
 
 	public ChainVO() {
 
 	}
 
-	public ChainVO(String chainID, String chainName, String chainAddress, LocalDateTime chainRegDate, String hqID) {
+	public ChainVO(String chainID, String chainName, String chainAddress, String chainRegDate, String hqID) {
 		super();
 		this.chainID = chainID;
 		this.chainName = chainName;
@@ -47,11 +45,11 @@ public class ChainVO {
 		this.chainAddress = chainAddress;
 	}
 
-	public LocalDateTime getChainRegDate() {
+	public String getChainRegDate() {
 		return chainRegDate;
 	}
 
-	public void setChainRegDate(LocalDateTime chainRegDate) {
+	public void setChainRegDate(String chainRegDate) {
 		this.chainRegDate = chainRegDate;
 	}
 

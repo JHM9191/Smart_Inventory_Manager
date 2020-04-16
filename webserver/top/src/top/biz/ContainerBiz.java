@@ -25,5 +25,26 @@ public class ContainerBiz implements Biz<String, ContainerVO> {
 	public ArrayList<ContainerVO> get() {
 		return dao.selectall();
 	}
+	public ArrayList<ContainerVO> getForChain(String chainID) {
+		return dao.selectForChain(chainID);
+	}
+	
+
+	@Override
+	public void register(ContainerVO model) throws Exception {
+		dao.insert(model);
+
+	}
+
+	@Override
+	public void modify(ContainerVO model) throws Exception {
+		dao.update(model);
+	}
+
+	@Override
+	public void remove(String conID) throws Exception {
+		dao.delete(conID);
+
+	}
 
 }

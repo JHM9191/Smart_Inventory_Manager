@@ -5,10 +5,46 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.mapper.ContainerMapper">
+
+<!--String conID;
+	String conSize;
+	double conMaxWeight;
+	double conFullWeight;
+	int conFullQuantity;
+	double conWarningWeight;
+	int conWarningQuantity;
+	double conCurrWeight;
+	int conCurrQuantity;
+	double conUnitWeight;
+	String ingID;
+	String chainID;
+ -->	
+	<insert id="insert" parameterType="container"> 
+		INSERT INTO CONTAINER VALUES ('CONID_'||TO_CHAR(CONID_seq.NEXTVAL),#{conSize},#{conMaxWeight},#{conFullWeight},#{conFullQuantity},
+		#{conWarningWeight},#{conWarningQuantity},#{conCurrWeight},#{conCurrQuantity},#{conUnitWeight},#{ingID},#{chainID})	
+	</insert>
+
+	<update id = "update" parameterType="container">
+		UPDATE CONTAINER SET CONWARNINGWEIGHT=#{conWarningWeight},CONWARNINGQUANTITY=#{conWarningQuantity},CONUNITWEIGHT=#{conUnitWeight}
+		WHERE CONID=#{conID}
+	
+	</update>
+	
+	<delete id = "delete" parameterType = "String">
+		DELETE FROM CONTAINER WHERE conID=#{conID}
+	</delete>
+
 	<select id="select" parameterType="String" resultType="container">
 		SELECT * FROM CONTAINER WHERE conID=#{conID}
 	</select>
+	
+	
 	<select id="selectall" resultType="container">
 		SELECT * FROM CONTAINER
 	</select>
+	
+	<select id="selectForChain" parameterType= "String" resultType="container">
+		SELECT * FROM CONTAINER WHERE chainID=#{chainID}
+	</select>
 </mapper>
+

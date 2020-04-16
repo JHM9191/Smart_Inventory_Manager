@@ -2,4 +2,6 @@ eclipse.preferences.version=1
 encoding//web/view/inventory/inventory_summary.jsp=UTF-8
 encoding//web/view/main/AllChains.jsp=UTF-8
 encoding//web/view/main/empty.jsp=UTF-8
+encoding//web/view/main/header.jsp=UTF-8
+encoding//web/view/main/main.jsp=EUC-KR
 encoding//web/view/main/sidebar.jsp=UTF-8

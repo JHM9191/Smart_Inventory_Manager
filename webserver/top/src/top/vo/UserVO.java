@@ -9,7 +9,7 @@ public class UserVO {
 	String userPwd;
 	String userEmail;
 	String userPhone;
-	LocalDateTime userRegDate;
+	String userRegDate;
 	String chainID;
 
 	public UserVO() {
@@ -17,7 +17,7 @@ public class UserVO {
 	}
 
 	public UserVO(String userID, String userName, String userPwd, String userEmail, String userPhone,
-			LocalDateTime userRegDate, String chainID) {
+			String userRegDate, String chainID) {
 		super();
 		this.userID = userID;
 		this.userName = userName;
@@ -68,11 +68,11 @@ public class UserVO {
 		this.userPhone = userPhone;
 	}
 
-	public LocalDateTime getUserRegDate() {
+	public String getUserRegDate() {
 		return userRegDate;
 	}
 
-	public void setUserRegDate(LocalDateTime userRegDate) {
+	public void setUserRegDate(String userRegDate) {
 		this.userRegDate = userRegDate;
 	}
 

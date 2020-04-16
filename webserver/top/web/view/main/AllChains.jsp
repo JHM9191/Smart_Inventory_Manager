@@ -5,18 +5,20 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <style>
-#container_highcharts {
-	height: 400px;
-}
-
 .highcharts-figure, .highcharts-data-table table {
 	min-width: 310px;
 	max-width: 800px;
 	margin: 1em auto;
+}
+
+#container_highcharts {
+	height: 400px;
 }
 
 .highcharts-data-table table {
@@ -55,7 +57,10 @@
 }
 </style>
 <script>
-	function display() {
+	function showContainer(chainID) {
+		location.href = 'containerProgress.top?chainID=' + chainID;
+	};
+	function display(result) {
 
 		Highcharts
 				.chart(
@@ -65,7 +70,12 @@
 								type : 'column'
 							},
 							title : {
-								text : 'Today\'s Total Sales for All Chains'
+								text : 'Total Sales for All Chains'
+							},
+							accessibility : {
+								announceNewData : {
+									enabled : true
+								}
 							},
 							xAxis : {
 								type : 'category',
@@ -78,7 +88,6 @@
 								}
 							},
 							yAxis : {
-								min : 0,
 								title : {
 									text : 'Total Sales(Ten thousand KRW)'
 								}
@@ -86,57 +95,54 @@
 							legend : {
 								enabled : false
 							},
-							tooltip : {
-								pointFormat : 'Population in 2017: <b>{point.y:.1f} millions</b>'
-							},
-							series : [ {
-								name : 'Population',
-								data : [ [ 'Shanghai', 24.2 ],
-										[ 'Beijing', 20.8 ],
-										[ 'Karachi', 14.9 ],
-										[ 'Shenzhen', 13.7 ],
-										[ 'Guangzhou', 13.1 ],
-										[ 'Istanbul', 12.7 ],
-										[ 'Mumbai', 12.4 ], [ 'Moscow', 12.2 ],
-										[ 'São Paulo', 12.0 ],
-										[ 'Delhi', 11.7 ],
-										[ 'Kinshasa', 11.5 ],
-										[ 'Tianjin', 11.2 ],
-										[ 'Lahore', 11.1 ],
-										[ 'Jakarta', 10.6 ],
-										[ 'Dongguan', 10.6 ],
-										[ 'Lagos', 10.6 ],
-										[ 'Bengaluru', 10.3 ],
-										[ 'Seoul', 9.8 ], [ 'Foshan', 9.3 ],
-										[ 'Tokyo', 9.3 ] ],
-								dataLabels : {
-									enabled : true,
-									rotation : -90,
-									color : '#FFFFFF',
-									align : 'right',
-									format : '{point.y:.1f}', // one decimal
-									y : 10, // 10 pixels down from the top
-									style : {
+							plotOptions : {
+								series : {
+									borderWidth : 0,
+									dataLabels : {
+										enabled : true,
+										/* rotation : -90, */
+										/* color : '#FFFFFF', */
+										/* align : 'right', */
+										format : '{point.y:,f}' // one decimal
+									/* y : 10, // 10 pixels down from the top */
+									/* style : {
 										fontSize : '13px',
 										fontFamily : 'Verdana, sans-serif'
+									} */
 									}
 								}
-							} ]
+							},
+							tooltip : {
+								headerFormat : '<span style="font-size:14px">{series.name} of </span>',
+								pointFormat : '<span style="color:{point.color}"> {point.name}</span>: <br><b>{point.y:,f}</b> ten thousand won<br>'
+							},
+							series : [ {
+								name : 'Total Sales',
+								colorByPoint : true,
+								data : result[0]
+
+							} ],
+							drilldown : {
+								series : result[1]
+
+							}
 						});
 	};
 
-	/* function getData() {
+	function getData(year) {
 		$.ajax({
-			url : '',
+			url : 'getSalesData.top?year=' + year,
 			success : function(data) {
+				/* alert(data) */
+				console.log(data[0]);
+				console.log(data[1]);
 				display(data);
 			}
 		});
 	};
-	 */
+
 	$(document).ready(function() {
-		display();
-		//getData();
+		getData('${year}');
 	});
 </script>
 <h1 class="page-title">Main Page</h1>
@@ -147,22 +153,40 @@
 				<div class="nav flex-column nav-pills nav-secondary"
 					id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
-						href="#v-pills-home" role="tab" 
-						aria-controls="v-pills-home"
-						aria-selected="true">All</a> 
-					<a class="nav-link"
-						id="v-pills-profile-tab" data-toggle="pill"
-						href="#v-pills-profile" role="tab" 
-						aria-controls="v-pills-profile"
-						aria-selected="false">Chain01</a> 
-					<a class="nav-link"
-						id="v-pills-messages-tab" data-toggle="pill"
-						href="#v-pills-messages" role="tab"
-						aria-controls="v-pills-messages" aria-selected="false">Chain02</a>
+						href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+						aria-selected="true" onclick="getData('2019');">All</a>
+					<c:forEach var="s" items="${salesData }">
+						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
+							href="#" role="tab" onclick="showContainer('${s.chainID }');"
+							aria-controls="v-pills-profile" aria-selected="true">${s.chainID }</a>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="col-7 col-md-8">
 				<div class="highcharts-figure">
+					<div class="col-md-5 ml-auto">
+						<ul class="nav nav-pills nav-secondary nav-pills-no-bd"
+							id="pills-tab-without-border" role="tablist">
+							<!-- <li class="nav-item submenu"><a class="nav-link active show"
+							id="Today" data-toggle="pill" href="#pills-home-nobd" role="tab"
+							aria-controls="pills-home-nobd" aria-selected="true">Today</a></li> -->
+							<li class="nav-item submenu"><a class="nav-link active show"
+								id="pills-profile-tab-nobd" data-toggle="pill"
+								href="#pills-profile-nobd" role="tab"
+								aria-controls="pills-profile-nobd" aria-selected="false"
+								onclick="getData('2019');">2019</a></li>
+							<li class="nav-item submenu"><a class="nav-link"
+								id="pills-profile-tab-nobd" data-toggle="pill"
+								href="#pills-profile-nobd" role="tab"
+								aria-controls="pills-profile-nobd" aria-selected="false"
+								onclick="getData('2018');">2018</a></li>
+							<li class="nav-item submenu"><a class="nav-link"
+								id="pills-profile-tab-nobd" data-toggle="pill"
+								href="#pills-profile-nobd" role="tab"
+								aria-controls="pills-profile-nobd" aria-selected="false"
+								onclick="getData('2017');">2017</a></li>
+						</ul>
+					</div><br>
 					<div id="container_highcharts"></div>
 				</div>
 			</div>

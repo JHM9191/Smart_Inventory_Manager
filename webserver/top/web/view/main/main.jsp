@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,6 +9,8 @@
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
 <link rel="icon" href="assets/img/icon.ico" type="image/x-icon" />
+<!--  Top Custom progress CSS -->
+<link rel="stylesheet" href="assets/css/TopProgress.css">
 
 <!-- Fonts and icons -->
 <script src="assets/js/plugin/webfont/webfont.min.js"></script>
@@ -27,6 +29,20 @@
 		active : function() {
 			sessionStorage.fonts = true;
 		}
+	});
+	
+	//Notify
+	$.notify({
+		icon : 'flaticon-alarm-1',
+		title : 'TOP Smart Inventory Management System',
+		message : 'Welcome~',
+	}, {
+		type : 'info',
+		placement : {
+			from : "bottom",
+			align : "right"
+		},
+		time : 1000,
 	});
 </script>
 
@@ -73,11 +89,11 @@
 						<div class="page-inner">
 							<!-- Visual Analysis START! -->
 							<c:choose>
-								<c:when test="${AllChainsVisualAnalysis == null }">
+								<c:when test="${center == null }">
 									<jsp:include page="empty.jsp" />
 								</c:when>
 								<c:otherwise>
-									<jsp:include page="${AllChainsVisualAnalysis }.jsp" />
+									<jsp:include page="${center }.jsp" />
 								</c:otherwise>
 							</c:choose>
 							<!-- Visual Analysis END! -->
@@ -137,6 +153,6 @@
 <script src="assets/js/ready.min.js"></script>
 
 <!-- Azzara DEMO methods, don't include it in your project! -->
-<script src="assets/js/setting-demo.js"></script>
-<script src="assets/js/demo.js"></script>
+<!-- <script src="assets/js/setting-demo.js"></script>
+<script src="assets/js/demo.js"></script> -->
 </html>

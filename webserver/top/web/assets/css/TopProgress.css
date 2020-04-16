@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.top_progressbar {
+    flex: 0 0 30%;
+    max-width: 30%;
+    max-height: 30%;
+    padding : 10 10 10 10;
+	display: inline-block !important;
+}
+#showContainerList {
+	dispaly : inline-block;
+	
+}

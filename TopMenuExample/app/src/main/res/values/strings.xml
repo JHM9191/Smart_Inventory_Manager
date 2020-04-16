@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TopMenuExample</string>
+    <string name="tab_text_1">메뉴</string>
+    <string name="tab_text_2">주문 및 결제</string>
+    <string name="tab_text_3">정산</string>
+    <string name="tab_text_4">일일판매량</string>
+</resources>

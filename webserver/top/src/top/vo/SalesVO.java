@@ -1,15 +1,24 @@
 package top.vo;
 
-import java.time.LocalDateTime;
-
 public class SalesVO {
 
 	String salesID;
-	LocalDateTime salesRegDate;
+	String salesRegDate;
 	int totSales;
 	String chainID;
 
-	public SalesVO(String salesID, LocalDateTime salesRegDate, int totSales, String chainID) {
+	public SalesVO() {
+
+	}
+
+	public SalesVO(String salesRegDate, int totSales, String chainID) {
+		super();
+		this.salesRegDate = salesRegDate;
+		this.totSales = totSales;
+		this.chainID = chainID;
+	}
+
+	public SalesVO(String salesID, String salesRegDate, int totSales, String chainID) {
 		super();
 		this.salesID = salesID;
 		this.salesRegDate = salesRegDate;
@@ -25,11 +34,11 @@ public class SalesVO {
 		this.salesID = salesID;
 	}
 
-	public LocalDateTime getSalesRegDate() {
+	public String getSalesRegDate() {
 		return salesRegDate;
 	}
 
-	public void setSalesRegDate(LocalDateTime salesRegDate) {
+	public void setSalesRegDate(String salesRegDate) {
 		this.salesRegDate = salesRegDate;
 	}
 
@@ -51,8 +60,8 @@ public class SalesVO {
 
 	@Override
 	public String toString() {
-		return "Sales [salesID=" + salesID + ", salesRegDate=" + salesRegDate + ", totSales=" + totSales + ", chainID="
-				+ chainID + "]";
+		return "SalesVO [salesID=" + salesID + ", salesRegDate=" + salesRegDate + ", totSales=" + totSales
+				+ ", chainID=" + chainID + "]";
 	}
 
 }

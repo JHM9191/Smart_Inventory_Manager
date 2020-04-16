@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!--
 			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
 		-->
@@ -7,7 +10,7 @@
 	<div class="logo-header">
 
 		<a href="index.html" class="logo">
-			<h3 class="navbar-brand">WATCHER</h3>
+			<h3 class="navbar-brand">재고와쳐</h3>
 		</a>
 		<button class="navbar-toggler sidenav-toggler ml-auto" type="button"
 			data-toggle="collapse" data-target="collapse" aria-expanded="false"
@@ -38,7 +41,7 @@
 								<i class="fa fa-search search-icon"></i>
 							</button>
 						</div>
-						<input type="text" placeholder="Search ..." class="form-control">
+						<input type="text" placeholder="검색 ..." class="form-control">
 					</div>
 				</form>
 			</div>
@@ -61,7 +64,7 @@
 					<ul class="dropdown-menu messages-notif-box animated fadeIn"
 						aria-labelledby="messageDropdown">
 						<li>
-							<div class="dropdown-title">You have 4 new notification</div>
+							<div class="dropdown-title">알림 4개</div>
 						</li>
 						<li>
 							<div class="message-notif-scroll scrollbar-outer">
@@ -118,8 +121,7 @@
 								</div>
 							</div>
 						</li>
-						<li><a class="see-all" href="javascript:void(0);">See all
-								notifications<i class="fa fa-angle-right"></i>
+						<li><a class="see-all" href="javascript:void(0);">모두 보기<i class="fa fa-angle-right"></i>
 						</a></li>
 					</ul></li>
 
@@ -129,7 +131,7 @@
 					class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
 					aria-expanded="false">
 						<div class="avatar-sm">
-							<img src="assets/img/profile.jpg" alt="..."
+							<img src="assets/img/profile2.jpg" alt="..."
 								class="avatar-img rounded-circle">
 						</div>
 				</a>
@@ -141,16 +143,16 @@
 										class="avatar-img rounded">
 								</div>
 								<div class="u-text">
-									<h4>Hizrian</h4>
-									<p class="text-muted">hello@example.com</p>
-									<a href="profile.html"
-										class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+									<h4>Jo Hyun Min</h4>
+									<p class="text-muted">jhm@email.com</p>
+									<a href="profile2.html"
+										class="btn btn-rounded btn-danger btn-sm">마이페이지 보기</a>
 								</div>
 							</div>
 						</li>
 						<li>
 							<div class="dropdown-divider"></div> <a class="dropdown-item"
-							href="#">My Profile</a> <a class="dropdown-item" href="#">My
+							href="#">마이페이지</a> <a class="dropdown-item" href="#">My
 								Balance</a> <a class="dropdown-item" href="#">Inbox</a>
 							<div class="dropdown-divider"></div> <a class="dropdown-item"
 							href="#">Account Setting</a>

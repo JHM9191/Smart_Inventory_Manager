@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--
+    <TextView
+        android:id="@+id/txt_vp_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Navigation"
+        android:textColor="#9b92b3"
+        android:textStyle="bold" />
+        -->
+
+    <com.dinuscxj.progressbar.CircleProgressBar
+        android:id="@+id/items_graph1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:gravity="center"
+        app:progress_end_color="#5AF100"
+        app:progress_shader="linear"
+        app:progress_start_color="#F70505"
+        app:progress_start_degree="270"
+        app:progress_stroke_cap="round"
+
+        app:progress_stroke_width="20dp"
+
+        app:progress_text_color="@android:color/white"
+        app:progress_text_size="30sp"
+        app:style="solid_line" />
+
+</FrameLayout>

@@ -27,4 +27,19 @@ public class SalesBiz implements Biz<String, SalesVO> {
 		return dao.selectall();
 	}
 
+	public ArrayList<SalesVO> getYear(String year) {
+		return dao.selectYear(year);
+	}
+	public ArrayList<SalesVO> getMonth(String year, String chainID) {
+		return dao.selectMonth(year, chainID);
+	}
+
+	public ArrayList<SalesVO> getYearly(String salesID) {
+		return dao.selectYearly(salesID);
+	}
+
+	public ArrayList<SalesVO> getMonthly(String salesID) {
+		return dao.selectMonthly(salesID);
+	}
+
 }
