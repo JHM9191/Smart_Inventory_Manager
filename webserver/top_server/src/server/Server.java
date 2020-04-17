@@ -138,6 +138,7 @@ public class Server {
 
 			try {
 				maps.get(ip).writeObject(msg);
+				System.out.println("Msg sent");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
