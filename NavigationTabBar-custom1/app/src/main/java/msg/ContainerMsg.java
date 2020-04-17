@@ -1,6 +1,10 @@
-package devlight.io.tabletUI2.vo;
+package msg;
 
-public class Container {
+import java.io.Serializable;
+
+public class ContainerMsg implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     String conID;
     String conSize;
@@ -16,10 +20,10 @@ public class Container {
     String chainID;
 
 
-    public Container() {
+    public ContainerMsg() {
     }
 
-    public Container(String conID, String conSize, double conMaxWeight, double conFullWeight, int conFullQuantity, double conWarningWeight, int conWarningQuantity, double conCurrWeight, int conCurrQuantity, double conUnitWeight, String ingID, String chainID) {
+    public ContainerMsg(String conID, String conSize, double conMaxWeight, double conFullWeight, int conFullQuantity, double conWarningWeight, int conWarningQuantity, double conCurrWeight, int conCurrQuantity, double conUnitWeight, String ingID, String chainID) {
         this.conID = conID;
         this.conSize = conSize;
         this.conMaxWeight = conMaxWeight;

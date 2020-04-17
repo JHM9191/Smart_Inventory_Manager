@@ -2,6 +2,7 @@ package devlight.io.tabletUI2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
@@ -21,17 +23,20 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import devlight.io.tabletUI2.vo.Container;
+import msg.ContainerMsg;
 import msg.Msg;
 
 // 오류수정 : Maps new 로 생성 안해주었음 -> 수정. //
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    TextView txt_PadName,txt_Date,txt_Temperature,txt_myStatus;
-   CircleProgressBar progressBar;
+    TextView txt_PadName, txt_Date, txt_Temperature, txt_myStatus;
+    CircleProgressBar progressBar;
     Date tDate;
     String TAG = "===";
 
@@ -41,9 +46,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     ServerReadyThread serverReadyThread;
     public static HashMap<String, ObjectOutputStream> maps;
     public static HashMap<String, String> ids;
+    public static HashMap<String, ArrayList<Container>> contianerInfo;
+
 
     // ServerReadyThread variables
     boolean aflag = true;
+
+
+    // Client
+    TextView tv_server_state;
+    FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +67,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         serverReadyThread.start();
 
 
-
     }
 
-    public void showCurrentTime(){
-        Handler handler = new Handler(){
+    public void showCurrentTime() {
+        Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 long now = System.currentTimeMillis();
@@ -67,18 +79,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 String getTime = simpleDate.format(tDate);
 
                 txt_Date = findViewById(R.id.txt_Date);
-                txt_Date.setText("현재시간\n"+getTime);
+                txt_Date.setText("현재시간\n" + getTime);
             }
         };
         Runnable currentTime = new Runnable() {
             @Override
             public void run() {
-                while(true){
-                    try{
+                while (true) {
+                    try {
                         Thread.sleep(30000);
-                        Log.d(TAG,"CurrentTime Refreshed");
+                        Log.d(TAG, "CurrentTime Refreshed");
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     handler.sendEmptyMessage(1);
@@ -100,7 +112,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnVerticalNtb.setOnClickListener(this);
 
 
-
         txt_PadName = findViewById(R.id.txt_PadName);
         txt_Temperature = findViewById(R.id.txt_Temperature);
 
@@ -113,11 +124,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String getTime = simpleDate.format(tDate);
 
         txt_Date = findViewById(R.id.txt_Date);
-        txt_Date.setText("현재시간\n"+getTime);
+        txt_Date.setText("현재시간\n" + getTime);
         // 현재시간 찍기 끝 , Refresh 는 30초마다 실행//
 
         // webServer 연결은 나중에 //
-       // new ConnectThread(sip, sport, "pad").start();
+        // new ConnectThread(sip, sport, "pad").start();
 
         progressBar = findViewById(R.id.days_graph);
         progressBar.setMax(100);
@@ -129,6 +140,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        btnSamplesNtb.setOnClickListener(this);
         maps = new HashMap<>();
         ids = new HashMap<>();
+
+
+        //------ Client UI ---//
+        tv_server_state = findViewById(R.id.tv_server_state);
+        frameLayout = findViewById(R.id.frameLayout_main);
+        frameLayout.setVisibility(View.VISIBLE);
+
+        new Thread(new ConnectThread(serverIP, serverPort, chainID)).start();
+
     }
 
     class ServerReadyThread extends Thread {
@@ -170,6 +190,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
     class ReceiverThread extends Thread {
 
         InputStream is;
@@ -193,7 +214,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
 
             Log.d(TAG, "Client IP : " + socket.getInetAddress().getHostAddress().toString());
-            if(oos != null) {
+            if (oos != null) {
                 try {
                     maps.put(socket.getInetAddress().getHostAddress().toString(), oos);
                     Msg msg = (Msg) ois.readObject();
@@ -249,9 +270,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //double tmp = Double.parseDouble(txt);
 
 
-
-        Log.d(TAG, "id: "+id + "txt" + txt);
-        if(txt!=null && txt !="") {
+        Log.d(TAG, "id: " + id + "txt" + txt);
+        if (txt != null && txt != "") {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -333,4 +353,203 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return (float) Math.sin(2.0f * mCycles * Math.PI * input);
         }
     }
+
+
+    //------------------- CLIENT MODULE -------------------//
+
+    String chainID = "chainID_1000000";
+
+    String serverIP = "192.168.43.2";
+
+    int serverPort = 8888;
+
+
+    Socket sSocket;
+
+    class ConnectThread implements Runnable {
+
+        String ip;
+        int port;
+        String id;
+
+
+        public ConnectThread() {
+
+        }
+
+        public ConnectThread(String ip, int port, String id) {
+            this.ip = ip;
+            this.port = port;
+            this.id = id;
+
+        }
+
+        @Override
+        public void run() {
+
+
+            try {
+                Thread.sleep(500);
+                sSocket = new Socket(ip, port);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_server_state.setText("Server Connected.\n" + "(" + sSocket.getInetAddress() + ")");
+                        try {
+                            Thread.sleep(2000);
+                            frameLayout.setVisibility(View.GONE);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            } catch (Exception e) {
+//                e.printStackTrace();
+
+                int i = 0;
+
+                while (true) {
+                    i++;
+
+
+                    int finalI = i;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            tv_server_state.setText("Retry Connecting to Server ... " + finalI);
+                        }
+                    });
+
+                    try {
+                        Thread.sleep(500);
+                        sSocket = new Socket(ip, port);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_server_state.setText("Server Connected.\n" + "(" + sSocket.getInetAddress() + ")");
+                                try {
+                                    Thread.sleep(2000);
+                                    frameLayout.setVisibility(View.GONE);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                        break;
+
+                    } catch (Exception ex) {
+                        Log.d(TAG, "failed to connect to server");
+//                        ex.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+            ServerReceiver serverReceiver = null;
+            try {
+                serverReceiver = new ServerReceiver(sSocket);
+                serverReceiver.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        } // run End
+    } // ConnectThread End
+
+
+    class ServerReceiver extends AsyncTask<Void, Msg, Void> {
+
+        Socket socket;
+        InputStream is;
+        ObjectInputStream ois;
+        OutputStream os;
+        ObjectOutputStream oos;
+
+
+        public ServerReceiver(Socket socket) throws IOException {
+            this.socket = socket;
+            is = socket.getInputStream();
+            ois = new ObjectInputStream(is);
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            try {
+                os = socket.getOutputStream();
+                oos = new ObjectOutputStream(os);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Msg msg = new Msg("pad01_chainID_1000000", "hello", "/192.168.43.2");
+
+            try {
+                oos.writeObject(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            while (ois != null) {
+                Msg msg = null;
+
+
+                try {
+                    msg = (Msg) ois.readObject();
+                    Log.d(TAG, msg.getId() + " | " + msg.getTxt() + " | " + msg.getTid());
+                    publishProgress(msg);
+
+                } catch (Exception e) {
+//                    e.printStackTrace();
+                    msg = new Msg("System", "Server disconnected", null);
+                    publishProgress(msg);
+
+
+                    break;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Msg... values) {
+
+            String id = values[0].getId();
+            // 위에서 에러가 나면 id 에 system 이라는 값을 주었다. //
+            if (id.equals("System")) {
+                if (sSocket != null) {
+                    try {
+                        sSocket.close();
+                    } catch (IOException e) {
+//                        e.printStackTrace();
+                    }
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //------ Client UI ---//
+                        tv_server_state.setText("Server Disconnected..");
+                        frameLayout.setVisibility(View.VISIBLE);
+                    }
+                });
+                new Thread(new ConnectThread(serverIP, serverPort, chainID)).start();
+                return;
+            }
+
+
+        }
+    }
+
 }
