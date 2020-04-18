@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +33,6 @@ public class ProgressActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressItemAdapter progressItemAdapter;
     GridLayoutManager layoutManager;
-
 
 
     @Override
@@ -52,22 +53,22 @@ public class ProgressActivity extends AppCompatActivity {
         recyclerView.setAdapter(progressItemAdapter);
 
 
+        new Thread(new RandomDataThread()).start();
 
 //        initUI2();
     }
-
 
 
     private void getData() {
 
         Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000000");
         Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000000");
-        Container c3 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_1000000");
-        Container c4 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
-        Container c5 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000000");
-        Container c6 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000000");
-        Container c7 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_1000000");
-        Container c8 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
+        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_1000000");
+        Container c4 = new Container("CONID_1000003", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
+        Container c5 = new Container("CONID_1000004", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000004", "chainID_1000000");
+        Container c6 = new Container("CONID_1000005", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000005", "chainID_1000000");
+        Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000000");
+        Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000000");
 
         conList.add(c1);
         conList.add(c2);
@@ -79,6 +80,65 @@ public class ProgressActivity extends AppCompatActivity {
         conList.add(c8);
 
 
+    }
+
+
+    class RandomDataThread implements Runnable {
+
+
+        @Override
+        public void run() {
+
+            while (true) {
+
+                for (int i = 0; i < conList.size(); i++) {
+                    int fullQuant = conList.get(i).getConFullQuantity();
+
+
+                    int ranNum = (int) (Math.random() * fullQuant);
+
+                    conList.get(i).setConCurrQuantity(ranNum);
+                    new Thread(new SendContainerInfoToWebServer(conList.get(i).getConID(), conList.get(i).getConFullQuantity(), conList.get(i).getConCurrQuantity(), conList.get(i).getIngID(), conList.get(i).getChainID())).start();
+
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressItemAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+    class SendContainerInfoToWebServer implements Runnable {
+
+        String urlstr = "http://192.168.43.2:8080/top/realtimecontainerdata.top?";
+
+        public SendContainerInfoToWebServer(String conID, int conFullQuantity, int conCurrQuantity, String ingID, String chainID) {
+            urlstr += "conID=" + conID + "&conFullQuantity=" + conFullQuantity + "&conCurrQuantity=" + conCurrQuantity + "&ingID=" + ingID + "&chainID=" + chainID;
+        }
+
+        @Override
+        public void run() {
+
+            URL url = null;
+            try {
+                url = new URL(urlstr);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.getInputStream();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 //    private void initUI2() {

@@ -1,5 +1,7 @@
 package top.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,6 +12,7 @@ import top.vo.ContainerVO;
 @Controller
 public class ChainController {
 
+	// HQ add IoT Container to specific Chain
 	@RequestMapping("/addContainer.top")
 	public void addContainer() {
 
@@ -28,6 +31,21 @@ public class ChainController {
 
 		Msg msg = new Msg(serverIP, "webserver", "/192.168.43.2");
 		client.startClient(msg);
+
+	}
+
+	// show List of registered IoT containers of specific Chain
+
+	// Display real time IoT container data
+	@RequestMapping("/realtimecontainerdata.top")
+	public void realtimecontainerdata(HttpServletRequest req) {
+		String conID = req.getParameter("conID");
+		String conFullQuantity = req.getParameter("conFullQuantity");
+		String conCurrQuantity = req.getParameter("conCurrQuantity");
+		String ingID = req.getParameter("ingID");
+		String chainID = req.getParameter("chainID");
+
+		System.out.println(conID + " | " + conFullQuantity + " | " + conCurrQuantity + " | " + ingID + " | " + chainID);
 
 	}
 

@@ -19,8 +19,16 @@ public class ContainerMsg implements Serializable {
     String ingID;
     String chainID;
 
+    String message;
+    String myIP;
 
     public ContainerMsg() {
+    }
+
+    public ContainerMsg(String chainID, String message, String myIP) {
+        this.chainID = chainID;
+        this.message = message;
+        this.myIP = myIP;
     }
 
     public ContainerMsg(String conID, String conSize, double conMaxWeight, double conFullWeight, int conFullQuantity, double conWarningWeight, int conWarningQuantity, double conCurrWeight, int conCurrQuantity, double conUnitWeight, String ingID, String chainID) {

@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 
 import msg.Msg;
@@ -26,6 +28,16 @@ public class Server {
 	}
 
 	public Server(int port) throws Exception {
+		InetAddress ip = null;
+        try {
+            ip = InetAddress.getLocalHost();
+            System.out.println("ip.getHostAddress() : " + ip.getHostAddress());
+            System.out.println("ip.getHostName() : " + ip.getHostName());
+            
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
 		serverSocket = new ServerSocket(port);
 
 		System.out.println("Server Started");
