@@ -3,16 +3,60 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
 <script>
 	// 컨테이너 리스트 show 스크립트 //
 	window.onload = function() {
+		setInterval("getData('${chainID}')", 1000);
+	}
+	
+	function getData(chainID) {
 		
-		showConList();
+		$.ajax({
+			url : 'getRealTimeContainerData.top?chainID=' + chainID,
+			success : function(data) {
+				console.log(data);
+				var cnt = 1;
+				var chartname = "doughnutChart";
+				$('#showContainerList').html('');
+				for (var i = 0; i < data.length; i++) {
+					var results = '';
+					results += "<div class='top_progressbar'>"
+					results += "<div class='card'>"
+					results += "<div class='card-header'>"
+					results += "<div class='card-title'>컨테이너" + cnt + ":" + data[i]['conID'] + "</div>"
+					results += "<div class='chart-container'>"
+					results += "<canvas id ='" + (chartname + cnt)
+							+ "'> style = 'width: 33%; height: 33%'></canvas>"
+					results += "</div></div></div></div></div>"
+					$('#showContainerList').append(results);
+					
+					var maxWeight = data[i]['conFullWeight'];
+					var currWeight = data[i]['conCurrWeight'];
+					var warningWeight = data[i]['conWarningWeight'];
+
+					if (warningWeight >= currWeight) {
+						var warningList = '';
+						warningList += "컨테이너 아이디 : data[i]['conID'] ,"
+						warningList += "경고무게 :  " + warningWeight + ".0kg,  현재무게:  "
+								+ currWeight + ".0kg <br>"
+						/* $('#warningContainerList').append(warningList); */
+					}
+
+					makeChart(chartname, cnt, maxWeight, currWeight, warningWeight);
+					cnt++;
+				}
+			}
+		})
+		
 	}
 
+	
+	/*
 	function showConList() {
-		/* alert('${containervo}'); */
+		alert('${containervo}');
 		var i = 1;
 		var chartname = "doughnutChart";
 		<c:forEach var = "u" items = "${containervo }">
@@ -43,6 +87,8 @@
 		i++;
 		</c:forEach>
 	}
+	
+	*/
 
 	function makeChart(chartname, i, maxWeight, currWeight, warningWeight) {
 		var doughnutChart = document.getElementById((chartname + i))
@@ -71,13 +117,17 @@
 						bottom : 10
 					}
 				}
+				/*,
+				animiation : {
+					animateRotate : false
+				}*/
 			}
 		});
 
 	}
 </script>
 
-<h4 class="page-title">재고현황('${containervo[0].chainID }')</h4>
+<h4 class="page-title">재고현황('${chainID }')</h4>
 <div class="row">
 	<div class="col-12 col-md-8">
 		<div class="page-category">
@@ -97,7 +147,7 @@
 					<div class="col col-stats">
 						<div class="numbers">
 							<p class="card-category">총매출</p>
-							<h4 class="card-title">$ 1,345</h4>
+							<h4 class="card-title">${totSale} &nbsp; 만원 </h4>
 						</div>
 					</div>
 				</div>

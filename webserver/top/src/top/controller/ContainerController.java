@@ -1,7 +1,5 @@
 package top.controller;
 
-import java.util.ArrayList;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,32 +18,45 @@ public class ContainerController {
 
 	// show container page
 	@RequestMapping("/containerProgress.top")
-	public ModelAndView main_simple(ModelAndView mv, HttpServletRequest req) {
-
+	public ModelAndView redirectToRealTimeContainerPage(ModelAndView mv, HttpServletRequest req) {
 		String chainID = req.getParameter("chainID");
 
-		ArrayList<ContainerVO> conlist = new ArrayList<ContainerVO>();
-		System.out.println("showContainerList");
-		try {
-			System.out.println("get From Container Database");
-			conlist = conbiz.getForChain(chainID);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error during getting Data");
-		}
-		for (ContainerVO u : conlist) {
-			System.out.println(u);
-
-		}
-
-		mv.addObject("containervo", conlist);
+		mv.addObject("totSale", "2,490");
+		mv.addObject("chainID", chainID);
 		mv.addObject("center", "../container/containerProgress");
 		mv.setViewName("main/main");
-
-//		res.setContentType("text/html; charset=UTF-8");
-
 		return mv;
+
 	}
+
+	// show container page
+//	@RequestMapping("/containerProgress.top")
+//	public ModelAndView main_simple(ModelAndView mv, HttpServletRequest req) {
+//
+//		String chainID = req.getParameter("chainID");
+//
+//		ArrayList<ContainerVO> conlist = new ArrayList<ContainerVO>();
+//		System.out.println("showContainerList");
+//		try {
+//			System.out.println("get From Container Database");
+//			conlist = conbiz.getForChain(chainID);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("Error during getting Data");
+//		}
+//		for (ContainerVO u : conlist) {
+//			System.out.println(u);
+//
+//		}
+//
+//		mv.addObject("containervo", conlist);
+//		mv.addObject("center", "../container/containerProgress");
+//		mv.setViewName("main/main");
+//
+////		res.setContentType("text/html; charset=UTF-8");
+//
+//		return mv;
+//	}
 
 	// Purchase IoT Container
 

@@ -75,8 +75,8 @@ public class ProgressItemAdapter extends RecyclerView.Adapter<ProgressItemAdapte
 
         public void setItem(Container container) {
             ingName.setText(container.getIngID() + "");
-            progressBar.setMax(container.getConFullQuantity());
-            progressBar.setProgress(container.getConCurrQuantity());
+            progressBar.setMax((int)container.getConFullWeight());
+            progressBar.setProgress((int)container.getConCurrWeight());
         }
     }
 

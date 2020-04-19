@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,12 +64,21 @@ public class ProgressActivity extends AppCompatActivity {
 
         Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000000");
         Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000000");
-        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_1000000");
+        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_100000");
         Container c4 = new Container("CONID_1000003", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
         Container c5 = new Container("CONID_1000004", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000004", "chainID_1000000");
         Container c6 = new Container("CONID_1000005", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000005", "chainID_1000000");
         Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000000");
         Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000000");
+
+//        Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000001");
+//        Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000001");
+//        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_1000001");
+//        Container c4 = new Container("CONID_1000003", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000001");
+//        Container c5 = new Container("CONID_1000004", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000004", "chainID_1000001");
+//        Container c6 = new Container("CONID_1000005", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000005", "chainID_1000001");
+//        Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000001");
+//        Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000001");
 
         conList.add(c1);
         conList.add(c2);
@@ -92,13 +102,14 @@ public class ProgressActivity extends AppCompatActivity {
             while (true) {
 
                 for (int i = 0; i < conList.size(); i++) {
-                    int fullQuant = conList.get(i).getConFullQuantity();
+                    double fullWeight = conList.get(i).getConFullWeight();
 
 
-                    int ranNum = (int) (Math.random() * fullQuant);
+                    double ranNum =  (Math.random() * fullWeight);
 
-                    conList.get(i).setConCurrQuantity(ranNum);
-                    new Thread(new SendContainerInfoToWebServer(conList.get(i).getConID(), conList.get(i).getConFullQuantity(), conList.get(i).getConCurrQuantity(), conList.get(i).getIngID(), conList.get(i).getChainID())).start();
+                    Log.d("===", ranNum+"");
+                    conList.get(i).setConCurrWeight(ranNum);
+                    new Thread(new SendContainerInfoToWebServer(conList.get(i).getConID(), conList.get(i).getConFullWeight(), conList.get(i).getConCurrWeight(), conList.get(i).getConWarningWeight(), conList.get(i).getIngID(), conList.get(i).getChainID())).start();
 
                 }
 
@@ -123,8 +134,8 @@ public class ProgressActivity extends AppCompatActivity {
 
         String urlstr = "http://192.168.43.2:8080/top/realtimecontainerdata.top?";
 
-        public SendContainerInfoToWebServer(String conID, int conFullQuantity, int conCurrQuantity, String ingID, String chainID) {
-            urlstr += "conID=" + conID + "&conFullQuantity=" + conFullQuantity + "&conCurrQuantity=" + conCurrQuantity + "&ingID=" + ingID + "&chainID=" + chainID;
+        public SendContainerInfoToWebServer(String conID, double conFullWeight, double conCurrWeight, double conWarningWeight, String ingID, String chainID) {
+            urlstr += "conID=" + conID + "&conFullWeight=" + conFullWeight + "&conCurrWeight=" + conCurrWeight + "&conWarningWeight=" + conWarningWeight + "&ingID=" + ingID + "&chainID=" + chainID;
         }
 
         @Override
@@ -188,4 +199,6 @@ public class ProgressActivity extends AppCompatActivity {
 //
 //
 //    }
+
+
 }
