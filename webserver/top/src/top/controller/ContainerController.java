@@ -1,20 +1,33 @@
 package top.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import top.frame.Biz;
 import top.vo.ContainerVO;
+import top.vo.IngredientVO;
+import top.vo.OrderDetailVO;
 
 @Controller
 public class ContainerController {
 
 	@Resource(name = "conbiz")
 	Biz<String, ContainerVO> conbiz;
+	@Resource(name = "ingbiz")
+	Biz<String, IngredientVO> ingbiz;
+	@Resource(name = "orderdetailbiz")
+	Biz<String, OrderDetailVO> odbiz;
 
 	// show container page
 	@RequestMapping("/containerProgress.top")
@@ -27,6 +40,50 @@ public class ContainerController {
 		mv.setViewName("main/main");
 		return mv;
 
+	}
+
+	// show container register page
+	@RequestMapping("/containerRegister.top")
+	public ModelAndView registerContainer(ModelAndView mv, HttpServletRequest req) {
+//		mv.addObject("chainID", chainID);
+		mv.addObject("center", "../container/containerRegister");
+		mv.setViewName("main/main");
+		return mv;
+	}
+
+	// show container register wizard page
+	@RequestMapping("/containerRegisterWizard.top")
+	public ModelAndView registerWizardContainer(ModelAndView mv, HttpServletRequest req) {
+//		mv.addObject("chainID", chainID);
+		HttpSession session = req.getSession();
+		String hqID = (String) session.getAttribute("hqID");
+		System.out.println("hqID : " + hqID);
+		ArrayList<IngredientVO> ingList = ingbiz.get();
+		for (IngredientVO ing : ingList) {
+			System.out.println(ing);
+		}
+
+		mv.addObject("center", "../container/containerRegisterWizard");
+		mv.addObject("ingList", ingList);
+		mv.setViewName("main/main");
+		return mv;
+	}
+
+	// add container
+	@RequestMapping("/insertContainer.top")
+	@ResponseBody
+	public ArrayList<Object> insertContainer(HttpServletRequest req, HttpServletResponse res) {
+		String size = req.getParameter("size");
+		String ing = req.getParameter("ing");
+		String cnt = req.getParameter("cnt");
+
+		for (OrderDetailVO od : odbiz.get()) {
+			System.out.println(od);
+		}
+
+//		mv.addObject("containerList", odbiz.get());
+
+		return null;
 	}
 
 	// show container page

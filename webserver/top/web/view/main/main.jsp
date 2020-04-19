@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html
+	class="wf-flaticon-n4-active wf-fontawesome5solid-n4-active wf-fontawesome5regular-n4-active wf-fontawesome5brands-n4-active wf-opensans-n3-active wf-opensans-n4-active wf-opensans-n6-active wf-opensans-n7-active wf-active">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -24,15 +26,15 @@
 		custom : {
 			"families" : [ "Flaticon", "Font Awesome 5 Solid",
 					"Font Awesome 5 Regular", "Font Awesome 5 Brands" ],
-			urls : [ '../assets/css/fonts.css' ]
+			urls : [ 'assets/css/fonts.css' ]
 		},
 		active : function() {
 			sessionStorage.fonts = true;
 		}
 	});
-	
+
 	//Notify
-	$.notify({
+	/* $.notify({
 		icon : 'flaticon-alarm-1',
 		title : 'TOP Smart Inventory Management System',
 		message : 'Welcome~',
@@ -43,7 +45,7 @@
 			align : "right"
 		},
 		time : 1000,
-	});
+	}); */
 </script>
 
 <!-- Fonts and icons -->
@@ -155,4 +157,3 @@
 <!-- Azzara DEMO methods, don't include it in your project! -->
 <!-- <script src="assets/js/setting-demo.js"></script>
 <script src="assets/js/demo.js"></script> -->
-</html>

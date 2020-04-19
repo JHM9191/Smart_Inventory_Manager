@@ -8,6 +8,10 @@ public class OrderDetailVO {
 	String ingID;
 	String orderID;
 
+	public OrderDetailVO() {
+
+	}
+
 	public OrderDetailVO(String orderDetailID, Double totWeight, int ingQuantity, String ingID, String orderID) {
 		super();
 		this.orderDetailID = orderDetailID;

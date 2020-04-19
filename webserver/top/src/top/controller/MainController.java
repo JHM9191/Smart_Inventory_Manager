@@ -146,4 +146,14 @@ public class MainController {
 		return mv;
 	}
 
+	
+	
+	
+	// show About page
+	@RequestMapping("about.top")
+	public ModelAndView showAbout(ModelAndView mv) {
+		mv.addObject("center", "../main/about");
+		mv.setViewName("main/main");
+		return mv;
+	}
 }

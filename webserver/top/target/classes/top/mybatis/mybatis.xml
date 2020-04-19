@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<typeAlias type="top.vo.ChainVO" alias="chain" />
 		<typeAlias type="top.vo.ContainerVO" alias="container" />
 		<typeAlias type="top.vo.OrderVO" alias="order" />
+		<typeAlias type="top.vo.OrderDetailVO" alias="orderdetail" />
 		<typeAlias type="top.vo.SalesVO" alias="sales" />
 		<typeAlias type="top.vo.MenuVO" alias="menu" />
 	</typeAliases>
@@ -21,6 +22,7 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<mapper resource="top/mybatis/chainmapper.xml" />
 		<mapper resource="top/mybatis/containermapper.xml" />
 		<mapper resource="top/mybatis/ordermapper.xml" />
+		<mapper resource="top/mybatis/orderdetailmapper.xml" />
 		<mapper resource="top/mybatis/salesmapper.xml" />
 		<mapper resource="top/mybatis/menumapper.xml" />
 	</mappers>

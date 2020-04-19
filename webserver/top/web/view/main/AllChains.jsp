@@ -149,7 +149,7 @@
 <div class="card">
 	<div class="card-body">
 		<div class="row">
-			<div class="col-5 col-md-4">
+			<div class="col-6 col-md-4">
 				<div class="nav flex-column nav-pills nav-secondary"
 					id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
@@ -162,7 +162,7 @@
 					</c:forEach>
 				</div>
 			</div>
-			<div class="col-7 col-md-8">
+			<div class="col-12 col-md-8">
 				<div class="highcharts-figure">
 					<div class="col-md-5 ml-auto">
 						<ul class="nav nav-pills nav-secondary nav-pills-no-bd"
@@ -186,7 +186,8 @@
 								aria-controls="pills-profile-nobd" aria-selected="false"
 								onclick="getData('2017');">2017</a></li>
 						</ul>
-					</div><br>
+					</div>
+					<br>
 					<div id="container_highcharts"></div>
 				</div>
 			</div>
