@@ -106,7 +106,131 @@
 
 		var rows = table.rows('.selected').remove().draw();
 
-	}
+	};
+
+	/* $('#tagsinput').tagsinput({
+		tagClass : 'badge-info'
+	}); */
+
+	//********************************************//
+	/* var chainArray = []; */
+	var chainCnt = 0;
+
+	function chainSelected(chainID, chainName) {
+		$('#pill_' + chainID).remove();
+		$('#selectedChains ul')
+				.append(
+						'<li class="nav-item" id="pill_'+ chainID + '"><a class="nav-link active" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true" onclick="chainCancelled(\''
+								+ chainID
+								+ '\',\''
+								+ chainName
+								+ '\');">'
+								+ chainName + '</a></li>');
+		/* chainArray.push(chainName); */
+
+		++chainCnt;
+		console.log(chainCnt);
+	};
+
+	function chainCancelled(chainID, chainName) {
+		$('#pill_' + chainID).remove();
+		$('#unselectedChains ul')
+				.append(
+						'<li class="nav-item" id="pill_'+ chainID + '"><a class="nav-link active" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true" onclick="chainSelected(\''
+								+ chainID
+								+ '\',\''
+								+ chainName
+								+ '\');">'
+								+ chainName + '</a></li>');
+		--chainCnt;
+		console.log(chainCnt);
+
+	};
+
+	var num_2 = 0;
+	function addContainer_manyChains() {
+		var size = $('#select_size_2').val();
+		var max_container_weight;
+		var size_name;
+		var ing = $('#select_ing_2').val();
+		var weight = $('input[name="' + ing + '_weight_2"]').val();
+		var cnt = $('#select_cnt_2').val();
+		var unit = $('input[name="' + ing + '_unit_2').val();
+		var price = $('input[name="' + ing + '_price_2').val();
+		if (size == "small") {
+			if ((weight * cnt) > 20) {
+				swal("스몰 사이즈 컨테이너에는 20kg 이하의 물량만 담을 수 있습니다.", {
+					icon : "error",
+					buttons : {
+						confirm : {
+							className : 'btn btn-danger'
+						}
+					}
+				});
+				return;
+			}
+			max_container_weight = '20kg';
+			size_name = "스몰";
+		} else if (size == "medium") {
+			if ((weight * cnt) > 100) {
+				swal("미디엄 사이즈 컨테이너에는 100kg 이하의 물량만 담을 수 있습니다.", {
+					icon : "error",
+					buttons : {
+						confirm : {
+							className : 'btn btn-danger'
+						}
+					}
+				});
+				return;
+			}
+			max_container_weight = '100kg';
+			size_name = "미디엄";
+		} else if (size == "large") {
+			if ((weight * cnt) > 500) {
+				swal("라지 사이즈 컨테이너에는 500kg 이하의 물량만 담을 수 있습니다.", {
+					icon : "error",
+					buttons : {
+						confirm : {
+							className : 'btn btn-danger'
+						}
+					}
+				});
+				return;
+			}
+			max_container_weight = '500kg';
+			size_name = "라지";
+		} else {
+			return;
+		}
+
+		var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" onclick="removeRow();"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+		for (var i = 0; i < chainCnt; i++) {
+			num_2++;
+			var chainName = $('#selectedChains li:eq(' + i + ') a').text();
+			console.log(chainName);
+			$('#addContainerTable_2').dataTable().fnAddData(
+					[ num_2, chainName, size_name, ing, weight + unit, cnt,
+							(cnt * weight) + unit, max_container_weight, "",
+							action ]);
+
+		}
+
+		/* $('#selectedChains li').forEach(myFunction);
+
+		function myFunction(value, index, array) {
+			console.log(value);
+			 
+			$('#addContainerTable').dataTable().fnAddData(
+					[ num, chainName, size_name, ing, weight + unit,
+							cnt, (cnt * weight) + unit,
+							max_container_weight, "", action ]);
+			
+		} 
+		;
+		 */
+
+	};
 </script>
 <div class="row justify-content-center align-items-center">
 	<div class="card">
@@ -313,12 +437,13 @@
 										</div>
 									</div>
 
+
 								</div>
 								<br> <br>
 								<div class="row justify-content-center align-items-center">
 									<div class="col-6 col-md-6">
 										<input type="button" class="btn btn-danger btn-block" name=""
-											value="선택" onclick="addContainer();" />
+											value="적용" onclick="addContainer();" />
 									</div>
 								</div>
 								<br> <br>
@@ -418,7 +543,7 @@
 									<div class="col-3 col-md-3">
 										<label>사이즈</label>
 										<div class="select2-input">
-											<select id="select_size" name="select_size"
+											<select id="select_size_2" name="select_size"
 												class="form-control select2-hidden-accessible"
 												data-select2-id="basic" tabindex="-1" aria-hidden="true">
 												<option value="" data-select2-id="2">&nbsp;</option>
@@ -436,7 +561,7 @@
 									<div class="col-5 col-md-5">
 										<label>재료</label>
 										<div class="select2-input">
-											<select id="select_ing" name="select_ing"
+											<select id="select_ing_2" name="select_ing"
 												class="form-control select2-hidden-accessible"
 												data-select2-id="basic" tabindex="-1" aria-hidden="true">
 												<option value="" data-select2-id="2">&nbsp;</option>
@@ -446,12 +571,12 @@
 															${ing.ingWeight } ${ing.ingUnit } (${ing.ingPrice }원)</option>
 													</c:forEach>
 													<c:forEach var="ing" items="${ingList }">
-														<input type="hidden" name="${ing.ingName }_weight"
+														<input type="hidden" name="${ing.ingName }_weight_2"
 															value="${ing.ingWeight }" />
-														<input type="hidden" name="${ing.ingName }_unit" id="unit"
+														<input type="hidden" name="${ing.ingName }_unit_2"
 															value="${ing.ingUnit }" />
-														<input type="hidden" name="${ing.ingName }_price"
-															id="price" value="${ing.ingPrice }" />
+														<input type="hidden" name="${ing.ingName }_price_2"
+															value="${ing.ingPrice }" />
 													</c:forEach>
 												</optgroup>
 											</select>
@@ -460,7 +585,7 @@
 									<div class="col-3 col-md-3">
 										<label>수량</label>
 										<div class="select2-input">
-											<select id="select_cnt" name="select_cnt"
+											<select id="select_cnt_2" name="select_cnt"
 												class="form-control select2-hidden-accessible"
 												data-select2-id="basic" tabindex="-1" aria-hidden="true">
 												<option value="" data-select2-id="2">&nbsp;</option>
@@ -473,103 +598,47 @@
 										</div>
 									</div>
 
-									<div class="col-md-4">
-										<div class="form-group">
-											<label>Multiple States</label>
-											<div class="select2-input select2-warning">
-												<select id="multiple" name="multiple2[]"
-													class="form-control select2-hidden-accessible" multiple=""
-													data-select2-id="multiple-states" tabindex="-1"
-													aria-hidden="true">
-													<option value="">&nbsp;</option>
-													<optgroup label="Alaskan/Hawaiian Time Zone">
-														<option value="AK">Alaska</option>
-														<option value="HI">Hawaii</option>
-													</optgroup>
-													<optgroup label="Pacific Time Zone">
-														<option value="CA">California</option>
-														<option value="NV">Nevada</option>
-														<option value="OR">Oregon</option>
-														<option value="WA">Washington</option>
-													</optgroup>
-													<optgroup label="Mountain Time Zone">
-														<option value="AZ">Arizona</option>
-														<option value="CO">Colorado</option>
-														<option value="ID">Idaho</option>
-														<option value="MT">Montana</option>
-														<option value="NE">Nebraska</option>
-														<option value="NM">New Mexico</option>
-														<option value="ND">North Dakota</option>
-														<option value="UT">Utah</option>
-														<option value="WY">Wyoming</option>
-													</optgroup>
-													<optgroup label="Central Time Zone">
-														<option value="AL">Alabama</option>
-														<option value="AR">Arkansas</option>
-														<option value="IL">Illinois</option>
-														<option value="IA">Iowa</option>
-														<option value="KS">Kansas</option>
-														<option value="KY">Kentucky</option>
-														<option value="LA">Louisiana</option>
-														<option value="MN">Minnesota</option>
-														<option value="MS">Mississippi</option>
-														<option value="MO">Missouri</option>
-														<option value="OK">Oklahoma</option>
-														<option value="SD">South Dakota</option>
-														<option value="TX">Texas</option>
-														<option value="TN">Tennessee</option>
-														<option value="WI">Wisconsin</option>
-													</optgroup>
-													<optgroup label="Eastern Time Zone">
-														<option value="CT">Connecticut</option>
-														<option value="DE">Delaware</option>
-														<option value="FL">Florida</option>
-														<option value="GA">Georgia</option>
-														<option value="IN">Indiana</option>
-														<option value="ME">Maine</option>
-														<option value="MD">Maryland</option>
-														<option value="MA">Massachusetts</option>
-														<option value="MI">Michigan</option>
-														<option value="NH">New Hampshire</option>
-														<option value="NJ">New Jersey</option>
-														<option value="NY">New York</option>
-														<option value="NC">North Carolina</option>
-														<option value="OH">Ohio</option>
-														<option value="PA">Pennsylvania</option>
-														<option value="RI">Rhode Island</option>
-														<option value="SC">South Carolina</option>
-														<option value="VT">Vermont</option>
-														<option value="VA">Virginia</option>
-														<option value="WV">West Virginia</option>
-													</optgroup>
-												</select><span
-													class="select2 select2-container select2-container--bootstrap"
-													dir="ltr" data-select2-id="4" style="width: 206.328125px;"><span
-													class="selection"><span
-														class="select2-selection select2-selection--multiple"
-														role="combobox" aria-haspopup="true" aria-expanded="false"
-														tabindex="-1"><ul
-																class="select2-selection__rendered">
-																<li class="select2-search select2-search--inline"><input
-																	class="select2-search__field" type="search"
-																	tabindex="0" autocomplete="off" autocorrect="off"
-																	autocapitalize="none" spellcheck="false" role="textbox"
-																	aria-autocomplete="list" placeholder=""
-																	style="width: 0.75em;"></li>
-															</ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+									<br> <br> <br> <br> <br> <br> <br>
+									<br>
+									<div class="col-12 col-md-12">
+										<div class="card">
+											<div class="card-body">
+												<div class="form-group">
+													<label for="comment">선택 가능 가맹점</label>
+													<div class="form-control" id="unselectedChains" rows="5">
+														<ul class="nav nav-pills nav-secondary nav-pills-no-bd"
+															id="pills-tab-without-border" role="tablist">
+															<c:forEach var="c" items="${chainList }">
+																<li class="nav-item" id="pill_${c.chainID }"><a
+																	class="nav-link active" data-toggle="pill"
+																	href="#pills-home-nobd" role="tab"
+																	aria-controls="pills-home-nobd" aria-selected="true"
+																	onclick="chainSelected('${c.chainID }','${c.chainName }');">${c.chainName }</a>
+																</li>
+															</c:forEach>
+														</ul>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="comment">선택한 가맹점</label>
+													<div class="form-control" id="selectedChains" rows="5">
+														<ul class="nav nav-pills nav-warning nav-pills-no-bd"
+															id="pills-tab-without-border" role="tablist">
+														</ul>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-
-
+									<br>
 								</div>
-								<br> <br>
 								<div class="row justify-content-center align-items-center">
 									<div class="col-6 col-md-6">
 										<input type="button" class="btn btn-danger btn-block" name=""
-											value="선택" onclick="addContainer();" />
+											value="적용" onclick="addContainer_manyChains();" />
 									</div>
 								</div>
+
 								<br> <br>
 								<div class="row">
 									<div class="col-md-12">
@@ -585,11 +654,12 @@
 											</button> -->
 											<div class="card-body">
 												<div class="responsive">
-													<table id="addContainerTable"
+													<table id="addContainerTable_2"
 														class="table table-head-bg-default mt-4 table-hover table-striped">
 														<thead>
 															<tr>
 																<th>No.</th>
+																<th>가맹점</th>
 																<th>컨테이너 사이즈</th>
 																<th>재료</th>
 																<th>무게</th>
@@ -618,5 +688,3 @@
 </div>
 <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 <script src="assets/js/plugin/select2/select2.full.min.js"></script>
-<script
-	src="assets/js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>

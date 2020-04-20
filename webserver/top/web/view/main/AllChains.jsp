@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -70,7 +70,7 @@
 								type : 'column'
 							},
 							title : {
-								text : 'Total Sales for All Chains'
+								text : '매출 현황 (가맹점 전체)'
 							},
 							accessibility : {
 								announceNewData : {
@@ -145,7 +145,7 @@
 		getData('${year}');
 	});
 </script>
-<h1 class="page-title">Main Page</h1>
+<h1 class="page-title">메인 페이지</h1>
 <div class="card">
 	<div class="card-body">
 		<div class="row">
@@ -154,7 +154,7 @@
 					id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
 						href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-						aria-selected="true" onclick="getData('2019');">All</a>
+						aria-selected="true" onclick="getData('2019');">전체 가맹점</a>
 					<c:forEach var="s" items="${salesData }">
 						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
 							href="#" role="tab" onclick="showContainer('${s.chainID }');"
@@ -164,7 +164,7 @@
 			</div>
 			<div class="col-12 col-md-8">
 				<div class="highcharts-figure">
-					<div class="col-md-5 ml-auto">
+					<div class="col-6 col-md-6 ml-auto">
 						<ul class="nav nav-pills nav-secondary nav-pills-no-bd"
 							id="pills-tab-without-border" role="tablist">
 							<!-- <li class="nav-item submenu"><a class="nav-link active show"
@@ -174,17 +174,17 @@
 								id="pills-profile-tab-nobd" data-toggle="pill"
 								href="#pills-profile-nobd" role="tab"
 								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2019');">2019</a></li>
+								onclick="getData('2019');">2019년</a></li>
 							<li class="nav-item submenu"><a class="nav-link"
 								id="pills-profile-tab-nobd" data-toggle="pill"
 								href="#pills-profile-nobd" role="tab"
 								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2018');">2018</a></li>
+								onclick="getData('2018');">2018년</a></li>
 							<li class="nav-item submenu"><a class="nav-link"
 								id="pills-profile-tab-nobd" data-toggle="pill"
 								href="#pills-profile-nobd" role="tab"
 								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2017');">2017</a></li>
+								onclick="getData('2017');">2017년</a></li>
 						</ul>
 					</div>
 					<br>

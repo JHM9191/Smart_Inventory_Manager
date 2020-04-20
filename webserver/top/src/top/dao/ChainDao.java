@@ -24,4 +24,9 @@ public class ChainDao implements Dao<String, ChainVO> {
 		return chainmapper.selectall();
 	}
 
+	@Override
+	public ArrayList<ChainVO> selectchain(String hqID) {
+		return chainmapper.selectchain(hqID);
+	}
+
 }

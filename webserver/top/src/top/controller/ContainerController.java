@@ -1,7 +1,5 @@
 package top.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import top.frame.Biz;
+import top.vo.ChainVO;
 import top.vo.ContainerVO;
 import top.vo.IngredientVO;
 import top.vo.OrderDetailVO;
@@ -28,6 +27,8 @@ public class ContainerController {
 	Biz<String, IngredientVO> ingbiz;
 	@Resource(name = "orderdetailbiz")
 	Biz<String, OrderDetailVO> odbiz;
+	@Resource(name = "chainbiz")
+	Biz<String, ChainVO> chainbiz;
 
 	// show container page
 	@RequestMapping("/containerProgress.top")
@@ -63,8 +64,15 @@ public class ContainerController {
 			System.out.println(ing);
 		}
 
+		ArrayList<ChainVO> chainList = chainbiz.getChain("cafe_TOP_hq");
+
+		for (ChainVO c : chainList) {
+			System.out.println(c);
+		}
+
 		mv.addObject("center", "../container/containerRegisterWizard");
 		mv.addObject("ingList", ingList);
+		mv.addObject("chainList", chainList);
 		mv.setViewName("main/main");
 		return mv;
 	}

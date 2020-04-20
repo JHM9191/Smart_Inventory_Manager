@@ -26,4 +26,8 @@ public class ChainBiz implements Biz<String, ChainVO> {
 		return dao.selectall();
 	}
 
+	@Override
+	public ArrayList<ChainVO> getChain(String hqID) {
+		return dao.selectchain(hqID);
+	}
 }

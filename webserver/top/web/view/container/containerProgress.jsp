@@ -92,6 +92,7 @@
 	 */
 
 	function makeProgressBar() {
+
 		/*
 		<div id="task-complete" class="chart-circle mt-4 mb-3">
 						<div class="circles-wrp"
@@ -181,5 +182,18 @@
 	<div id="showContainerList"></div>
 </div>
 
-
+<div id="task-complete" class="chart-circle mt-4 mb-3">
+	<div class="circles-wrp"
+		style="position: relative; display: inline-block;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">
+								<path fill="transparent" stroke="#eee" stroke-width="8"
+				d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 74.90138242439691 4.000068488950063 Z"
+				class="circles-maxValueStroke"></path>
+								<path fill="transparent" stroke="#1D62F0" stroke-width="8"
+				d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 7.458509176231658 53.11057293342702 "
+				class="circles-valueStroke"></path></svg>
+		<div class="circles-text"
+			style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 52.5px; height: 150px; line-height: 150px;">80%</div>
+	</div>
+</div>
 

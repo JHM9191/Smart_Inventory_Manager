@@ -10,4 +10,6 @@ public interface ChainMapper {
 
 	public ArrayList<ChainVO> selectall();
 
+	public ArrayList<ChainVO> selectchain(String hqID);
+
 }

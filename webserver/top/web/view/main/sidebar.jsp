@@ -24,7 +24,8 @@
 						<ul class="nav">
 							<li><a href="#profile"> <span class="link-collapse">마이페이지</span>
 							</a></li>
-							<li><a href="#edit"> <span class="link-collapse">마이페이지 수정</span>
+							<li><a href="#edit"> <span class="link-collapse">마이페이지
+										수정</span>
 							</a></li>
 							<li><a href="#settings"> <span class="link-collapse">설정</span>
 							</a></li>
@@ -75,8 +76,9 @@
 				</a></li>
 
 				<!-- Container Management -->
-				<li class="nav-item"><a data-toggle="collapse" href="#charts">
-						<i class="far fa-chart-bar"></i>
+				<li class="nav-item"><a data-toggle="collapse"
+					onclick="location.href='containerRegisterWizard.top'"> <i
+						class="far fa-chart-bar"></i>
 						<p>컨테이너관리</p>
 				</a></li>
 

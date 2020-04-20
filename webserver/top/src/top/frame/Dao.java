@@ -2,6 +2,7 @@ package top.frame;
 
 import java.util.ArrayList;
 
+import top.vo.ChainVO;
 import top.vo.ContainerVO;
 import top.vo.SalesVO;
 
@@ -41,6 +42,11 @@ public interface Dao<Id, Model> {
 
 	// get container data for specific chainID
 	default public ArrayList<ContainerVO> selectForChain(String chainID) {
+		return null;
+	}
+
+	// get container data for specific hq=ID
+	default public ArrayList<ChainVO> selectchain(String hqID) {
 		return null;
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import top.vo.ChainVO;
 import top.vo.SalesVO;
 
 public interface Biz<Id, Model> {
@@ -34,6 +35,7 @@ public interface Biz<Id, Model> {
 	default public ArrayList<SalesVO> getYear(String year) {
 		return null;
 	}
+
 	default public ArrayList<SalesVO> getMonth(String year, Id id) {
 		return null;
 	}
@@ -43,6 +45,10 @@ public interface Biz<Id, Model> {
 	}
 
 	default public ArrayList<Model> getMonthly(String year, Id id) {
+		return null;
+	}
+
+	default public ArrayList<Model> getChain(String id) {
 		return null;
 	}
 
