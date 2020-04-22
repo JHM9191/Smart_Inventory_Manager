@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import top.frame.Biz;
 import top.frame.Dao;
@@ -31,6 +32,7 @@ public class ContainerBiz implements Biz<String, ContainerVO> {
 	
 
 	@Override
+	@Transactional
 	public void register(ContainerVO model) throws Exception {
 		dao.insert(model);
 
