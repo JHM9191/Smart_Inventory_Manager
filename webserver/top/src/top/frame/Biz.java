@@ -32,11 +32,11 @@ public interface Biz<Id, Model> {
 		return null;
 	}
 
-	default public ArrayList<SalesVO> getYear(String year) {
+	default public ArrayList<Model> getYear(String year) {
 		return null;
 	}
 
-	default public ArrayList<SalesVO> getMonth(String year, Id id) {
+	default public ArrayList<Model> getMonth(String year, Id id) {
 		return null;
 	}
 
@@ -48,8 +48,9 @@ public interface Biz<Id, Model> {
 		return null;
 	}
 
-	default public ArrayList<Model> getChain(String id) {
+	default public ArrayList<Model> getbyhq(String id) {
 		return null;
 	}
+	
 
 }

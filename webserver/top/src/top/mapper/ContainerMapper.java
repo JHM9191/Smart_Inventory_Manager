@@ -17,5 +17,6 @@ public interface ContainerMapper {
 	public ArrayList<ContainerVO> selectall();
 
 	public ArrayList<ContainerVO> selectForChain(String chainID);
+	public ArrayList<ContainerVO> selectbyhq(String hqID);
 
 }

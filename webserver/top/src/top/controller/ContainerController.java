@@ -1,5 +1,7 @@
 package top.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -67,7 +69,7 @@ public class ContainerController {
 			System.out.println(ing);
 		}
 
-		ArrayList<ChainVO> chainList = chainbiz.getChain("cafe_TOP_hq");
+		ArrayList<ChainVO> chainList = chainbiz.getbyhq("cafe_TOP_hq");
 
 		for (ChainVO c : chainList) {
 			System.out.println(c);
@@ -99,16 +101,28 @@ public class ContainerController {
 
 	@RequestMapping(value = "/regiContainer.top", method = RequestMethod.POST)
 	@ResponseBody
-	public void regiContainer(@RequestBody ArrayList<ConRegiVO> array) {
+//	public HashMap<String, ArrayList<ContainerVO>> regiContainer(@RequestBody ArrayList<ConRegiVO> array) {
+	public ArrayList<ContainerVO> regiContainer(@RequestBody ArrayList<ConRegiVO> array, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+//		String hqID = (String) session.getAttribute("hqID");
+//		String hqName = (String) session.getAttribute("hqName");
+
+		String hqID = "cafe_TOP_hq";
+		String hqName = "카페TOP본사";
 
 		System.out.println("entered regiContainer method");
 		System.out.println(array);
 		ConRegiVO object = array.get(0);
 		System.out.println(object.toString());
 
+		String regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		System.out.println("regDate : " + regDate);
+
 		for (ConRegiVO c : array) {
 			IngredientVO ing = ingbiz.get(c.getIngID());
 			System.out.println(ing);
+			String ingID = ing.getIngID();
+			String ingName = ing.getIngName();
 
 			String conSize = c.getSize();
 
@@ -127,16 +141,32 @@ public class ContainerController {
 			double conFullWeight = (conFullQuantity * conUnitWeight);
 
 			int conWarningQuantity = c.getWarning();
-			double conWarninWeight = (conWarningQuantity * conUnitWeight);
+			double conWarningWeight = (conWarningQuantity * conUnitWeight);
 
-			String chainID = c.getChainID();
-			if (chainID.equals("same")) {
-				ArrayList<ChainVO> chainList = chainbiz.getChain("cafe_TOP_hq");
+			String chainID_selected = c.getChainID();
+			String chainName_selected = c.getChainName();
+			if (chainID_selected.equals("same")) {
+				ArrayList<ChainVO> chainList = chainbiz.getbyhq(hqID);
 				for (ChainVO ch : chainList) {
-					String chainID_db = ch.getChainID();
-					System.out.println(chainID_db);
-					ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, conFullWeight, conFullQuantity,
-							conWarninWeight, conWarningQuantity, 0, 0, conUnitWeight, ing.getIngID(), chainID_db);
+					String chainID = ch.getChainID();
+					String chainName = ch.getChainName();
+					System.out.println(chainID);
+
+					/**
+					 * 
+					 * String conID; String conSize; double conMaxWeight; String regDate; String
+					 * updateDate; double conFullWeight; int conFullQuantity; double
+					 * conWarningWeight; int conWarningQuantity; double conCurrWeight; int
+					 * conCurrQuantity; double conUnitWeight; String ingID; String ingName; String
+					 * chainID; String chainName; String hqID; String hqName;
+					 * 
+					 * 
+					 * 
+					 */
+
+					ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
+							conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
+							chainID, chainName, hqID, hqName);
 					try {
 						conbiz.register(con);
 					} catch (Exception e) {
@@ -144,9 +174,11 @@ public class ContainerController {
 					}
 				}
 			} else {
-				System.out.println(chainID);
-				ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, conFullWeight, conFullQuantity,
-						conWarninWeight, conWarningQuantity, 0, 0, conUnitWeight, ing.getIngID(), chainID);
+				System.out.println(chainID_selected);
+				System.out.println(chainName_selected);
+				ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
+						conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
+						chainID_selected, chainName_selected, hqID, hqName);
 				try {
 					conbiz.register(con);
 				} catch (Exception e) {
@@ -155,6 +187,30 @@ public class ContainerController {
 			}
 		}
 		System.out.println("Finish registering container");
+		return conbiz.getbyhq("cafe_TOP_hq");
+
+		/**
+		 * 
+		 * 
+		 * Container Table 에 추가되어야할 컬럼들: 1. hqID 2. ingName 3. ingUnit
+		 * 
+		 *
+		 * 
+		 * 
+		 */
+		// return (JSONArray) array;
+//		return (JSONArray) conbiz.getChain("cafe_TOP_hq");
+//		ArrayList<ChainVO> chainList = chainbiz.getChain("cafe_TOP_hq");
+
+//		HashMap<String, ArrayList<ContainerVO>> map = new HashMap<String, ArrayList<ContainerVO>>();
+//		for (ChainVO ch : chainList) {
+//			map.put(ch.getChainName(), conbiz.getForChain(ch.getChainID()));
+//		}
+
+//		map.put("map", conbiz.getChain("cafe_TOP_hq"));
+//		System.out.println(map);
+//		return map;
+
 	}
 
 	// show container page

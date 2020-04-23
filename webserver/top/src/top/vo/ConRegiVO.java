@@ -8,12 +8,14 @@ public class ConRegiVO {
 	int quantity;
 	int warning;
 	String chainID;
+	String chainName;
 
 	public ConRegiVO() {
 
 	}
 
-	public ConRegiVO(String size, String ing, String ingID, int quantity, int warning, String chainID) {
+	public ConRegiVO(String size, String ing, String ingID, int quantity, int warning, String chainID,
+			String chainName) {
 		super();
 		this.size = size;
 		this.ing = ing;
@@ -21,6 +23,7 @@ public class ConRegiVO {
 		this.quantity = quantity;
 		this.warning = warning;
 		this.chainID = chainID;
+		this.chainName = chainName;
 	}
 
 	public String getSize() {
@@ -71,10 +74,18 @@ public class ConRegiVO {
 		this.chainID = chainID;
 	}
 
+	public String getChainName() {
+		return chainName;
+	}
+
+	public void setChainName(String chainName) {
+		this.chainName = chainName;
+	}
+
 	@Override
 	public String toString() {
 		return "ConRegiVO [size=" + size + ", ing=" + ing + ", ingID=" + ingID + ", quantity=" + quantity + ", warning="
-				+ warning + ", chainID=" + chainID + "]";
+				+ warning + ", chainID=" + chainID + ", chainName=" + chainName + "]";
 	}
 
 }

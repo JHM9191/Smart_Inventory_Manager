@@ -26,10 +26,14 @@ public class ContainerBiz implements Biz<String, ContainerVO> {
 	public ArrayList<ContainerVO> get() {
 		return dao.selectall();
 	}
+
 	public ArrayList<ContainerVO> getForChain(String chainID) {
 		return dao.selectForChain(chainID);
 	}
-	
+
+	public ArrayList<ContainerVO> getbyhq(String hqID) {
+		return dao.selectbyhq(hqID);
+	}
 
 	@Override
 	@Transactional

@@ -6,9 +6,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.ContainerMapper">
 
-<!--String conID;
+<!--
+	String conID;
 	String conSize;
 	double conMaxWeight;
+	String regDate;
+	String updateDate;
 	double conFullWeight;
 	int conFullQuantity;
 	double conWarningWeight;
@@ -17,11 +20,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	int conCurrQuantity;
 	double conUnitWeight;
 	String ingID;
+	String ingName;
 	String chainID;
+	String chainName;
+	String hqID;
+	String hqName;
  -->	
 	<insert id="insert" parameterType="container"> 
-		INSERT INTO CONTAINER VALUES ('CONID_'||TO_CHAR(CONID_seq.NEXTVAL),#{conSize},#{conMaxWeight},#{conFullWeight},#{conFullQuantity},
-		#{conWarningWeight},#{conWarningQuantity},#{conCurrWeight},#{conCurrQuantity},#{conUnitWeight},#{ingID},#{chainID})	
+		INSERT INTO CONTAINER VALUES ('CONID_'||TO_CHAR(CONID_seq.NEXTVAL),#{conSize},#{conMaxWeight},#{conRegDate},#{conUpdateDate},#{conFullWeight},#{conFullQuantity},#{conWarningWeight},#{conWarningQuantity},#{conCurrWeight},#{conCurrQuantity},#{conUnitWeight},#{ingID},#{ingName},#{chainID},#{chainName},#{hqID},#{hqName})	
 	</insert>
 
 	<update id = "update" parameterType="container">
@@ -41,6 +47,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<select id="selectall" resultType="container">
 		SELECT * FROM CONTAINER
+	</select>
+	
+	<select id="selectbyhq" parameterType= "String" resultType="container">
+		SELECT * FROM CONTAINER WHERE hqID=#{hqID}
 	</select>
 	
 	<select id="selectForChain" parameterType= "String" resultType="container">

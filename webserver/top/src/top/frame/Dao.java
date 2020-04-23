@@ -24,29 +24,29 @@ public interface Dao<Id, Model> {
 
 	public ArrayList<Model> selectall();
 
-	default public ArrayList<SalesVO> selectYear(String year) {
+	default public ArrayList<Model> selectYear(String year) {
 		return null;
 	}
 
-	default public ArrayList<SalesVO> selectMonth(String year, String id) {
+	default public ArrayList<Model> selectMonth(String year, String id) {
 		return null;
 	}
 
-	default public ArrayList<SalesVO> selectYearly(String id) {
+	default public ArrayList<Model> selectYearly(String id) {
 		return null;
 	}
 
-	default public ArrayList<SalesVO> selectMonthly(String id) {
+	default public ArrayList<Model> selectMonthly(String id) {
 		return null;
 	}
 
 	// get container data for specific chainID
-	default public ArrayList<ContainerVO> selectForChain(String chainID) {
+	default public ArrayList<Model> selectForChain(String id) {
 		return null;
 	}
 
 	// get container data for specific hq=ID
-	default public ArrayList<ChainVO> selectchain(String hqID) {
+	default public ArrayList<Model> selectbyhq(String id) {
 		return null;
 	}
 

@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<select id="selectchain" parameterType="String" resultType="chain">
+	<select id="selectbyhq" parameterType="String" resultType="chain">
 		SELECT * FROM CHAIN WHERE hqID=#{hqID}
 	</select>
 	<select id="selectall" resultType="chain">

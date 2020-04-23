@@ -41,7 +41,7 @@
 				var ingID = container[9];
 				var quantity = container[5];
 				var warning = container[10];
-				var chainlist = container[12];
+				var chainID = container[12];
 			} else {
 				var size = container[12];
 				var ing = container[4];
@@ -49,14 +49,16 @@
 				var quantity = container[6];
 				var warning = container[11];
 				var chainID = container[13];
+				var chainName = container[1];
 				console.log('chainID : ' + chainID);
+				console.log('chainName : ' + chainName);
 			}
 
 			if (input == 'sameContainer') {
 				chainID = 'same';
 			}
-			console.log('chainlist : ' + chainlist);
-			console.log('typeof(chainlist) : ' + typeof (chainlist));
+			//console.log('chainlist : ' + chainlist);
+			//console.log('typeof(chainlist) : ' + typeof (chainlist));
 			var obj = new Object();
 			obj.size = size;
 			obj.ing = ing;
@@ -64,22 +66,27 @@
 			obj.quantity = quantity;
 			obj.warning = warning;
 			obj.chainID = chainID;
+			obj.chainName = chainName;
 			array.push(obj);
 		}
 		console.log(array);
 		$.ajax({
 			url : 'regiContainer.top',
-			type : 'POST',
+			type : 'post',
 			contentType : 'application/json; charset=utf-8',
 			dataType : 'json',
 			data : JSON.stringify(array),
-			/* data : {
-				"list" : JSON.stringify(list)
-			}, */
-			success : function(data) {
-
+			success : function(result) {
+				alert('Container(s) Successfully Registered.');
+				console.log('success return data : ' + result[0]);
+				console.log(result[0]['conID']);
+				console.log(result[0]['conSize']);
+				showConList(result);
+			},
+			error : function(response) {
+				alert('error : ' + response);
 			}
-		})
+		});
 
 		/*
 		$('#regiContainerListTable').DataTable({
@@ -105,6 +112,32 @@
 
 	}
 
+	function showConList(conList) {
+		$('#regiContainerListTable').DataTable();
+		var num = 1;
+		for (var i = 0; i < conList.length; i++) {
+			var conID = conList[i]['conID'];
+			var conSize = conList[i]['conSize'];
+			var conMaxWeight = conList[i]['conMaxWeight'];
+			var conFullWeight = conList[i]['conFullWeight'];
+			var conFullQuantity = conList[i]['conFullQuantity'];
+			var conWarningWeight = conList[i]['conWarningWeight'];
+			var conWarningQuantity = conList[i]['conWarningQuantity'];
+			var ingName = conList[i]['ingName'];
+			var chainName = conList[i]['chainName'];
+
+			//var action = ;
+
+			$('#regiContainerListTable').dataTable().fnAddData(
+					[ num, conID, conSize, conMaxWeight, conFullWeight,
+							conFullQuantity, conWarningWeight,
+							conWarningQuantity, ingName, chainName ]);
+
+			num++;
+		}
+
+	}
+
 	//********************************************//
 	//
 	function addContainer(input) {
@@ -119,7 +152,6 @@
 		var warning = $('#select_warning').val();
 		var unit = $('input[name="' + ing + '_unit').val();
 		var price = $('input[name="' + ing + '_price').val();
-		//var ingID = $('input[name="' + ing + '_ID]').val();
 		var ingID = $('#ingID_same_' + ing).val();
 		if (size == "small") {
 			if ((weight * cnt) > 20) {
@@ -176,17 +208,6 @@
 		console.log(weight);
 		console.log(weight * cnt);
 
-		/*
-		 $.ajax({
-		 url : "insertContainer.top?size=" + size + "&ing=" + ing + "&cnt="
-		 + cnt,
-		 success : function(data) {
-		 console.log(data);
-		 }
-		 });
-		
-		 */
-
 		num += 1;
 		var action = '<td> <div class=\"form-button-action\"> <button type=\"button" onclick="editRow('
 				+ num
@@ -221,33 +242,7 @@
 					console.log('entered on mouseleave');
 					$(this).removeClass('selected');
 				});
-		//var column = table.column(9);
-		//column.visible(true);
 	};
-
-	/* var editor = $('#addContainerTable').mdbEditor({
-		mdbEditor: true;
-	});
-	// Edit record
-	$('#addContainerTable').on('click', 'button.editor_edit', function(e) {
-		e.preventDefault();
-
-		editor.edit($(this).closest('tr'), {
-			title : 'Edit record',
-			buttons : 'Update'
-		});
-	});
-
-	// Delete a record
-	$('#example').on('click', 'a.editor_remove', function(e) {
-		e.preventDefault();
-
-		editor.remove($(this).closest('tr'), {
-			title : 'Delete record',
-			message : 'Are you sure you wish to remove this record?',
-			buttons : 'Delete'
-		});
-	}); */
 
 	function removeRow(input) {
 
@@ -255,16 +250,6 @@
 		console.log(input);
 
 		var table = $('#addContainerTable_' + input).DataTable();
-		/* var table = $('#addContainerTable').DataTable(); */
-		/*
-
-		$('tr button.remove').click(function() {
-			console.log('this.click');
-
-			table.row('.selected').remove();
-
-		});
-		 */
 
 		table.row('.selected').on(
 				'click',
@@ -307,17 +292,6 @@
 						+ chainName + '\',\'' + ingID + '\',' + warning + ',\''
 						+ size + '\',\'' + chainID + '\')');
 
-		/*
-		table.row('.selected').on(
-				'click',
-				'tr button.edit',
-				function() {
-
-					$('#addContainerTable').dataTable().fnDeleteRow(
-							table.row('.selected'));
-
-				});
-		 */
 	};
 
 	function updateRow(num, row, input, chainName, ingID, warning, size,
@@ -417,15 +391,6 @@
 							action, ingID, warning, size, chainID ], row); // Row
 		}
 
-		/*
-		$('#addContainerTable_diffContainer').dataTable().fnAddData(
-					[ num_2, chainName, size_name, max_container_weight, ing,
-							weight + unit, cnt, (cnt * weight) + unit,
-							warning + '(' + (weight * warning) + unit + ' )',
-							action, ingID, warning, size, chainID ]);
-		
-		 */
-
 	};
 
 	//********************************************//
@@ -448,7 +413,7 @@
 	};
 
 	function chainCancelled(chainID, chainName) {
-		$('#p' + chainID).remove();
+		$('#' + chainID).remove();
 		$('#unselectedChains ul')
 				.append(
 						'<li class="nav-item" id="'+ chainID + '"><a class="nav-link active" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true" onclick="chainSelected(\''
@@ -1224,14 +1189,15 @@
 											<thead>
 												<tr>
 													<th>No.</th>
+													<th>컨테이너 ID</th>
 													<th>컨테이너 사이즈</th>
-													<th>최고 허용 무게</th>
-													<th>재료</th>
-													<th>무게</th>
-													<th>수량</th>
-													<th>총무게</th>
-													<th>경고 수량(무게)</th>
-													<th style="width: 5%"></th>
+													<th>컨테이너 최고 허용 무게</th>
+													<th>가득찼을 때 무게</th>
+													<th>가득찼을 때 수량</th>
+													<th>경고 무게</th>
+													<th>경고 수량</th>
+													<th>재료 ID</th>
+													<th>가맹점 ID</th>
 												</tr>
 											</thead>
 											<tbody id="tbody_data_row_3">

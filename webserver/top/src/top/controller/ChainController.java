@@ -27,9 +27,9 @@ public class ChainController {
 	@RequestMapping("/addContainer.top")
 	public void addContainer() {
 
-		ContainerVO c1 = new ContainerVO("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003",
-				"chainID_1000000");
-		sendToTablet(c1);
+//		ContainerVO c1 = new ContainerVO("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003",
+//				"chainID_1000000");
+		// sendToTablet(c1);
 
 	}
 
@@ -60,8 +60,9 @@ public class ChainController {
 
 		System.out.println(conID + " | " + conFullWeight + " | " + conCurrWeight + " | " + conWarningWeight + " | "
 				+ ingID + " | " + chainID);
-		ContainerVO con = new ContainerVO(conID, conFullWeight, conCurrWeight, conWarningWeight, ingID, chainID);
-		saveConData(con, conID, chainID, conCurrWeight);
+		// ContainerVO con = new ContainerVO(conID, conFullWeight, conCurrWeight,
+		// conWarningWeight, ingID, chainID);
+		// saveConData(con, conID, chainID, conCurrWeight);
 	}
 
 	@RequestMapping("/getRealTimeContainerData.top")
@@ -76,14 +77,12 @@ public class ChainController {
 			System.out.println("key : " + key);
 			if (key.equals(chainID)) {
 				ArrayList<ContainerVO> list = conMap.get(key);
-				
+
 				list.sort(new Comparator<ContainerVO>() {
 
 					@Override
 					public int compare(ContainerVO o1, ContainerVO o2) {
-						
-						
-						
+
 						int con1 = Integer.parseInt(o1.getConID().substring(6));
 						int con2 = Integer.parseInt(o2.getConID().substring(6));
 						if (con1 == con2) {
