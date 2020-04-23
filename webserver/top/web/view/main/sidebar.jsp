@@ -3,7 +3,6 @@
 	pageEncoding="UTF-8"%>
 <!-- Sidebar START -->
 <div class="sidebar">
-
 	<div class="sidebar-background"></div>
 	<div class="sidebar-wrapper scrollbar-inner">
 		<div class="sidebar-content">
@@ -33,7 +32,6 @@
 					</div>
 				</div>
 			</div>
-
 
 			<!-- MENU START HERE -->
 			<ul class="nav">
@@ -76,11 +74,26 @@
 				</a></li>
 
 				<!-- Container Management -->
-				<li class="nav-item"><a data-toggle="collapse"
-					onclick="location.href='containerRegisterWizard.top'"> <i
-						class="far fa-chart-bar"></i>
-						<p>컨테이너관리</p>
-				</a></li>
+				<li class="nav-item"><a data-toggle="collapse" href="#submenu"
+					class="collapsed" aria-expanded="false"> <i
+						class="far fa-chart-bar" aria-expanded="false"></i>
+						<p>컨테이너관리</p> <span class="caret"></span>
+				</a>
+					<div class="collapse" id="submenu" style>
+						<ul>
+							<li class="submenu"><a data-toggle="collapse"
+								href="#subnav1" class=""
+								onclick="location.href='containerRegisterWizard.top'"> <span
+									class="sub-item">컨테이너 추가</span>
+							</a></li>
+							<li class="submenu"><a data-toggle="collapse"
+								href="#subnav1" class=""
+								onclick="location.href='showContainerUpdateList.top'"> <span
+									class="sub-item">컨테이너 수정</span>
+							</a></li>
+						</ul>
+					</div></li>
+
 
 				<!-- A/S Center -->
 				<li class="nav-item"><a href="widgets.html"> <i

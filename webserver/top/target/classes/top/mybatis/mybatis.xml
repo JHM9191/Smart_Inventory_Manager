@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
 		<typeAlias type="top.vo.UserVO" alias="user" />
 		<typeAlias type="top.vo.IngredientVO" alias="ingredient" />
 		<typeAlias type="top.vo.ChainVO" alias="chain" />
-		<typeAlias type="top.vo.ContainerVO" alias="container" />
+		<typeAlias type="top.vo.ContainerVO" alias="containerVO" />
 		<typeAlias type="top.vo.OrderVO" alias="order" />
 		<typeAlias type="top.vo.OrderDetailVO" alias="orderdetail" />
 		<typeAlias type="top.vo.SalesVO" alias="sales" />

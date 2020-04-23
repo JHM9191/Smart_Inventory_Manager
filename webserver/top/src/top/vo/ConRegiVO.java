@@ -3,7 +3,7 @@ package top.vo;
 public class ConRegiVO {
 
 	String size;
-	String ing;
+	String ingName;
 	String ingID;
 	int quantity;
 	int warning;
@@ -14,11 +14,11 @@ public class ConRegiVO {
 
 	}
 
-	public ConRegiVO(String size, String ing, String ingID, int quantity, int warning, String chainID,
+	public ConRegiVO(String size, String ingName, String ingID, int quantity, int warning, String chainID,
 			String chainName) {
 		super();
 		this.size = size;
-		this.ing = ing;
+		this.ingName = ingName;
 		this.ingID = ingID;
 		this.quantity = quantity;
 		this.warning = warning;
@@ -34,12 +34,12 @@ public class ConRegiVO {
 		this.size = size;
 	}
 
-	public String getIng() {
-		return ing;
+	public String getIngName() {
+		return ingName;
 	}
 
-	public void setIng(String ing) {
-		this.ing = ing;
+	public void setIngName(String ingName) {
+		this.ingName = ingName;
 	}
 
 	public String getIngID() {
@@ -84,8 +84,8 @@ public class ConRegiVO {
 
 	@Override
 	public String toString() {
-		return "ConRegiVO [size=" + size + ", ing=" + ing + ", ingID=" + ingID + ", quantity=" + quantity + ", warning="
-				+ warning + ", chainID=" + chainID + ", chainName=" + chainName + "]";
+		return "ConRegiVO [size=" + size + ", ingName=" + ingName + ", ingID=" + ingID + ", quantity=" + quantity
+				+ ", warning=" + warning + ", chainID=" + chainID + ", chainName=" + chainName + "]";
 	}
 
 }

@@ -1040,7 +1040,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>cdmic</extension>
-        <mime-type>application/cdmi-container</mime-type>
+        <mime-type>application/cdmi-containerVO</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>cdmid</extension>
@@ -3447,7 +3447,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>sc</extension>
-        <mime-type>application/vnd.ibm.secure-container</mime-type>
+        <mime-type>application/vnd.ibm.secure-containerVO</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>scd</extension>

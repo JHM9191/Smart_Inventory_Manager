@@ -37,14 +37,14 @@
 			console.log(container);
 			if (input == 'sameContainer') {
 				var size = container[11];
-				var ing = container[3];
+				var ingName = container[3];
 				var ingID = container[9];
 				var quantity = container[5];
 				var warning = container[10];
 				var chainID = container[12];
 			} else {
 				var size = container[12];
-				var ing = container[4];
+				var ingName = container[4];
 				var ingID = container[10];
 				var quantity = container[6];
 				var warning = container[11];
@@ -61,7 +61,7 @@
 			//console.log('typeof(chainlist) : ' + typeof (chainlist));
 			var obj = new Object();
 			obj.size = size;
-			obj.ing = ing;
+			obj.ingName = ingName;
 			obj.ingID = ingID;
 			obj.quantity = quantity;
 			obj.warning = warning;
@@ -391,6 +391,8 @@
 							action, ingID, warning, size, chainID ], row); // Row
 		}
 
+		$('#updateRowModal').modal('hide');
+
 	};
 
 	//********************************************//
@@ -591,7 +593,6 @@
 										<c:forEach var="ing" items="${ingList }">
 											<option value="${ing.ingName }" data-select2-id="16">${ing.ingName }
 												${ing.ingWeight } ${ing.ingUnit } (${ing.ingPrice }원)</option>
-
 										</c:forEach>
 										<c:forEach var="ing" items="${ingList }">
 											<input type="hidden" name="${ing.ingName }_weight"
@@ -639,30 +640,6 @@
 						</div>
 						<input type="hidden" value="" />
 					</div>
-
-					<!-- 
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group form-group-default">
-								<label>No</label> <input id="addName" type="text"
-									class="form-control" placeholder="fill name">
-							</div>
-						</div>
-						<div class="col-md-6 pr-0">
-							<div class="form-group form-group-default">
-								<label>Position</label> <input id="addPosition" type="text"
-									class="form-control" placeholder="fill position">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-group-default">
-								<label>Office</label> <input id="addOffice" type="text"
-									class="form-control" placeholder="fill office">
-							</div>
-						</div>
-					</div>
-					
-					-->
 				</form>
 			</div>
 			<div class="modal-footer no-bd">
@@ -741,7 +718,7 @@
 
 										</div>
 									</div>
-									<div class="col-4 pl-md-0 pr-md-0">
+									<div class="col-4 pl-md-0">
 										<div class="card card-pricing">
 											<div class="card-header">
 												<!-- <h4 class="card-title">커스터마이즈</h4> -->

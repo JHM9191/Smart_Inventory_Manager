@@ -178,16 +178,16 @@ $grid-breakpoints: (
 
 // Grid containers
 //
-// Define the maximum width of `.container` for different screen sizes.
+// Define the maximum width of `.containerVO` for different screen sizes.
 
-$container-max-widths: (
+$containerVO-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
   xl: 1140px
 ) !default;
 
-@include _assert-ascending($container-max-widths, "$container-max-widths");
+@include _assert-ascending($containerVO-max-widths, "$containerVO-max-widths");
 
 
 // Grid columns
@@ -527,7 +527,7 @@ $form-feedback-invalid-color:       theme-color("danger") !default;
 
 // Dropdowns
 //
-// Dropdown menu container and contents.
+// Dropdown menu containerVO and contents.
 
 $dropdown-min-width:                10rem !default;
 $dropdown-padding-y:                .5rem !default;

@@ -1,26 +1,18 @@
 package devlight.io.tabletUI2;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import devlight.io.tabletUI2.adapter.ProgressItemAdapter;
 import devlight.io.tabletUI2.vo.Container;
@@ -54,22 +46,48 @@ public class ProgressActivity extends AppCompatActivity {
         recyclerView.setAdapter(progressItemAdapter);
 
 
-        new Thread(new RandomDataThread()).start();
+//        new Thread(new RandomDataThread()).start();
 
 //        initUI2();
+
+        new Thread(new FetchData("chainID_1000000")).start();
+    }
+
+
+    class FetchData implements Runnable {
+
+        String urlstr = "http://192.168.43.2:8080/top/fetchContainerData.top?chainID=";
+
+        public FetchData(String chainID) {
+            urlstr += chainID;
+        }
+
+        @Override
+        public void run() {
+
+            URL url = null;
+            try {
+                url = new URL(urlstr);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.getInputStream();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
     private void getData() {
 
-        Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000000");
-        Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000000");
-        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_100000");
-        Container c4 = new Container("CONID_1000003", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
-        Container c5 = new Container("CONID_1000004", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000004", "chainID_1000000");
-        Container c6 = new Container("CONID_1000005", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000005", "chainID_1000000");
-        Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000000");
-        Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000000");
+
+//        Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000000");
+//        Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000000");
+//        Container c3 = new Container("CONID_1000002", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000002", "chainID_100000");
+//        Container c4 = new Container("CONID_1000003", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003", "chainID_1000000");
+//        Container c5 = new Container("CONID_1000004", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000004", "chainID_1000000");
+//        Container c6 = new Container("CONID_1000005", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000005", "chainID_1000000");
+//        Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000000");
+//        Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000000");
 
 //        Container c1 = new Container("CONID_1000000", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000000", "chainID_1000001");
 //        Container c2 = new Container("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000001", "chainID_1000001");
@@ -80,14 +98,14 @@ public class ProgressActivity extends AppCompatActivity {
 //        Container c7 = new Container("CONID_1000006", "500", 50.0, 40.0, 20, 20.0, 5, 10.0, 5, 1.0, "ingID_1000006", "chainID_1000001");
 //        Container c8 = new Container("CONID_1000007", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000007", "chainID_1000001");
 
-        conList.add(c1);
-        conList.add(c2);
-        conList.add(c3);
-        conList.add(c4);
-        conList.add(c5);
-        conList.add(c6);
-        conList.add(c7);
-        conList.add(c8);
+//        conList.add(c1);
+//        conList.add(c2);
+//        conList.add(c3);
+//        conList.add(c4);
+//        conList.add(c5);
+//        conList.add(c6);
+//        conList.add(c7);
+//        conList.add(c8);
 
 
     }
@@ -105,9 +123,9 @@ public class ProgressActivity extends AppCompatActivity {
                     double fullWeight = conList.get(i).getConFullWeight();
 
 
-                    double ranNum =  (Math.random() * fullWeight);
+                    double ranNum = (Math.random() * fullWeight);
 
-                    Log.d("===", ranNum+"");
+                    Log.d("===", ranNum + "");
                     conList.get(i).setConCurrWeight(ranNum);
                     new Thread(new SendContainerInfoToWebServer(conList.get(i).getConID(), conList.get(i).getConFullWeight(), conList.get(i).getConCurrWeight(), conList.get(i).getConWarningWeight(), conList.get(i).getIngID(), conList.get(i).getChainID())).start();
 

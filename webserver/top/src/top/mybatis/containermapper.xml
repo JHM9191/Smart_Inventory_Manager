@@ -21,17 +21,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	double conUnitWeight;
 	String ingID;
 	String ingName;
+	String ingWeight;
 	String chainID;
 	String chainName;
 	String hqID;
 	String hqName;
  -->	
-	<insert id="insert" parameterType="container"> 
-		INSERT INTO CONTAINER VALUES ('CONID_'||TO_CHAR(CONID_seq.NEXTVAL),#{conSize},#{conMaxWeight},#{conRegDate},#{conUpdateDate},#{conFullWeight},#{conFullQuantity},#{conWarningWeight},#{conWarningQuantity},#{conCurrWeight},#{conCurrQuantity},#{conUnitWeight},#{ingID},#{ingName},#{chainID},#{chainName},#{hqID},#{hqName})	
+	<insert id="insert" parameterType="containerVO">
+		INSERT INTO CONTAINER VALUES ('CONID_'||TO_CHAR(CONID_seq.NEXTVAL),#{conSize},#{conMaxWeight},#{conRegDate},#{conUpdateDate},#{conFullWeight},#{conFullQuantity},#{conWarningWeight},#{conWarningQuantity},#{conCurrWeight},#{conCurrQuantity},#{conUnitWeight},#{ingID},#{ingName},#{ingWeight},#{chainID},#{chainName},#{hqID},#{hqName})	
 	</insert>
 
-	<update id = "update" parameterType="container">
-		UPDATE CONTAINER SET CONWARNINGWEIGHT=#{conWarningWeight},CONWARNINGQUANTITY=#{conWarningQuantity},CONUNITWEIGHT=#{conUnitWeight}
+	<update id = "update" parameterType="containerVO">
+		UPDATE CONTAINER SET conFullQuantity=#{conFullQuantity},conFullWeight=#{conFullWeight},conWarningWeight=#{conWarningWeight},conWarningQuantity=#{conWarningQuantity},conUnitWeight=#{conUnitWeight},ingID=#{ingID},ingName=#{ingName},ingWeight=#{ingWeight}
 		WHERE CONID=#{conID}
 	
 	</update>
@@ -40,20 +41,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM CONTAINER WHERE conID=#{conID}
 	</delete>
 
-	<select id="select" parameterType="String" resultType="container">
+	<select id="select" parameterType="String" resultType="containerVO">
 		SELECT * FROM CONTAINER WHERE conID=#{conID}
 	</select>
 	
 	
-	<select id="selectall" resultType="container">
+	<select id="selectall" resultType="containerVO">
 		SELECT * FROM CONTAINER
 	</select>
 	
-	<select id="selectbyhq" parameterType= "String" resultType="container">
+	<select id="selectbyhq" parameterType= "String" resultType="containerVO">
 		SELECT * FROM CONTAINER WHERE hqID=#{hqID}
 	</select>
 	
-	<select id="selectForChain" parameterType= "String" resultType="container">
+	<select id="selectForChain" parameterType= "String" resultType="containerVO">
 		SELECT * FROM CONTAINER WHERE chainID=#{chainID}
 	</select>
 </mapper>

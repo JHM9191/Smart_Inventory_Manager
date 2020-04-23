@@ -1,49 +1,146 @@
 package top.controller;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import client.Client;
-import msg.Msg;
+import top.frame.Biz;
 import top.vo.ContainerVO;
 
 @Controller
 public class ChainController {
 
+	@Resource(name = "conbiz")
+	Biz<String, ContainerVO> conbiz;
+
 	HashMap<String, ArrayList<ContainerVO>> conMap = new HashMap<String, ArrayList<ContainerVO>>();
 
 	ArrayList<ContainerVO> conList = null;
 
-	// HQ add IoT Container to specific Chain
-	@RequestMapping("/addContainer.top")
-	public void addContainer() {
+	// Fetch IoT Container info for a specific chain when chain tablet sends
+	// request.
+	@RequestMapping("/fetchContainerData.top")
+	public void fetchContainerData(HttpServletRequest req) {
+		String chainID = req.getParameter("chainID");
+		System.out.println(chainID);
 
-//		ContainerVO c1 = new ContainerVO("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003",
-//				"chainID_1000000");
-		// sendToTablet(c1);
+		ArrayList<ContainerVO> conList = conbiz.getForChain(chainID);
+		System.out.println(conList);
+
+		// send notification to manageApp regardless of the said conditions above
+		URL url = null;
+		try {
+			url = new URL("https://fcm.googleapis.com/fcm/send");
+		} catch (MalformedURLException e) {
+			System.out.println("Error while creating Firebase URL | MalformedURLException");
+			e.printStackTrace();
+		}
+		HttpURLConnection conn = null;
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+		} catch (IOException e) {
+			System.out.println("Error while createing connection with Firebase URL | IOException");
+			e.printStackTrace();
+		}
+		conn.setUseCaches(false);
+		conn.setDoInput(true);
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		// set my firebase server key
+		conn.setRequestProperty("Authorization", "key="
+				+ "AAAAoMmzl84:APA91bHIGDTXVb45_HKSfAFsr-IGf1K_gvHgQ4p9AMNUD77S5Pv7O4jGXSo-4XQ1aTS4ZDc1db8_8S0VHZsUAJfUwLXCINoPykcoKUJ3CVgUp4JdsD0KnigqqVWzm1ZfgZChI6cTCK1Q");
+
+		// create notification message into JSON format
+		JSONObject message = new JSONObject();
+//		message.put("to",
+//				"cmm9ME4d9Ss:APA91bGxP8xrtRCzEof13dArAAuJKGODYi7uejryVTxkdndEoUxC0NTw2LbNNhUizHS38syfGTmHRBRUzCXj5HLgkQcb2XYeE4eiyGG-kKHSU-OPbSet2AMU_yjv0gQMg0RDLhNy920d");
+		message.put("to", "/topics/chainTablet");
+		message.put("priority", "high");
+		JSONObject notification = new JSONObject();
+		notification.put("title", chainID);
+		notification.put("body", "fetch");
+		message.put("notification", notification);
+		JSONArray conListArray = new JSONArray();
+		
+		for (ContainerVO con : conList) {
+			JSONObject jo = new JSONObject();
+			jo.put("conID", con.getConID());
+			jo.put("conSize", con.getConSize());
+			jo.put("conMaxWeight", con.getConMaxWeight());
+			jo.put("conRegDate", con.getConRegDate());
+			jo.put("conUpdateDate", con.getConUpdateDate());
+			jo.put("conFullWeight", con.getConFullWeight());
+			jo.put("conFullQuantity", con.getConFullQuantity());
+			jo.put("conWarningWeight", con.getConWarningWeight());
+			jo.put("conWarningQuantity", con.getConWarningQuantity());
+			jo.put("conCurrWeight", con.getConCurrWeight());
+			jo.put("conCurrQuantity", con.getConCurrQuantity());
+			jo.put("conUnitWeight", con.getConUnitWeight());
+			jo.put("ingID", con.getIngID());
+			jo.put("ingName", con.getIngName());
+			jo.put("ingWeight", con.getIngWeight());
+			jo.put("chainID", con.getChainID());
+			jo.put("chainName", con.getChainName());
+			jo.put("hqID", con.getHqID());
+			jo.put("hqName", con.getHqName());
+			conListArray.add(jo);
+		}
+		JSONObject list = new JSONObject();
+		list.put("list", conListArray);
+		message.put("data", list);
+
+		// send data to firebase (http method)
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+			out.write(message.toString());
+			out.flush();
+			conn.getInputStream();
+		} catch (IOException e) {
+			System.out.println("Error while writing outputstream to firebase sending to ManageApp | IOException");
+			e.printStackTrace();
+		}
 
 	}
 
-	public void sendToTablet(ContainerVO container) {
-		Client client = null;
-
-		String serverIP = "192.168.43.2";
-
-		client = new Client(serverIP, 8888);
-
-		Msg msg = new Msg(serverIP, "webserver", "/192.168.43.2");
-		client.startClient(msg);
-
-	}
+//
+//	// HQ add IoT Container to specific Chain
+//	@RequestMapping("/addContainer.top")
+//	public void addContainer() {
+//
+////		ContainerVO c1 = new ContainerVO("CONID_1000001", "100", 10.0, 8.0, 40, 2.0, 10, 6.0, 30, 0.2, "ingID_1000003",
+////				"chainID_1000000");
+//		// sendToTablet(c1);
+//
+//	}
+//
+//	public void sendToTablet(ContainerVO container) {
+//		Client client = null;
+//
+//		String serverIP = "192.168.43.2";
+//
+//		client = new Client(serverIP, 8888);
+//
+//		Msg msg = new Msg(serverIP, "webserver", "/192.168.43.2");
+//		client.startClient(msg);
+//
+//	}
 
 	// show List of registered IoT containers of specific Chain
 

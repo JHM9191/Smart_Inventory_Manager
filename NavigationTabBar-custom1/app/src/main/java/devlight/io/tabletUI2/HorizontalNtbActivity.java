@@ -3,15 +3,14 @@ package devlight.io.tabletUI2;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import devlight.io.library.ntb.NavigationTabBar;
-import devlight.io.tabletUI2.R;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 
 import java.util.ArrayList;
 

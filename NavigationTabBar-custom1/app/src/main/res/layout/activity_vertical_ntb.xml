@@ -18,7 +18,7 @@
         app:ntb_title_size="14sp"
         app:ntb_titled="true" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_vertical_ntb"
         android:layout_width="0dp"
         android:layout_height="match_parent"

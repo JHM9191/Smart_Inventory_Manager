@@ -2,7 +2,7 @@
 //
 // Generate semantic grid columns with these mixins.
 
-@mixin make-container() {
+@mixin make-containerVO() {
   width: 100%;
   padding-right: ($grid-gutter-width / 2);
   padding-left: ($grid-gutter-width / 2);
@@ -11,11 +11,11 @@
 }
 
 
-// For each breakpoint, define the maximum width of the container in a media query
-@mixin make-container-max-widths($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
-  @each $breakpoint, $container-max-width in $max-widths {
+// For each breakpoint, define the maximum width of the containerVO in a media query
+@mixin make-containerVO-max-widths($max-widths: $containerVO-max-widths, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint, $containerVO-max-width in $max-widths {
     @include media-breakpoint-up($breakpoint, $breakpoints) {
-      max-width: $container-max-width;
+      max-width: $containerVO-max-width;
     }
   }
 }

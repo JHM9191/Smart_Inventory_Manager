@@ -25,8 +25,8 @@
 
   // Because flex properties aren't inherited, we need to redeclare these first
   // few properities so that content nested within behave properly.
-  > .container,
-  > .container-fluid {
+  > .containerVO,
+  > .containerVO-fluid {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -144,8 +144,8 @@
 
     &#{$infix} {
       @include media-breakpoint-down($breakpoint) {
-        > .container,
-        > .container-fluid {
+        > .containerVO,
+        > .containerVO-fluid {
           padding-right: 0;
           padding-left: 0;
         }
@@ -174,8 +174,8 @@
         }
 
         // For nesting containers, have to redeclare for alignment purposes
-        > .container,
-        > .container-fluid {
+        > .containerVO,
+        > .containerVO-fluid {
           flex-wrap: nowrap;
         }
 

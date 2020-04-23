@@ -254,7 +254,7 @@
 }
 
 @media screen and (max-width: 767px){
-  .wizard-container {
+  .wizard-containerVO {
     margin-left: 15px;
     margin-right: 15px;
   }
@@ -278,7 +278,7 @@
       }
     }
   }
-  .footer .container-fluid{
+  .footer .containerVO-fluid{
     flex-direction: column;
     .copyright {
       margin-left: 0 !important;
@@ -289,7 +289,7 @@
 }
 
 @media screen and (max-width: 576px){
-  #chart-container {
+  #chart-containerVO {
     min-height: 250px;
   }
 

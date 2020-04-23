@@ -1,22 +1,22 @@
 // Container widths
 //
-// Set the container width, and override it for fixed navbars in media queries.
+// Set the containerVO width, and override it for fixed navbars in media queries.
 
 @if $enable-grid-classes {
-  .container {
-    @include make-container();
-    @include make-container-max-widths();
+  .containerVO {
+    @include make-containerVO();
+    @include make-containerVO-max-widths();
   }
 }
 
-// Fluid container
+// Fluid containerVO
 //
 // Utilizes the mixin meant for fixed width containers, but with 100% width for
 // fluid, full width layouts.
 
 @if $enable-grid-classes {
-  .container-fluid {
-    @include make-container();
+  .containerVO-fluid {
+    @include make-containerVO();
   }
 }
 

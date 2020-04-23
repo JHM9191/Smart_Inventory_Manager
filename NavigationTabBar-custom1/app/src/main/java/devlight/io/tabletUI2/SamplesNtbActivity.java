@@ -3,8 +3,9 @@ package devlight.io.tabletUI2;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.graphics.ColorUtils;
 import android.widget.Toast;
+
+import androidx.core.graphics.ColorUtils;
 
 import devlight.io.library.ntb.NavigationTabBar;
 import devlight.io.tabletUI2.R;

@@ -45,7 +45,6 @@ public class ContainerController {
 		mv.addObject("center", "../container/containerProgress");
 		mv.setViewName("main/main");
 		return mv;
-
 	}
 
 //	// show container register page
@@ -123,6 +122,7 @@ public class ContainerController {
 			System.out.println(ing);
 			String ingID = ing.getIngID();
 			String ingName = ing.getIngName();
+			double ingWeight = ing.getIngWeight();
 
 			String conSize = c.getSize();
 
@@ -166,7 +166,7 @@ public class ContainerController {
 
 					ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
 							conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
-							chainID, chainName, hqID, hqName);
+							ingWeight, chainID, chainName, hqID, hqName);
 					try {
 						conbiz.register(con);
 					} catch (Exception e) {
@@ -178,7 +178,7 @@ public class ContainerController {
 				System.out.println(chainName_selected);
 				ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
 						conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
-						chainID_selected, chainName_selected, hqID, hqName);
+						ingWeight, chainID_selected, chainName_selected, hqID, hqName);
 				try {
 					conbiz.register(con);
 				} catch (Exception e) {
@@ -210,6 +210,84 @@ public class ContainerController {
 //		map.put("map", conbiz.getChain("cafe_TOP_hq"));
 //		System.out.println(map);
 //		return map;
+
+	}
+
+	// show container register wizard page
+	@RequestMapping("/showContainerUpdateList.top")
+	public ModelAndView showContainerUpdateList(ModelAndView mv, HttpServletRequest req) {
+//			mv.addObject("chainID", chainID);
+		HttpSession session = req.getSession();
+		String hqID = (String) session.getAttribute("hqID");
+		System.out.println("hqID : " + hqID);
+
+		ArrayList<ContainerVO> conList = conbiz.getbyhq("cafe_TOP_hq");
+
+		for (ContainerVO c : conList) {
+			System.out.println(c);
+		}
+
+		mv.addObject("center", "../container/showContainerUpdateList");
+		mv.addObject("conList", conList);
+		mv.addObject("ingList", ingbiz.get());
+		mv.setViewName("main/main");
+		return mv;
+	}
+
+	@RequestMapping(value = "/containerUpdateImpl.top", method = RequestMethod.POST)
+	@ResponseBody
+//	public HashMap<String, ArrayList<ContainerVO>> regiContainer(@RequestBody ArrayList<ConRegiVO> array) {
+	public ContainerVO containerUpdateImpl(@RequestBody ContainerVO c, HttpServletRequest req) {
+		System.out.println("entered containerUpdateImpl method");
+		System.out.println(c.toString());
+
+		String conUpdateDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		System.out.println("conUpdateDate : " + conUpdateDate);
+
+		String conID = c.getConID();
+		String ingID = c.getIngID();
+		System.out.println("ingID : " + ingID);
+		IngredientVO ing_db = ingbiz.get(ingID);
+		String ingName = ing_db.getIngName();
+		double ingWeight = ing_db.getIngWeight();
+
+		double conUnitWeight = ingWeight;
+		int conFullQuantity = c.getConFullQuantity();
+		double conFullWeight = (conFullQuantity * conUnitWeight);
+		int conWarningQuantity = c.getConWarningQuantity();
+		double conWarningWeight = (conWarningQuantity * conUnitWeight);
+
+		ContainerVO container_db = conbiz.get(conID);
+		container_db.setConUpdateDate(conUpdateDate);
+		container_db.setConFullWeight(conFullWeight);
+		container_db.setConFullQuantity(conFullQuantity);
+		container_db.setConWarningWeight(conWarningWeight);
+		container_db.setConWarningQuantity(conWarningQuantity);
+		container_db.setIngID(ingID);
+		container_db.setIngName(ingName);
+		container_db.setIngWeight(conWarningWeight);
+
+		try {
+			conbiz.modify(container_db);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		ContainerVO container_modified = conbiz.get(conID);
+		System.out.println(container_modified);
+		return container_modified;
+	}
+
+	@RequestMapping("/containerRemoveImpl.top")
+	@ResponseBody
+	public void containerRemoveImpl(HttpServletRequest req) {
+		System.out.println("entered containerRemoveImpl");
+		String conID = req.getParameter("conID");
+		try {
+			conbiz.remove(conID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
