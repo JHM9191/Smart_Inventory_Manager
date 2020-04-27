@@ -26,6 +26,26 @@ public class UserBiz implements Biz<String, UserVO> {
 		return dao.selectall();
 	}
 	
+	@Override
+	public void register(UserVO model) {
+		dao.insert(model);
+		
+	}
+
+	@Override
+	public void remove(String id) {
+		
+	}
+
+	@Override
+	public void modify(UserVO model) {
+		
+	}
+
+	
+
+
+	
 	
 	
 

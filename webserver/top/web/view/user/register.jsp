@@ -1,10 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 <title>Register TEST</title>
 <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
 	name='viewport' />
@@ -23,56 +27,66 @@
 			urls : [ 'assets/css/fonts.css' ]
 		},
 		active : function() {
-			sessionStorage.fonts = true;
+			sessionStorage.fonts = false;
 		}
 	});
-		var count = 1;
-		function addForm() {
-			var addedFormDiv = document.getElementById("inputarea");
-			var str = "";
-			str += '<input type="text" class="form-control" id="address'
-					+ count + '" ' + 'placeholder="¡÷º“∏¶ ¿‘∑¬«œ±‚ ¿ß«ÿ ≈¨∏Ø«œººø‰" ';
-			str += 'onclick="goPopup(';
-			str += count;
-			str += ')" >';
-			// √ﬂ∞°«“ ∆˚(ø° µÈæÓ∞• HTML)
-			var addedDiv = document.createElement("div"); // ∆˚ ª˝º∫
-			addedDiv.id = "added_" + count; // ∆˚ Divø° ID ∫Œ ø© (ªË¡¶∏¶ ¿ß«ÿ)
-			addedDiv.innerHTML = str; // ∆˚ Divæ»ø° HTMLª¿‘
-			addedFormDiv.appendChild(addedDiv); // ª¿‘«“ DIVø° ª˝º∫«— ∆˚ ª¿‘
-			count++;
-			document.baseForm.count.value = count;// ¥Ÿ¿Ω ∆‰¿Ã¡ˆø° ∏Ó ∞≥¿« ∆˚¿ª ≥—±‚¥¬¡ˆ ¿¸¥ﬁ«œ±‚ ¿ß«ÿ »˜µÁ ∆˚ø° ƒ´øÓ∆Æ ¿˙¿Â
-		}
-		function delForm() {
-			var addedFormDiv = document.getElementById("inputarea");
-			if (count > 1) { // «ˆ¿Á ∆˚¿Ã µŒ∞≥ ¿ÃªÛ¿Ã∏È
-				var addedDiv = document.getElementById("added_" + (--count));
-				addedFormDiv.removeChild(addedDiv); // ∆˚ ªË¡¶
-			} else { // ∏∂ ¡ˆ∏∑ ∆˚∏∏ ≥≤æ∆¿÷¥Ÿ∏È
-				document.baseForm.reset(); // ∆˚ ≥ªøÎ ªË¡¶
-			}
-	
-	}
+
 	document.domain = "127.0.0.1";
-	
-	function goPopup(num) {
+
+	function goPopup() {
 		var pop = window.open("view/address/jusoPopup.jsp", "pop",
 				"width=570,height=420, scrollbars=yes, resizable=yes");
+
 	}
+
 	function jusoCallBack(roadFullAddr, addrDetail) {
-		var number = 0;
-		var inputid = "address"+number+"";
-		while(true){
-			var inputid = "address"+number+"";
-			if(document.getElementById(inputid).value.length>0){
-				number+=1;
-			}else{
-				document.getElementById(inputid).value = roadFullAddr;		
-				break;
-			}	
+		document.getElementById("address").value = roadFullAddr;
+
+	}
+
+	function addcnt() {
+		var num = document.getElementById("chaincnt").value;
+		var parse_num = parseInt(num) + 1;
+		alert(parse_num);
+		document.getElementById("chaincnt").value = parse_num;
+	}
+
+	function minuscnt() {
+		var num = document.getElementById("chaincnt").value;
+		if (num != 1) {
+			var parse_num = parseInt(num) - 1;
+			alert(parse_num);
+			document.getElementById("chaincnt").value = parse_num;
 		}
 	}
+
+	function checkup() {
+		var pwd = document.getElementById("hqpwd").value;
+		var checkpwd = document.getElementById("confirmpassword").value;
+		if (checkpwd.length == 0) {
+			document.getElementById("check").innerHTML = "";
+		}
+
+	}
+
+	function confirm() {
+		var pwd = document.getElementById("hqpwd").value;
+		var checkpwd = document.getElementById("confirmpassword").value;
+
+		if (pwd != null && checkpwd != null) {
+			if (pwd != checkpwd) {
+				document.getElementById("check").innerHTML = "ÎπÑÎ∞ÄÎ≤àÌò∏Í∞Ä ÏùºÏπòÌïòÏßÄ ÏïäÏäµÎãàÎã§";
+
+			} else {
+				document.getElementById("check").innerHTML = "ÎπÑÎ∞ÄÎ≤àÌò∏Í∞Ä ÏùºÏπòÌï©ÎãàÎã§";
+			}
+
+		}
+
+	}
 </script>
+
+
 
 
 <!-- CSS Files -->
@@ -84,99 +98,114 @@
 <body class="login">
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
-			<h3 class="text-center">Sign Up</h3>
+			<h3 class="text-center">HQ Sign Up</h3>
 			<div class="login-form">
 
-				<!--  ¿Ã∏ß  START -->
-				<div class="form-group">
-					<label for="fullname" class="placeholder"><b>Fullname</b></label> <input
-						id="fullname" name="fullname" type="text" class="form-control"
-						required>
-				</div>
-				<!--  ¿Ã∏ß  END -->
+				<form class="signupform" action="signupimpl.top" method="post"
+					accept-charset="utf-8" novalidate="novalidate">
 
-				<!--  ID  START-->
-				<div class="form-group">
-					<label for="ID" class="placeholder"><b>ID</b></label> <input
-						id="ID" name="fullname" type="text" class="form-control" required>
-				</div>
-				<!--  ID  END-->
 
-				<!--  PWD START -->
-				<div class="form-group">
-					<label for="password" class="placeholder"><b>Password</b></label> <a
-						href="#" class="link float-right">Forget Password ?</a>
-					<div class="position-relative">
-						<input id="passwordsignin" name="passwordsignin" type="password"
-							class="form-control" required>
-						<div class="show-password">
-							<i class="flaticon-interface"></i>
-						</div>
+					<!--  company START -->
+					<div class="form-group">
+						<label for="cname" class="placeholder"><b>chainname</b></label> <input
+							id="cname" name="cname" type="text" class="form-control" required>
 					</div>
-				</div>
-				<!--  PWD END -->
+					<!--  company ?ÎåÄÏ´´  END -->
 
-				<!--  PWD_CONFRIM START -->
-				<div class="form-group">
-					<label for="confirmpassword" class="placeholder"><b>Confirm
-							Password</b></label>
-					<div class="position-relative">
-						<input id="confirmpassword" name="confirmpassword" type="password"
-							class="form-control" required>
-						<div class="show-password">
-							<i class="flaticon-interface"></i>
-						</div>
+					<!--  ID  START-->
+					<div class="form-group">
+						<label for="ID" class="placeholder"><b>ID</b></label> <a href="#"
+							class="link float-right"></a> <input id="hqid" name="hqid"
+							type="text" class="form-control" required>
 					</div>
-				</div>
+					<!--  ID  END-->
 
-				<!--  PWD_CONFRIM END -->
+					<!--  PWD START -->
+					<div class="form-group">
+						<label for="password" class="placeholder"><b>Password</b></label>
+						<input id="hqpwd" name="hqpwd" type="password" onkeyup="checkup()"
+							class="form-control" required>
 
-				<!--  ¿¸»≠π¯»£ START -->
-				<div class="form-group">
-					<label for="phonenumber" class="placeholder"><b>¿¸»≠π¯»£</b></label> <input
-						id="phonenumber" name="phonenumber" type="text"
-						class="form-control" required>
-				</div>
-				<!--  ¿¸»≠π¯»£  END -->
+					</div>
+					<!--  PWD END -->
 
-				<!--  ¡÷º“¿‘∑¬ START -->
-				<div class="form-group">
-					<label for="addr" class="placeholder"><b>address</b></label> <a
-						href="#" class="link float-right">
-						<button class="btn" onclick="addForm()">+</button>
-						<button class="btn" onclick="delForm()">§—</button>
-					</a>
+					<!--  PWD_CONFRIM START -->
+					<div class="form-group">
+						<label for="confirmpassword" class="placeholder"><b>Confirm
+								Password</b></label> <input id="confirmpassword" name="confirmpassword"
+							type="password" onkeyup="confirm()" class="form-control" required>
+						<font size="2" id="check" color="red"></font>
+					</div>
 
+
+					<!--  PWD_CONFRIM END -->
+
+					<!--  Email START -->
+					<div class="form-group">
+						<label for="Email" class="placeholder"><b>Email</b></label> <input
+							id="hqemail" name="hqemail" type="text" class="form-control"
+							required>
+					</div>
+					<!--  Email  END -->
+
+
+					<!--  phone START -->
+					<div class="form-group">
+						<label for="phonenumber" class="placeholder"><b>Phone</b></label>
+						<input id="hqphone" name="hqphone" type="text"
+							class="form-control" required>
+					</div>
+					<!--  phone  END -->
+
+
+
+					<!--  chain Count START -->
+					<div class="form-group">
+						<label for="chaincnt" class="placeholder"><b>chaincount</b></label>
+						<a href="#" class="link float-right"> <span class="btn"
+							onclick="addcnt()">+</span> <span class="btn"
+							onclick="minuscnt()">„Ö°</span></a> <input type="text"
+							style="width: 100px" id="chaincnt" name="chaincnt" value="1"
+							class="form-control">
+					</div>
+
+					<!--  chain Count END -->
+
+					<!--  Î≥∏ÏÇ¨Ï£ºÏÜå START -->
 					<div id="addressarea">
-						<input type="text" id="address0" name="u_address"
-							placeholder="¡÷º“∏¶ ¿‘∑¬«œ±‚ ¿ß«ÿ ≈¨∏Ø«œººø‰" class="form-control"
-							onclick="goPopup(0)">
-						<div id="inputarea"></div>
+						<label for="caddress" class="placeholder"><b>Address</b></label> <input
+							type="text" id="address" name="caddr"
+							placeholder="Ï£ºÏÜåÎ•º ÏûÖÎ†•ÌïòÍ∏∞ ÏúÑÌï¥ ÌÅ¥Î¶≠Ìï¥Ï£ºÏÑ∏Ïöî" class="form-control"
+							onclick="goPopup()">
+					</div>
+					<!-- Î≥∏ÏÇ¨Ï£ºÏÜå  END -->
+
+					<!--  button START  -->
+					<div class="row form-action">
+						<div class="col-md-6">
+							<a href="main.top" id="show-signin"
+								class="btn btn-danger btn-link w-100 fw-bold">Cancel</a>
+						</div>
+
+						<div class="col-md-6">
+							<button class="btn btn-primary" type="submit" value="submit"
+								class="btn_3">submit</button>
+						</div>
 					</div>
 
-				</div>
-				<!--  ¡÷º“¿‘∑¬  END -->
-
-				<!--  ∏∂¡ˆ∏∑ √Îº“ π◊ SUBMIT πˆ∆∞ START  -->
-				<div class="row form-action">
-					<div class="col-md-6">
-						<a href="#" id="show-signin"
-							class="btn btn-danger btn-link w-100 fw-bold">Cancel</a>
-					</div>
-					<div class="col-md-6">
-						<a href="#" class="btn btn-primary w-100 fw-bold">Submit</a>
-					</div>
-				</div>
-
-				<!--  ∏∂¡ˆ∏∑ √Îº“ π◊ SUBMIT πˆ∆∞ END  -->
+					<!--  button END  -->
+				</form>
 			</div>
 		</div>
 	</div>
-	
 	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap.min.js"></script>
 	<script src="assets/js/ready.js"></script>
+	<script src="assets/js/idcheck.js" charset="UTF-8"></script>
+
 </body>
 </html>
+
+

@@ -30,6 +30,7 @@ public class SalesBiz implements Biz<String, SalesVO> {
 	public ArrayList<SalesVO> getYear(String year) {
 		return dao.selectYear(year);
 	}
+
 	public ArrayList<SalesVO> getMonth(String year, String chainID) {
 		return dao.selectMonth(year, chainID);
 	}
@@ -42,4 +43,12 @@ public class SalesBiz implements Biz<String, SalesVO> {
 		return dao.selectMonthly(salesID);
 	}
 
+	public SalesVO getbychain(String chainID) {
+		return dao.selectbychain(chainID);
+	}
+
+	@Override
+	public ArrayList<SalesVO> getDailyAllChain(String salesRegDate) {
+		return dao.selectDailyAllChain(salesRegDate);
+	}
 }

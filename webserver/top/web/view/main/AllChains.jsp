@@ -1,7 +1,8 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -12,8 +13,8 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <style>
 .highcharts-figure, .highcharts-data-table table {
-	min-width: 310px;
-	max-width: 800px;
+	min-width: 120px;
+	max-width: 1000px;
 	margin: 1em auto;
 }
 
@@ -144,54 +145,132 @@
 	$(document).ready(function() {
 		getData('${year}');
 	});
+
+	function showDailySalesChart() {
+		location.href = "showDailySalesChart.top";
+	}
 </script>
 <h1 class="page-title">메인 페이지</h1>
-<div class="card">
-	<div class="card-body">
-		<div class="row">
-			<div class="col-6 col-md-4">
-				<div class="nav flex-column nav-pills nav-secondary"
-					id="v-pills-tab" role="tablist" aria-orientation="vertical">
-					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
-						href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-						aria-selected="true" onclick="getData('2019');">전체 가맹점</a>
-					<c:forEach var="s" items="${salesData }">
-						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
-							href="#" role="tab" onclick="showContainer('${s.chainID }');"
-							aria-controls="v-pills-profile" aria-selected="true">${s.chainID }</a>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="col-12 col-md-8">
-				<div class="highcharts-figure">
-					<div class="col-6 col-md-6 ml-auto">
-						<ul class="nav nav-pills nav-secondary nav-pills-no-bd"
-							id="pills-tab-without-border" role="tablist">
-							<!-- <li class="nav-item submenu"><a class="nav-link active show"
-							id="Today" data-toggle="pill" href="#pills-home-nobd" role="tab"
-							aria-controls="pills-home-nobd" aria-selected="true">Today</a></li> -->
-							<li class="nav-item submenu"><a class="nav-link active show"
-								id="pills-profile-tab-nobd" data-toggle="pill"
-								href="#pills-profile-nobd" role="tab"
-								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2019');">2019년</a></li>
-							<li class="nav-item submenu"><a class="nav-link"
-								id="pills-profile-tab-nobd" data-toggle="pill"
-								href="#pills-profile-nobd" role="tab"
-								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2018');">2018년</a></li>
-							<li class="nav-item submenu"><a class="nav-link"
-								id="pills-profile-tab-nobd" data-toggle="pill"
-								href="#pills-profile-nobd" role="tab"
-								aria-controls="pills-profile-nobd" aria-selected="false"
-								onclick="getData('2017');">2017년</a></li>
-						</ul>
-					</div>
-					<br>
-					<div id="container_highcharts"></div>
-				</div>
-			</div>
-		</div>
+
+
+<ul
+	class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center"
+	id="pills-tab-with-icon" role="tablist">
+
+	<li class="nav-item"><a class="nav-link active"
+		id="iotContainer-icon" data-toggle="pill" href="#pills-profile-icon"
+		role="tab" aria-controls="iotContainer" aria-selected="false"> <i
+			class="flaticon-user-4"></i> 컨테이너 현황
+	</a></li>
+	<li class="nav-item"><a class="nav-link" id="inventory-icon"
+		data-toggle="pill" href="#pills-contact-icon" role="tab"
+		aria-controls="inventory" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> 재고분석
+	</a></li>
+	<li class="nav-item"><a class="nav-link" id="dailySalesChart-icon"
+		data-toggle="pill" onclick="showDailySalesChart();"
+		href="#pills-contact-icon" role="tab" aria-controls="dailySalesChart"
+		aria-selected="false"> <i class="flaticon-mailbox"></i> 오늘의 매출
+	</a></li>
+	<li class="nav-item"><a class="nav-link" id="salesChart-icon"
+		data-toggle="pill" onclick="showSalesChart();" role="tab"
+		aria-controls="salesChart" aria-selected="true"> <i
+			class="flaticon-home"></i> 매출현황
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+	<li class="nav-item"><a class="nav-link"
+		id="pills-contact-tab-icon" data-toggle="pill"
+		href="#pills-contact-icon" role="tab"
+		aria-controls="pills-contact-icon" aria-selected="false"> <i
+			class="flaticon-mailbox"></i> Contact
+	</a></li>
+</ul>
+
+
+
+<div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
+
+	<div class="tab-pane fade active show" id="dailySalesChart"
+		role="tabpanel" aria-labelledby="dailySalesChart-icon">
+		<p>Far far away, behind the word mountains, far from the countries
+			Vokalia and Consonantia, there live the blind texts. Separated they
+			live in Bookmarksgrove right at the coast of the Semantics, a large
+			language ocean.</p>
+
+		<p>A small river named Duden flows by their place and supplies it
+			with the necessary regelialia. It is a paradisematic country, in
+			which roasted parts of sentences fly into your mouth.</p>
 	</div>
+
+
+
+	<div class="tab-pane fade" id="iotContainer" role="tabpanel"
+		aria-labelledby="iotContainer-icon">
+
+		<p>hello~</p>
+	</div>
+
+
+
 </div>
-<h1 class="card-sub">Chart License: Highcharts.com</h1>
+
+
+<!-- ------- -->
+<div class="tab-pane fade" id="inventory" role="tabpanel"
+	aria-labelledby="inventory-icon">
+	<p>Inventory</p>
+</div>
+<div class="tab-pane fade" id="pills-profile-icon" role="tabpanel"
+	aria-labelledby="pills-profile-tab-icon">
+	<p>Even the all-powerful Pointing has no control about the blind
+		texts it is an almost unorthographic life One day however a small line
+		of blind text by the name of Lorem Ipsum decided to leave for the far
+		World of Grammar.</p>
+	<p>The Big Oxmox advised her not to do so, because there were
+		thousands of bad Commas, wild Question Marks and devious Semikoli, but
+		the Little Blind Text didn�셳 listen. She packed her seven versalia,
+		put her initial into the belt and made herself on the way.</p>
+</div>
+<div class="tab-pane fade" id="pills-contact-icon" role="tabpanel"
+	aria-labelledby="pills-contact-tab-icon">
+	<p>Pityful a rethoric question ran over her cheek, then she
+		continued her way. On her way she met a copy. The copy warned the
+		Little Blind Text, that where it came from it would have been
+		rewritten a thousand times and everything that was left from its
+		origin would be the word "and" and the Little Blind Text should turn
+		around and return to its own, safe country.</p>
+
+	<p>But nothing the copy said could convince her and so it didn�셳
+		take long until a few insidious Copy Writers ambushed her, made her
+		drunk with Longe and Parole and dragged her into their agency, where
+		they abused her for their</p>
+</div>

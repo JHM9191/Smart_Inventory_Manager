@@ -22,6 +22,7 @@ import top.vo.ConRegiVO;
 import top.vo.ContainerVO;
 import top.vo.IngredientVO;
 import top.vo.OrderDetailVO;
+import top.vo.OrderVO;
 
 @Controller
 public class ContainerController {
@@ -32,6 +33,8 @@ public class ContainerController {
 	Biz<String, IngredientVO> ingbiz;
 	@Resource(name = "orderdetailbiz")
 	Biz<String, OrderDetailVO> odbiz;
+	@Resource(name = "orderbiz")
+	Biz<String, OrderVO> orderbiz;
 	@Resource(name = "chainbiz")
 	Biz<String, ChainVO> chainbiz;
 
@@ -114,7 +117,7 @@ public class ContainerController {
 		ConRegiVO object = array.get(0);
 		System.out.println(object.toString());
 
-		String regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		String regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
 		System.out.println("regDate : " + regDate);
 
 		for (ConRegiVO c : array) {
@@ -123,6 +126,8 @@ public class ContainerController {
 			String ingID = ing.getIngID();
 			String ingName = ing.getIngName();
 			double ingWeight = ing.getIngWeight();
+			double ingPrice = ing.getIngPrice();
+			String ingUnit = ing.getIngUnit();
 
 			String conSize = c.getSize();
 
@@ -166,24 +171,107 @@ public class ContainerController {
 
 					ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
 							conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
-							ingWeight, chainID, chainName, hqID, hqName);
+							ingWeight, ingUnit, chainID, chainName, hqID, hqName);
+
 					try {
 						conbiz.register(con);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+
+					ContainerVO con_db = new ContainerVO();
+					con_db.setConRegDate(regDate);
+					con_db.setChainID(chainID);
+					String conID = (conbiz.getjustregistered(con_db)).getConID();
+					System.out.println("conID : " + conID);
+
+					// orderToday : orderVO with specific chainID & today's date(date string unique
+					// bec of time)
+					OrderVO orderToday = new OrderVO();
+					System.out.println("regDate.substring(0, 8) : " + regDate.substring(0, 8));
+					orderToday.setDeliveryDate(regDate.substring(0, 8)); // target date.
+					orderToday.setChainID(chainID); // target chainID
+
+					// orderToday_db : gets orderVO from oracle db for that specific chainID and
+					// time.
+					OrderVO orderToday_db = orderbiz.getordertoday(orderToday);
+					int rowCnt_order = 0;
+					String orderID = null;
+					if (orderToday_db != null) { // if exist then set rowCnt_order to 1.
+						System.out.println("order already exists");
+						orderID = orderToday_db.getOrderID();
+						rowCnt_order = 1;
+					} else { // if not exist then get that orderVO using chainID and time.
+						System.out.println("order does not exist");
+						orderToday.setChainName(chainName); // target chainName
+						orderToday.setHqID(hqID); // target hqID
+						orderToday.setHqName(hqName); // target hqName
+						orderToday.setDeliveryState("ondelivery"); // set delivery state
+						orderbiz.registertoday(orderToday);
+						System.out.println("created new order");
+						orderToday_db = orderbiz.getordertoday(orderToday);
+						orderID = orderToday_db.getOrderID();
+					}
+
+					OrderDetailVO orderdetail = new OrderDetailVO(null, conFullWeight, conFullQuantity, ingID, ingName,
+							(int) ingPrice, conFullQuantity * (int) ingPrice, ingUnit, orderID, hqID, hqName, chainID,
+							chainName, null, null, conID);
+
+					odbiz.registernew(orderdetail);
 				}
 			} else {
 				System.out.println(chainID_selected);
 				System.out.println(chainName_selected);
 				ContainerVO con = new ContainerVO(null, conSize, conMaxWeight, regDate, "", conFullWeight,
 						conFullQuantity, conWarningWeight, conWarningQuantity, 0, 0, conUnitWeight, ingID, ingName,
-						ingWeight, chainID_selected, chainName_selected, hqID, hqName);
+						ingWeight, ingUnit, chainID_selected, chainName_selected, hqID, hqName);
 				try {
 					conbiz.register(con);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+
+				ContainerVO con_db = new ContainerVO();
+				con_db.setConRegDate(regDate);
+				con_db.setChainID(chainID_selected);
+				String conID = (conbiz.getjustregistered(con_db)).getConID();
+				System.out.println("conID : " + conID);
+
+				// orderToday : orderVO with specific chainID & today's date(date string unique
+				// bec of time)
+				OrderVO orderToday = new OrderVO();
+
+				System.out.println("regDate.substring(0, 8) : " + regDate.substring(0, 8));
+				orderToday.setDeliveryDate(regDate.substring(0, 8)); // target date.
+				orderToday.setChainID(chainID_selected); // target chainID
+
+				// orderToday_db : gets orderVO from oracle db for that specific chainID and
+				// time.
+				OrderVO orderToday_db = orderbiz.getordertoday(orderToday);
+				int rowCnt_order = 0;
+				String orderID = null;
+				if (orderToday_db != null) { // if exist then set rowCnt_order to 1.
+					System.out.println("order already exists");
+					System.out.println(orderToday_db);
+					orderID = orderToday_db.getOrderID();
+					rowCnt_order = 1;
+				} else { // if not exist then get that orderVO using chainID and time.
+					System.out.println("order does not exist");
+					orderToday.setChainName(chainName_selected); // target chainName
+					orderToday.setHqID(hqID); // target hqID
+					orderToday.setHqName(hqName); // target hqName
+					orderToday.setDeliveryState("ondelivery"); // set delivery state
+					orderbiz.registertoday(orderToday);
+					System.out.println("created new order");
+					orderToday_db = orderbiz.getordertoday(orderToday);
+					orderID = orderToday_db.getOrderID();
+				}
+
+				OrderDetailVO orderdetail = new OrderDetailVO(conFullWeight, conFullQuantity, ingID, ingName,
+						(int) ingPrice, conFullQuantity * (int) ingPrice, ingUnit, orderID, hqID, hqName,
+						chainID_selected, chainName_selected, conID);
+
+				odbiz.registernew(orderdetail);
 			}
 		}
 		System.out.println("Finish registering container");

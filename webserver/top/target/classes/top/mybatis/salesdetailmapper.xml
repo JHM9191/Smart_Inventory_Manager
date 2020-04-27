@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  constructor
+	String salesDetailID;
+	String salesDetailRegDate;
+	String salesID;
+	String menuName;
+	int menuPrice;
+	int menuCount;
+ -->
+
+<mapper namespace="top.mapper.SalesDetailMapper">
+	<insert id = "insert" parameterType = "salesdetail">
+		INSERT INTO SALESDETAIL VALUES ('SALESDETAILID_'||TO_CHAR(SALESDETAILID_SEQ.NEXTVAL),
+		#{salesDetailRegDate},#{salesID},#{menuName},#{menuPrice},#{menuCount})
+	</insert>
+	
+	<update id="update" parameterType="salesdetail">
+		UPDATE SALESDETAIL SET SALESDETAILREGDATE = #{salesDetailRegDate}, SALESID = #{salesID},
+		MENUNAME = #{menuName}, MENUPRICE = #{menuPrice}, MENUCOUNT = #{menuCount}
+		WHERE SALESDETAILID = #{salesDetailID}	
+	</update>
+	
+	<delete id = "delete" parameterType="String">
+		DELETE FROM SALESDETAIL WHERE SALESDETAILID = #{salesDetailID}
+	</delete> 	
+	
+	<select id="select" parameterType="String" resultType="salesdetail">
+		SELECT * FROM SALESDETAIL WHERE SALESDETAILID=#{salesDetailID}
+	</select>
+	<select id="selectall" resultType="sales">
+		SELECT * FROM SALESDETAIL
+	</select>
+</mapper>

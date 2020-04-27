@@ -15,7 +15,7 @@ public class HeadquarterBiz implements Biz<String, HeadquarterVO> {
 
 	@Resource(name = "hqdao")
 	Dao<String, HeadquarterVO> dao;
-	
+
 	@Override
 	public HeadquarterVO get(String hqID) {
 		return dao.select(hqID);
@@ -25,9 +25,23 @@ public class HeadquarterBiz implements Biz<String, HeadquarterVO> {
 	public ArrayList<HeadquarterVO> get() {
 		return dao.selectall();
 	}
-	
-	
-	
 
+	@Override
+	public void register(HeadquarterVO model) {
+		dao.insert(model);
+
+	}
+
+	@Override
+	public void remove(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void modify(HeadquarterVO model) {
+		dao.update(model);
+
+	}
 
 }

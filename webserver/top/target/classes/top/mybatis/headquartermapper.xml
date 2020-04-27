@@ -5,10 +5,31 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.mapper.HeadquarterMapper">
-	<select id="select" parameterType="String" resultType="headquarter">
+	<select id="select" parameterType="String"
+		resultType="headquarter">
 		SELECT * FROM HEADQUARTER WHERE hqID=#{hqID}
 	</select>
 	<select id="selectall" resultType="headquarter">
 		SELECT * FROM HEADQUARTER
 	</select>
+
+	<insert id="insert" parameterType="headquarter">
+		INSERT INTO HEADQUARTER
+		values(#{hqID},#{hqName},#{hqPwd},#{hqEmail},#{hqPhone},#{hqRegDate},#{hqAddress},#{chainCount})
+	</insert>
+
+	<update id="update" parameterType="headquarter">
+		UPDATE
+		HEADQUARTER
+		SET
+		hqName = #{hqName},
+		hqPwd = #{hqPwd},
+		hqEmail = #{hqEmail},
+		hqPhone = #{hqPhone},
+		hqAddress = #{hqAddress},
+		chainCount = #{chainCount}
+		WHERE
+		hqID=#{hqID}
+
+	</update>
 </mapper>

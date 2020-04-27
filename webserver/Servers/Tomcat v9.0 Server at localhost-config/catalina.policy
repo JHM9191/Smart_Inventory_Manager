@@ -225,7 +225,7 @@ grant codeBase "file:${catalina.home}/webapps/host-manager/-" {
 // directory, or even to individual jar files in the /WEB-INF/lib/ directory.
 //
 // For instance, assume that the standard "examples" application
-// included a JDBC driver that needed to establish a network connection to the
+// included a JDBC driver that needed to establish a com.example.chaintablet.network connection to the
 // corresponding database and used the scrape taglib to get the weather from
 // the NOAA web server.  You might create a "grant" entries like this:
 //

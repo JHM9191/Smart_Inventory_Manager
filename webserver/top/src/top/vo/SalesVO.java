@@ -6,24 +6,19 @@ public class SalesVO {
 	String salesRegDate;
 	int totSales;
 	String chainID;
+	String chainName;
 
 	public SalesVO() {
 
 	}
 
-	public SalesVO(String salesRegDate, int totSales, String chainID) {
-		super();
-		this.salesRegDate = salesRegDate;
-		this.totSales = totSales;
-		this.chainID = chainID;
-	}
-
-	public SalesVO(String salesID, String salesRegDate, int totSales, String chainID) {
+	public SalesVO(String salesID, String salesRegDate, int totSales, String chainID, String chainName) {
 		super();
 		this.salesID = salesID;
 		this.salesRegDate = salesRegDate;
 		this.totSales = totSales;
 		this.chainID = chainID;
+		this.chainName = chainName;
 	}
 
 	public String getSalesID() {
@@ -58,10 +53,18 @@ public class SalesVO {
 		this.chainID = chainID;
 	}
 
+	public String getChainName() {
+		return chainName;
+	}
+
+	public void setChainName(String chainName) {
+		this.chainName = chainName;
+	}
+
 	@Override
 	public String toString() {
 		return "SalesVO [salesID=" + salesID + ", salesRegDate=" + salesRegDate + ", totSales=" + totSales
-				+ ", chainID=" + chainID + "]";
+				+ ", chainID=" + chainID + ", chainName=" + chainName + "]";
 	}
 
 }

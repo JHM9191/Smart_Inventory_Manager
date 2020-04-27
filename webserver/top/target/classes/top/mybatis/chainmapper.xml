@@ -8,14 +8,34 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<!-- Need to search on how to use 2 parameters -->
 	<select id="select" parameterType="String" resultType="chain">
-		SELECT * FROM CHAIN WHERE chainID=#{chainID} AND hqID=#{hqID}
+		SELECT *
+		FROM CHAIN WHERE chainID=#{chainID} AND hqID=#{hqID}
 	</select>
-	
-	
-	<select id="selectbyhq" parameterType="String" resultType="chain">
+
+
+	<select id="selectbyhq" parameterType="String"
+		resultType="chain">
 		SELECT * FROM CHAIN WHERE hqID=#{hqID}
 	</select>
 	<select id="selectall" resultType="chain">
 		SELECT * FROM CHAIN
 	</select>
+
+	<!-- user apply cnt 할때 필요함 -->
+	<select id="selectchainname" parameterType="String"
+		resultType="chain">
+		SELECT *
+		FROM CHAIN WHERE chainID=#{chainID}
+	</select>
+
+
+	<select id="selectnotifi" parameterType="String"
+		resultType="chain">
+		SELECT * FROM CHAIN WHERE hqID=#{hqID}
+	</select>
+
+	<insert id="insert" parameterType="chain">
+		INSERT INTO CHAIN
+		values(concat('chainID_',TO_CHAR(chainID_seq.nextval)),#{chainName},#{chainAddress},#{chainRegDate},#{hqID})
+	</insert>
 </mapper>

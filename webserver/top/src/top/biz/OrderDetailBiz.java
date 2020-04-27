@@ -26,4 +26,19 @@ public class OrderDetailBiz implements Biz<String, OrderDetailVO> {
 		return dao.selectall();
 	}
 
+	@Override
+	public ArrayList<OrderDetailVO> getlistbyorderid(String id) {
+		return dao.selectlistbyorderid(id);
+	}
+
+	@Override
+	public void register(OrderDetailVO orderdetail) {
+		dao.insert(orderdetail);
+	}
+
+	@Override
+	public void registernew(OrderDetailVO orderdetail) {
+		dao.insertnew(orderdetail);
+	}
+
 }

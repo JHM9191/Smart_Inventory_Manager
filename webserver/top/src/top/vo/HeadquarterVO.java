@@ -28,6 +28,17 @@ public class HeadquarterVO {
 		this.chainCount = chainCount;
 	}
 
+	public HeadquarterVO(String hqName, String hqPwd, String hqEmail, String hqPhone, String hqAddress,
+			String chainCount, String hqID) {
+		this.hqName = hqName;
+		this.hqPwd = hqPwd;
+		this.hqEmail = hqEmail;
+		this.hqPhone = hqPhone;
+		this.hqAddress = hqAddress;
+		this.chainCount = chainCount;
+		this.hqID = hqID;
+	}
+
 	public String getHqID() {
 		return hqID;
 	}

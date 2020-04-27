@@ -10,4 +10,10 @@ public interface OrderDetailMapper {
 
 	public ArrayList<OrderDetailVO> selectall();
 
+	public ArrayList<OrderDetailVO> selectlistbyorderid(String orderID);
+
+	public void insert(OrderDetailVO orderdetail);
+
+	public void insertnew(OrderDetailVO orderdetail);
+
 }

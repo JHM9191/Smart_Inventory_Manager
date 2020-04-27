@@ -31,41 +31,64 @@ public class MainController {
 
 	// Show main page
 	@RequestMapping("/")
-	public ModelAndView main_simple(ModelAndView mv) {
+	public ModelAndView main_simple(ModelAndView mv, HttpServletRequest req) {
+		System.out.println("Entered main.top");
+		HttpSession session = req.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+		String who = (String) session.getAttribute("who");
+		System.out.println(who);
+		System.out.println(u_id);
+		session.setAttribute("loginId", u_id);
+		mv.addObject("center", "../main/statMain");
 		mv.setViewName("main/main");
 		return mv;
 	}
 
-	@RequestMapping("/main.top")
-	public ModelAndView main(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
+	@RequestMapping("/mainStat.top")
+	public ModelAndView mainStat(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("Entered main.top");
 		HttpSession session = req.getSession();
-//		String u_id = (String) session.getAttribute("loginid");
-//		System.out.println(u_id);
-//		for (ChainVO c : chainbiz.get()) {
-//			System.out.println(c);
-//		}
-		String year = req.getParameter("year");
-		System.out.println("year: " + year);
-		if (year == null) {
-			year = "2019";
-		}
-		ArrayList<SalesVO> salesList = salesbiz.getYear(year);
-		mv.addObject("year", year);
-		mv.addObject("salesData", salesList);
-		String u_id = "test01";
+		String u_id = (String) session.getAttribute("loginid");
+		String who = (String) session.getAttribute("who");
+		System.out.println(who);
+		System.out.println(u_id);
 		session.setAttribute("loginId", u_id);
-//		mv.addObject("loginId", u_id);
-
-		mv.addObject("center", "../main/AllChains");
+		mv.addObject("center", "../main/statMain");
 		mv.setViewName("main/main");
-
 		res.setContentType("text/html; charset=UTF-8");
 
 		return mv;
+
 	}
 
-	@RequestMapping("/getSalesData.top")
+//	@RequestMapping("/main.top")
+//	public ModelAndView main(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
+//		System.out.println("Entered main.top");
+//		HttpSession session = req.getSession();
+//		String u_id = (String) session.getAttribute("loginid");
+//		String who = (String) session.getAttribute("who");
+//		System.out.println(who);
+//		System.out.println(u_id);
+//		// for (ChainVO c : chainbiz.get()) {
+////			System.out.println(c);
+////		}
+//		String year = req.getParameter("year");
+//		System.out.println("year: " + year);
+//		if (year == null) {
+//			year = "2019";
+//		}
+//		ArrayList<SalesVO> salesList = salesbiz.getYear(year);
+//		mv.addObject("year", year);
+//		mv.addObject("salesData", salesList);
+//		session.setAttribute("loginId", u_id);
+//		mv.addObject("center", "../main/AllChains");
+//		mv.setViewName("main/main");
+//		res.setContentType("text/html; charset=UTF-8");
+//
+//		return mv;
+//	}
+
+	@RequestMapping(value = "/getSalesData.top", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public void getSalesData(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("Entered getSalesData.top");
@@ -87,9 +110,9 @@ public class MainController {
 //				ja_outer.add(ja_inner);
 
 				JSONObject jo_inin = new JSONObject();
-				jo_inin.put("name", salesList.get(i).getChainID());
+				jo_inin.put("name", salesList.get(i).getChainName());
 				jo_inin.put("y", salesList.get(i).getTotSales() / 10000);
-				jo_inin.put("drilldown", salesList.get(i).getChainID());
+				jo_inin.put("drilldown", salesList.get(i).getChainName());
 				data.add(jo_inin);
 			}
 			ja.add(data);
@@ -103,7 +126,7 @@ public class MainController {
 				System.out.println(monthly);
 
 				JSONObject jo = new JSONObject();
-				jo.put("name", salesList.get(j).getChainID());
+				jo.put("name", salesList.get(j).getChainName());
 				jo.put("id", salesList.get(j).getChainID());
 				JSONArray j_1 = new JSONArray();
 
@@ -120,10 +143,10 @@ public class MainController {
 			ja.add(ja_drilldown);
 
 			System.out.println(ja.toString());
-//			res.setCharacterEncoding("UTF-8");
-//			res.setContentType("text/json; charset=UTF-8");
-			res.setCharacterEncoding("EUC-KR");
-			res.setContentType("text/json; charset=EUC-KR");
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("application/json; charset=UTF-8");
+//			res.setCharacterEncoding("EUC-KR");
+//			res.setContentType("text/json; charset=EUC-KR");
 			out.write(ja.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -146,9 +169,6 @@ public class MainController {
 		return mv;
 	}
 
-	
-	
-	
 	// show About page
 	@RequestMapping("about.top")
 	public ModelAndView showAbout(ModelAndView mv) {

@@ -6,9 +6,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.UserMapper">
 	<select id="select" parameterType="String" resultType="user">
-		SELECT * FROM USERS WHERE userID=#{userID}
+		SELECT *
+		FROM USERS WHERE userID=#{userID}
 	</select>
 	<select id="selectall" resultType="user">
-		SELECT * FROM USERS
+		SELECT * FROM USERS;
 	</select>
+
+	<insert id="insert" parameterType="user">
+		INSERT INTO USERS
+		VALUES(CONCAT('user_',TO_CHAR(userID_seq.NEXTVAL)),NULL,NULL,NULL,NULL,#{userRegDate},#{chainID})
+	</insert>
 </mapper>

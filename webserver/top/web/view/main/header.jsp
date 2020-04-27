@@ -1,9 +1,50 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!--
-			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
-		-->
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script>
+	// ajax를 통해 userapplycnt를 받는다
+	var myJSON = [];
+	function readAjax() {
+		$.ajax({
+			type : "post",
+			dataType : "json",
+			url : "read.top",
+			async : false,
+			cache : false,
+			success : function(data) {
+				showNoti(data);
+			},
+
+		});
+	}
+
+	// 받은 데이터가 존재한다면 noti창에 뜨게한다
+	function showNoti(data) {
+		for (i = 0; i < data.length; i++) {
+			var txt = '<a href="#"><div class="notif-icon notif-success"><i class="fa fa-comment"></i></div><div class="notif-content"><span class="block">';
+			var chainid = data[i].chainid;
+			var applycnt = data[i].applycnt;
+			txt += chainid;
+			txt += '</span> <span class="time">12minutes ago</span></div></a>';
+			$('div.notif-center').append(txt);
+		}
+		;
+
+	}
+
+	// 10초에 한번씩 ajax를 통해  데이터를 받는다
+	$(document).ready(function() {
+		//setInterval(readAjax, 10000);
+
+	});
+</script>
+
 
 <div class="main-header" data-background-color="red">
 	<!-- Logo Header -->
@@ -69,59 +110,12 @@
 						<li>
 							<div class="message-notif-scroll scrollbar-outer">
 								<div class="notif-center">
-									<a href="#">
-										<div class="notif-icon notif-primary">
-											<i class="fa fa-user-plus"></i>
-										</div>
-										<div class="notif-content">
-											<span class="block"> New user registered </span> <span
-												class="time">5 minutes ago</span>
-										</div>
-									</a> <a href="#">
-										<div class="notif-icon notif-success">
-											<i class="fa fa-comment"></i>
-										</div>
-										<div class="notif-content">
-											<span class="block"> Rahmad commented on Admin </span> <span
-												class="time">12 minutes ago</span>
-										</div>
-									</a> <a href="#">
-										<div class="notif-img">
-											<img src="assets/img/profile2.jpg" alt="Img Profile">
-										</div>
-										<div class="notif-content">
-											<span class="block"> Reza send messages to you </span> <span
-												class="time">12 minutes ago</span>
-										</div>
-									</a> <a href="#">
-										<div class="notif-icon notif-danger">
-											<i class="fa fa-heart"></i>
-										</div>
-										<div class="notif-content">
-											<span class="block"> Farrah liked Admin </span> <span
-												class="time">17 minutes ago</span>
-										</div>
-									</a> </a> <a href="#">
-										<div class="notif-icon notif-danger">
-											<i class="fa fa-heart"></i>
-										</div>
-										<div class="notif-content">
-											<span class="block"> Farrah liked Admin </span> <span
-												class="time">17 minutes ago</span>
-										</div>
-									</a> </a> <a href="#">
-										<div class="notif-icon notif-danger">
-											<i class="fa fa-heart"></i>
-										</div>
-										<div class="notif-content">
-											<span class="block"> Farrah liked Admin </span> <span
-												class="time">17 minutes ago</span>
-										</div>
-									</a>
+									
 								</div>
 							</div>
 						</li>
-						<li><a class="see-all" href="javascript:void(0);">모두 보기<i class="fa fa-angle-right"></i>
+						<li><a class="see-all" href="javascript:void(0);">모두 보기<i
+								class="fa fa-angle-right"></i>
 						</a></li>
 					</ul></li>
 

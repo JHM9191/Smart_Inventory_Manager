@@ -9,52 +9,85 @@
 <script>
 	// 컨테이너 리스트 show 스크립트 //
 	window.onload = function() {
-		setInterval("getData('${chainID}')", 1000);
+		setInterval("getData('${chainID}')", 3000);
 	}
 
 	function getData(chainID) {
+		console.log('chainID : ' + chainID);
 
 		$.ajax({
 			url : 'getRealTimeContainerData.top?chainID=' + chainID,
 			success : function(data) {
 				console.log(data);
-				var cnt = 1;
-				var chartname = "doughnutChart";
-				$('#showContainerList').html('');
-				for (var i = 0; i < data.length; i++) {
-					var results = '';
-					results += "<div class='top_progressbar col-12 col-md-4'>"
-					results += "<div class='card'>"
-					results += "<div class='card-header'>"
-					results += "<div class='card-title'>컨테이너" + cnt + ":"
-							+ data[i]['conID'] + "</div>"
-					results += "<div class='chart-container'>"
-					results += "<canvas id ='" + (chartname + cnt)
-							+ "'> style = 'width: 33%; height: 33%'></canvas>"
-					results += "</div></div></div></div></div>"
-					$('#showContainerList').append(results);
 
-					var maxWeight = data[i]['conFullWeight'];
-					var currWeight = data[i]['conCurrWeight'];
-					var warningWeight = data[i]['conWarningWeight'];
-
-					if (warningWeight >= currWeight) {
-						var warningList = '';
-						warningList += "컨테이너 아이디 : data[i]['conID'] ,"
-						warningList += "경고무게 :  " + warningWeight
-								+ ".0kg,  현재무게:  " + currWeight + ".0kg <br>"
-						/* $('#warningContainerList').append(warningList); */
-					}
-
-					makeChart(chartname, cnt, maxWeight, currWeight,
-							warningWeight);
-					cnt++;
-				}
+				//setChart(data);
+				makeProgressBar(data);
 			}
-		})
+		});
+
+	};
+
+	function makeProgressBar(data) {
+
+		$('#showContainerList').html('');
+		for (var i = 0; i < data.length; i++) {
+			var result = '';
+			result += "<div class='top_progressbar col-12 col-md-4'>"
+			result += "<div class='card'>"
+			result += "<div class='card-header'>"
+			result += "<div class='card-title'><p class=\"h1\"><b>"
+					+ data[i]['ingName']
+					+ "</b></p><p class=\"text-info\">(컨테이너 ID : "
+					+ data[i]['conID'] + ")</p></div>";
+			result += '<div id="task-complete" class="chart-circle mt-4 mb-3">';
+			result += '<div class="circles-wrp" style="position: relative; display: inline-block;">';
+			result += '<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">';
+			result += '<path fill="transparent" stroke="#eee" stroke-width="8" d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 74.90138242439691 4.000068488950063 Z" class="circles-maxValueStroke"></path>';
+			result += '<path fill="transparent" stroke="#1D62F0" stroke-width="8" d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 7.458509176231658 53.11057293342702 " class="circles-valueStroke"></path></svg>';
+			result += '<div class="circles-text" style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 52.5px; height: 150px; line-height: 150px;">';
+			result += ((data[i]['conCurrWeight'] / data[i]['conFullWeight']) * 100)
+					.toFixed(2)
+					+ '%';
+			result += '</div></div></div></div></div></div>';
+			$('#showContainerList').append(result);
+		}
 
 	}
+	/* 
+	 function setChart(data) {
+	 var cnt = 1;
+	 var chartname = "doughnutChart";
+	 $('#showContainerList').html('');
+	 for (var i = 0; i < data.length; i++) {
+	 var results = '';
+	 results += "<div class='top_progressbar col-12 col-md-4'>"
+	 results += "<div class='card'>"
+	 results += "<div class='card-header'>"
+	 results += "<div class='card-title'><p><b>" + data[i]['ingName']
+	 + "</b></p>컨테이너" + cnt + ":" + data[i]['conID'] + "</div>"
+	 results += "<div class='chart-container'>"
+	 results += "<canvas id ='" + (chartname + cnt)
+	 + "'> style = 'width: 33%; height: 33%'></canvas>"
+	 results += "</div></div></div></div></div>"
+	 $('#showContainerList').append(results);
 
+	 var maxWeight = data[i]['conFullWeight'];
+	 var currWeight = data[i]['conCurrWeight'];
+	 var warningWeight = data[i]['conWarningWeight'];
+
+	 if (warningWeight >= currWeight) {
+	 var warningList = '';
+	 warningList += "컨테이너 아이디 : data[i]['conID'] ,"
+	 warningList += "경고무게 :  " + warningWeight + ".0kg,  현재무게:  "
+	 + currWeight + ".0kg <br>"
+	 // $('#warningContainerList').append(warningList);
+	 }
+
+	 makeChart(chartname, cnt, maxWeight, currWeight, warningWeight);
+	 cnt++;
+	 }
+	 }
+	 */
 	/*
 	function showConList() {
 		alert('${containervo}');
@@ -91,28 +124,7 @@
 	
 	 */
 
-	function makeProgressBar() {
-
-		/*
-		<div id="task-complete" class="chart-circle mt-4 mb-3">
-						<div class="circles-wrp"
-							style="position: relative; display: inline-block;">
-							<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">
-								<path fill="transparent" stroke="#eee" stroke-width="8"
-									d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 74.90138242439691 4.000068488950063 Z"
-									class="circles-maxValueStroke"></path>
-								<path fill="transparent" stroke="#1D62F0" stroke-width="8"
-									d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 7.458509176231658 53.11057293342702 "
-									class="circles-valueStroke"></path></svg>
-							<div class="circles-text"
-								style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 52.5px; height: 150px; line-height: 150px;">80%</div>
-						</div>
-					</div>
-		 */
-
-	}
-
-	function makeChart(chartname, i, maxWeight, currWeight, warningWeight) {
+	/* function makeChart(chartname, i, maxWeight, currWeight, warningWeight) {
 		var doughnutChart = document.getElementById((chartname + i))
 				.getContext('2d');
 		var myDoughnutchart = new Chart((chartname + i), {
@@ -146,7 +158,7 @@
 			}
 		});
 
-	}
+	} */
 </script>
 
 <h4 class="page-title">재고현황('${chainID }')</h4>
@@ -182,18 +194,4 @@
 	<div id="showContainerList"></div>
 </div>
 
-<div id="task-complete" class="chart-circle mt-4 mb-3">
-	<div class="circles-wrp"
-		style="position: relative; display: inline-block;">
-		<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">
-								<path fill="transparent" stroke="#eee" stroke-width="8"
-				d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 74.90138242439691 4.000068488950063 Z"
-				class="circles-maxValueStroke"></path>
-								<path fill="transparent" stroke="#1D62F0" stroke-width="8"
-				d="M 74.98553920253764 4.000001472638488 A 71 71 0 1 1 7.458509176231658 53.11057293342702 "
-				class="circles-valueStroke"></path></svg>
-		<div class="circles-text"
-			style="position: absolute; top: 0px; left: 0px; text-align: center; width: 100%; font-size: 52.5px; height: 150px; line-height: 150px;">80%</div>
-	</div>
-</div>
 

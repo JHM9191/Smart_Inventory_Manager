@@ -10,17 +10,32 @@ import top.vo.SalesVO;
 public interface Biz<Id, Model> {
 
 	@Transactional
-	default public void register(Model model) throws Exception {
+	default public void register(Model model) {
 
 	}
 
 	@Transactional
-	default public void modify(Model model) throws Exception {
+	default public void registertoday(Model model) {
 
 	}
 
 	@Transactional
-	default public void remove(Id id) throws Exception {
+	default public void registernew(Model model) {
+
+	}
+
+	@Transactional
+	default public void modify(Model model) {
+
+	}
+
+	@Transactional
+	default public void modifyondelivered(Model model) {
+
+	}
+
+	@Transactional
+	default public void remove(Id id) {
 
 	}
 
@@ -51,6 +66,46 @@ public interface Biz<Id, Model> {
 	default public ArrayList<Model> getbyhq(String id) {
 		return null;
 	}
-	
 
+	default public ArrayList<Model> getnotifi(Id id) {
+		return null;
+	};
+
+	// refresh
+
+	default void refreshstate(String chainId) {
+
+	}
+
+	default public Model getchainname(String id) {
+		return null;
+	};
+
+	default public Model getbychain(Id id) {
+		return null;
+	}
+
+	default public Model getorderbychain(Model model) {
+		return null;
+	};
+
+	default public Model getbyorderid(String id) {
+		return null;
+	};
+
+	default public ArrayList<Model> getlistbyorderid(String id) {
+		return null;
+	};
+
+	default public Model getjustregistered(Model model) {
+		return null;
+	};
+
+	default public Model getordertoday(Model model) {
+		return null;
+	};
+	
+	default public ArrayList<Model> getDailyAllChain(String salesRegDate) {
+		return null;
+	}
 }

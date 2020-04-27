@@ -21,12 +21,29 @@
 
 					<div class="collapse in" id="collapseExample">
 						<ul class="nav">
-							<li><a href="#profile"> <span class="link-collapse">마이페이지</span>
-							</a></li>
-							<li><a href="#edit"> <span class="link-collapse">마이페이지
-										수정</span>
-							</a></li>
-							<li><a href="#settings"> <span class="link-collapse">설정</span>
+							<c:choose>
+								<c:when test="${who == 'hq'}">
+									<li><a href="addAddr.top"> <span class="link-collapse">
+												가맹점추가하기</span>
+									</a></li>
+									<li><a href="admin.top"> <span class="link-collapse">
+												관리자페이지</span>
+									</a></li>
+
+									<li><a href="update.top"> <span class="link-collapse">
+												나의 정보 수정하기</span>
+									</a></li>
+
+								</c:when>
+								<c:otherwise>
+									<li><a href="apply.top"> <span class="link-collapse">
+												가입 신청하기 </span>
+									</a></li>
+
+								</c:otherwise>
+							</c:choose>
+							<li><a href="logout.top"> <span class="link-collapse">
+										로그아웃</span>
 							</a></li>
 						</ul>
 					</div>
@@ -37,7 +54,7 @@
 			<ul class="nav">
 
 				<!-- HOME -->
-				<li class="nav-item active"><a href="index.html"> <i
+				<li class="nav-item active"><a onclick="location.href='mainStat.top'"> <i
 						class="fas fa-home"></i>
 						<p>홈</p> <!-- <span class="badge badge-count">5</span> -->
 				</a></li>

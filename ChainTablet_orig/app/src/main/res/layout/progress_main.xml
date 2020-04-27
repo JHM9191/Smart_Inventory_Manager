@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9CC4AB"
+    tools:context=".ProgressActivity">
+
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="5dp"-->
+    <!--            android:layout_weight="1.5"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="물품1"-->
+    <!--            android:textColor="#343638"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <com.dinuscxj.progressbar.CircleProgressBar-->
+    <!--            android:id="@+id/ItemProgress1"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false"-->
+    <!--            android:gravity="center"-->
+    <!--            app:progress_end_color="#D9F0AB"-->
+    <!--            app:progress_shader="sweep"-->
+    <!--            app:progress_start_color="#F92B42"-->
+
+    <!--            app:progress_start_degree="270"-->
+
+    <!--            app:progress_stroke_cap="round"-->
+
+    <!--            app:progress_stroke_width="20dp"-->
+    <!--            app:progress_text_color="#343638"-->
+    <!--            app:progress_text_size="30sp"-->
+    <!--            app:style="solid_line" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView2"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="5dp"-->
+    <!--            android:layout_weight="1.5"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="물품3"-->
+    <!--            android:textColor="#343638"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <com.dinuscxj.progressbar.CircleProgressBar-->
+    <!--            android:id="@+id/ItemProgress3"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false"-->
+    <!--            android:gravity="center"-->
+    <!--            app:progress_end_color="#D9F0AB"-->
+    <!--            app:progress_shader="sweep"-->
+    <!--            app:progress_start_color="#F92B42"-->
+    <!--            app:progress_start_degree="270"-->
+
+    <!--            app:progress_stroke_cap="round"-->
+
+    <!--            app:progress_stroke_width="20dp"-->
+    <!--            app:progress_text_color="#343638"-->
+    <!--            app:progress_text_size="30sp"-->
+    <!--            app:style="solid_line" />-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView6"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="5dp"-->
+    <!--            android:layout_weight="1.5"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="물품2"-->
+    <!--            android:textColor="#343638"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <com.dinuscxj.progressbar.CircleProgressBar-->
+    <!--            android:id="@+id/ItemProgress2"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false"-->
+    <!--            android:gravity="center"-->
+    <!--            app:progress_end_color="#D9F0AB"-->
+    <!--            app:progress_shader="sweep"-->
+    <!--            app:progress_start_color="#F92B42"-->
+    <!--            app:progress_start_degree="270"-->
+
+    <!--            app:progress_stroke_cap="round"-->
+
+    <!--            app:progress_stroke_width="20dp"-->
+    <!--            app:progress_text_color="#343638"-->
+    <!--            app:progress_text_size="30sp"-->
+    <!--            app:style="solid_line" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView4"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="5dp"-->
+    <!--            android:layout_weight="1.5"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="물품4"-->
+    <!--            android:textColor="#343638"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <com.dinuscxj.progressbar.CircleProgressBar-->
+    <!--            android:id="@+id/ItemProgress4"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:clickable="false"-->
+    <!--            android:gravity="center"-->
+    <!--            app:progress_end_color="#D9F0AB"-->
+    <!--            app:progress_shader="sweep"-->
+    <!--            app:progress_start_color="#F92B42"-->
+    <!--            app:progress_start_degree="270"-->
+
+    <!--            app:progress_stroke_cap="round"-->
+
+    <!--            app:progress_stroke_width="20dp"-->
+    <!--            app:progress_text_color="#343638"-->
+    <!--            app:progress_text_size="30sp"-->
+    <!--            app:style="solid_line" />-->
+
+
+    <!--    </LinearLayout>-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
+</LinearLayout>

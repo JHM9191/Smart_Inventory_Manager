@@ -24,4 +24,24 @@ public class HeadquarterDao implements Dao<String, HeadquarterVO> {
 		return hqmapper.selectall();
 	}
 
+	@Override
+	public void insert(HeadquarterVO model) {
+		hqmapper.insert(model);
+
+	}
+
+	@Override
+	public void update(HeadquarterVO model) {
+		hqmapper.update(model);
+
+	}
+
+	///// used END !/////
+
+	@Override
+	public void delete(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

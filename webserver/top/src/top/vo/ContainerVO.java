@@ -17,6 +17,7 @@ public class ContainerVO {
 	String ingID;
 	String ingName;
 	double ingWeight;
+	String ingUnit;
 	String chainID;
 	String chainName;
 	String hqID;
@@ -29,7 +30,7 @@ public class ContainerVO {
 	public ContainerVO(String conID, String conSize, double conMaxWeight, String conRegDate, String conUpdateDate,
 			double conFullWeight, int conFullQuantity, double conWarningWeight, int conWarningQuantity,
 			double conCurrWeight, int conCurrQuantity, double conUnitWeight, String ingID, String ingName,
-			double ingWeight, String chainID, String chainName, String hqID, String hqName) {
+			double ingWeight, String ingUnit, String chainID, String chainName, String hqID, String hqName) {
 		super();
 		this.conID = conID;
 		this.conSize = conSize;
@@ -46,6 +47,7 @@ public class ContainerVO {
 		this.ingID = ingID;
 		this.ingName = ingName;
 		this.ingWeight = ingWeight;
+		this.ingUnit = ingUnit;
 		this.chainID = chainID;
 		this.chainName = chainName;
 		this.hqID = hqID;
@@ -172,6 +174,14 @@ public class ContainerVO {
 		this.ingWeight = ingWeight;
 	}
 
+	public String getIngUnit() {
+		return ingUnit;
+	}
+
+	public void setIngUnit(String ingUnit) {
+		this.ingUnit = ingUnit;
+	}
+
 	public String getChainID() {
 		return chainID;
 	}
@@ -211,8 +221,8 @@ public class ContainerVO {
 				+ ", conFullQuantity=" + conFullQuantity + ", conWarningWeight=" + conWarningWeight
 				+ ", conWarningQuantity=" + conWarningQuantity + ", conCurrWeight=" + conCurrWeight
 				+ ", conCurrQuantity=" + conCurrQuantity + ", conUnitWeight=" + conUnitWeight + ", ingID=" + ingID
-				+ ", ingName=" + ingName + ", ingWeight=" + ingWeight + ", chainID=" + chainID + ", chainName="
-				+ chainName + ", hqID=" + hqID + ", hqName=" + hqName + "]";
+				+ ", ingName=" + ingName + ", ingWeight=" + ingWeight + ", ingUnit=" + ingUnit + ", chainID=" + chainID
+				+ ", chainName=" + chainName + ", hqID=" + hqID + ", hqName=" + hqName + "]";
 	}
 
 }

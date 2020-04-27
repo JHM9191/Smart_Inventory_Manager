@@ -645,15 +645,16 @@
 	<!-- Azzara DEMO methods, don't include it in your project! -->
 	<script src="../assets/js/setting-demo.js"></script>
 	<script>
-		var lineChart = document.getElementById('lineChart').getContext('2d'),
+		var lineChart = document.getElementById('lineChart').getContext('2d');
+		/* 
 		barChart = document.getElementById('barChart').getContext('3d'),
 		pieChart = document.getElementById('pieChart').getContext('2d'),
 		doughnutChart = document.getElementById('doughnutChart').getContext('2d'),
 		radarChart = document.getElementById('radarChart').getContext('2d'),
-		bubbleChart = document.getElementById('bubbleChart').getContext('2d'),
-		multipleLineChart = document.getElementById('multipleLineChart').getContext('2d'),
-		multipleBarChart = document.getElementById('multipleBarChart').getContext('2d'),
-		htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d');
+		bubbleChart = document.getElementById('bubbleChart').getContext('2d'), */
+		var multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
+	/* 	multipleBarChart = document.getElementById('multipleBarChart').getContext('2d'),
+		htmlLegendsChart = document.getElementById('htmlLegendsChart').getContext('2d'); */
 
 		var myLineChart = new Chart(lineChart, {
 			type: 'line',

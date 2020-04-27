@@ -37,20 +37,30 @@ public class ContainerBiz implements Biz<String, ContainerVO> {
 
 	@Override
 	@Transactional
-	public void register(ContainerVO model) throws Exception {
+	public void register(ContainerVO model) {
 		dao.insert(model);
 
 	}
 
 	@Override
-	public void modify(ContainerVO model) throws Exception {
+	public void modify(ContainerVO model) {
 		dao.update(model);
 	}
 
 	@Override
-	public void remove(String conID) throws Exception {
+	public void modifyondelivered(ContainerVO model) {
+		dao.updateondelivered(model);
+	}
+
+	@Override
+	public void remove(String conID) {
 		dao.delete(conID);
 
+	}
+
+	@Override
+	public ContainerVO getjustregistered(ContainerVO container) {
+		return dao.selectjustregistered(container);
 	}
 
 }

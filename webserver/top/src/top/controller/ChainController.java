@@ -5,6 +5,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -22,12 +24,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.frame.Biz;
 import top.vo.ContainerVO;
+import top.vo.NotiVO;
 
 @Controller
 public class ChainController {
 
 	@Resource(name = "conbiz")
 	Biz<String, ContainerVO> conbiz;
+	@Resource(name = "notibiz")
+	Biz<String, NotiVO> notibiz;
 
 	HashMap<String, ArrayList<ContainerVO>> conMap = new HashMap<String, ArrayList<ContainerVO>>();
 
@@ -41,7 +46,7 @@ public class ChainController {
 		System.out.println(chainID);
 
 		ArrayList<ContainerVO> conList = conbiz.getForChain(chainID);
-		System.out.println(conList);
+		System.out.println("conList : " + conList);
 
 		// send notification to manageApp regardless of the said conditions above
 		URL url = null;
@@ -78,7 +83,7 @@ public class ChainController {
 		notification.put("body", "fetch");
 		message.put("notification", notification);
 		JSONArray conListArray = new JSONArray();
-		
+
 		for (ContainerVO con : conList) {
 			JSONObject jo = new JSONObject();
 			jo.put("conID", con.getConID());
@@ -148,18 +153,40 @@ public class ChainController {
 	@RequestMapping("/realtimecontainerdata.top")
 	public void realtimecontainerdata(HttpServletRequest req) {
 		String conID = req.getParameter("conID");
-		System.out.println(conID.substring(6));
+//		System.out.println(conID.substring(6));
 		double conFullWeight = Double.parseDouble(req.getParameter("conFullWeight"));
 		double conCurrWeight = Double.parseDouble(req.getParameter("conCurrWeight"));
 		double conWarningWeight = Double.parseDouble(req.getParameter("conWarningWeight"));
 		String ingID = req.getParameter("ingID");
+		String ingName = req.getParameter("ingName");
 		String chainID = req.getParameter("chainID");
+		String userID = req.getParameter("userID");
 
 		System.out.println(conID + " | " + conFullWeight + " | " + conCurrWeight + " | " + conWarningWeight + " | "
-				+ ingID + " | " + chainID);
-		// ContainerVO con = new ContainerVO(conID, conFullWeight, conCurrWeight,
-		// conWarningWeight, ingID, chainID);
-		// saveConData(con, conID, chainID, conCurrWeight);
+				+ ingID + " | " + ingName + " | " + chainID + " | " + userID);
+
+//		 ContainerVO con = new ContainerVO(conID, conFullWeight, conCurrWeight,
+//		 conWarningWeight, ingID, chainID);
+		ContainerVO con = new ContainerVO();
+		con.setConID(conID);
+		con.setConFullWeight(conFullWeight);
+		con.setConCurrWeight(conCurrWeight);
+		con.setChainID(chainID);
+		con.setIngName(ingName);
+		saveConData(con, conID, chainID, conCurrWeight);
+		// if below warning, send noti to admin.
+		if ((conCurrWeight - conWarningWeight) < 0) {
+			String regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+			System.out.println("Warning!  " + con);
+//			notibiz.register(new NotiVO(null, chainID, userID, null, regDate, "new"));
+		}
+	}
+
+	@RequestMapping("/getAllRealTimeContainerData.top")
+	@ResponseBody
+	public HashMap<String, ArrayList<ContainerVO>> getAllRealTimeContainerData(HttpServletRequest req) {
+
+		return conMap;
 	}
 
 	@RequestMapping("/getRealTimeContainerData.top")
@@ -193,7 +220,7 @@ public class ChainController {
 
 				});
 
-				System.out.println(list);
+				System.out.println("list : " + list);
 				return list;
 			}
 		}

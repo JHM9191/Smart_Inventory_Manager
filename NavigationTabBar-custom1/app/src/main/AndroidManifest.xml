@@ -10,8 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name="devlight.io.tabletUI2.ProgressActivity"></activity>
-        <activity android:name="devlight.io.tabletUI2.MainActivity">
+        <activity android:name="devlight.io.tabletUI2.com.example.chaintablet.ProgressActivity"></activity>
+        <activity android:name="devlight.io.tabletUI2.com.example.chaintablet.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

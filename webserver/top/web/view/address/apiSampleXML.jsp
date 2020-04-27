@@ -38,6 +38,7 @@ function getAddr(){
 	    }
 	});
 }
+
 function makeList(xmlStr){
 	var htmlStr = "";
 	htmlStr += "<table>";
@@ -73,6 +74,7 @@ function makeList(xmlStr){
 	htmlStr += "</table>";
 	$("#list").html(htmlStr);
 }
+
 function enterSearch() {
 	var evt_code = (window.netscape) ? ev.which : event.keyCode;
 	if (evt_code == 13) {    

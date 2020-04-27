@@ -5,6 +5,36 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="top.mapper.OrderMapper">
-
-
+	<select id="select" parameterType="String" resultType="order">
+		SELECT *
+		FROM ORDERS WHERE hqID=#{hqID}
+	</select>
+	<select id="selectall" resultType="order">
+		SELECT * FROM ORDERS
+	</select>
+	<select id="selectorderbychain" parameterType="order"
+		resultType="order">
+		SELECT * FROM ORDERS WHERE chainID=#{chainID} AND
+		SUBSTR(deliveryDate,1,8)=#{deliveryDate}
+	</select>
+	<select id="selectbyorderid" parameterType="String"
+		resultType="order">
+		SELECT * FROM ORDERS WHERE orderID=#{orderID}
+	</select>
+	<update id="update" parameterType="order">
+		UPDATE ORDERS SET
+		deliveryState=#{deliveryState} WHERE orderID=#{orderID}
+	</update>
+	<insert id="insert" parameterType="order">
+		INSERT INTO ORDERS VALUES(CONCAT('orderID_',TO_CHAR(orderID_seq.NEXTVAL)),#{payment},
+		#{deliveryDate},#{deliveryState},#{orderPerson},#{orderState},
+		#{hqID},#{hqName},#{chainID},#{chainName},#{userID},#{userName})
+	</insert>
+	<insert id="inserttoday" parameterType="order">
+		INSERT INTO ORDERS(orderID, hqID, hqName, chainID, chainName, deliveryDate, deliveryState) 
+		VALUES(CONCAT('orderID_',TO_CHAR(orderID_seq.NEXTVAL)),#{hqID},#{hqName},#{chainID},#{chainName},#{deliveryDate},#{deliveryState})
+	</insert>
+	<select id="selectordertoday" parameterType="order" resultType="order">
+		SELECT * FROM ORDERS WHERE chainID=#{chainID} AND SUBSTR(deliveryDate,1,8)=#{deliveryDate}
+	</select>
 </mapper>

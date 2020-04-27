@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.mapper.NotiMapper">
+	<insert id="insert" parameterType="noti">
+		INSERT INTO NOTI
+		VALUES(CONCAT('noti_',TO_CHAR(notiID_seq.NEXTVAL)),#{chainID},#{userID},#{applyCnt},#{regDate},#{refresh})
+	</insert>
+
+	<select id="select" parameterType="string" resultType="noti">
+		SELECT * FROM noti WHERE chainId = #{chainID} AND refresh ='true'
+	</select>
+	
+	<update id="updaterefresh" parameterType="string">
+		UPDATE
+		noti SET
+		refresh ='false' WHERE chainID=#{chainID}
+	</update>
+	
+	<select id="selectall" resultType="noti">
+		SELECT * FROM noti
+	</select>
+</mapper>

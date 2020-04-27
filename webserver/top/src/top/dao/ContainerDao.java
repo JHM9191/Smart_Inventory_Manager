@@ -33,21 +33,32 @@ public class ContainerDao implements Dao<String, ContainerVO> {
 	}
 
 	@Override
-	public void insert(ContainerVO model) throws Exception {
-		containermapper.insert(model);
+	public void insert(ContainerVO container) {
+		containermapper.insert(container);
 
 	}
 
 	@Override
-	public void update(ContainerVO model) throws Exception {
-		containermapper.update(model);
+	public void update(ContainerVO container) {
+		containermapper.update(container);
+
+	}
+	
+	@Override
+	public void updateondelivered(ContainerVO container) {
+		containermapper.updateondelivered(container);
 
 	}
 
 	@Override
-	public void delete(String conID) throws Exception {
+	public void delete(String conID) {
 		containermapper.delete(conID);
 
+	}
+	
+	@Override
+	public ContainerVO selectjustregistered(ContainerVO container) {
+		return containermapper.selectjustregistered(container);
 	}
 
 }

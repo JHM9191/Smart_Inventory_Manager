@@ -30,4 +30,17 @@ public class ChainBiz implements Biz<String, ChainVO> {
 	public ArrayList<ChainVO> getbyhq(String hqID) {
 		return dao.selectbyhq(hqID);
 	}
+
+	@Override
+	public ChainVO getchainname(String hqid) {
+
+		return dao.selectchainname(hqid);
+	}
+
+	@Override
+	public ArrayList<ChainVO> getnotifi(String hqid) {
+		return dao.selectnotifi(hqid);
+
+	}
+
 }

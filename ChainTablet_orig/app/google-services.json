@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "690578757582",
+    "firebase_url": "https://smart-inventory-manager.firebaseio.com",
+    "project_id": "smart-inventory-manager",
+    "storage_bucket": "smart-inventory-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690578757582:android:76ba9c7539a5dc6123bd9f",
+        "android_client_info": {
+          "package_name": "com.example.chaintablet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Jbmk3gWWyvHzeaviKDh9apuwObk9HSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

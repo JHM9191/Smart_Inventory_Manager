@@ -6,31 +6,55 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <mapper namespace="top.mapper.SalesMapper">
 	<select id="select" parameterType="String" resultType="sales">
-		SELECT * FROM SALES WHERE chainID=#{chainID} ORDER BY totSales DESC
+		SELECT *
+		FROM SALES WHERE chainID=#{chainID} ORDER BY totSales DESC
 	</select>
 	<select id="selectall" resultType="sales">
 		<![CDATA[
-		SELECT chainID, SUBSTR(salesRegDate,1,4) AS salesRegDate, SUM(totSales) AS totSales FROM SALES GROUP BY chainID, SUBSTR(salesRegDate,1,4)  HAVING SUBSTR(salesRegDate,1,4)='2019' ORDER BY totSales DESC
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,4) AS salesRegDate, SUM(totSales) AS totSales FROM SALES GROUP BY chainID, chainName, SUBSTR(salesRegDate,1,4)  HAVING SUBSTR(salesRegDate,1,4)='2019' ORDER BY totSales DESC
 		]]>
 	</select>
-	
+
 	<select id="selectYear" resultType="sales">
 		<![CDATA[
-		SELECT chainID, SUBSTR(salesRegDate,1,4) AS salesRegDate, SUM(totSales) AS totSales FROM SALES GROUP BY chainID, SUBSTR(salesRegDate,1,4)  HAVING SUBSTR(salesRegDate,1,4)='${year}' ORDER BY totSales DESC
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,4) AS salesRegDate, SUM(totSales) AS totSales FROM SALES GROUP BY chainID, chainName, SUBSTR(salesRegDate,1,4)  HAVING SUBSTR(salesRegDate,1,4)='${year}' ORDER BY totSales DESC
 		]]>
 	</select>
-	
+
 	<select id="selectMonth" resultType="sales">
 		<![CDATA[
-		SELECT chainID, SUBSTR(salesRegDate,1,6) AS salesRegDate, SUM(totSales) AS totSales FROM SALES WHERE SUBSTR(salesRegDate,1,4)='${year}'  GROUP BY chainID, SUBSTR(salesRegDate,1,6) HAVING chainID=#{chainID} ORDER BY chainID, SUBSTR(salesRegDate,1,6)
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,6) AS salesRegDate, SUM(totSales) AS totSales FROM SALES WHERE SUBSTR(salesRegDate,1,4)='${year}'  GROUP BY chainID, chainName, SUBSTR(salesRegDate,1,6) HAVING chainID=#{chainID} ORDER BY chainID, SUBSTR(salesRegDate,1,6)
 		]]>
 	</select>
-	
-	<select id="selectYearly" parameterType="String" resultType="sales">
-		SELECT chainID, SUBSTR(salesRegDate,1,4), SUM(totSales) FROM SALES GROUP BY chainID, SUBSTR(salesRegDate,1,4)  HAVING chainID=#{chainID} ORDER BY chainID, SUBSTR(salesRegDate,1,4)
+
+	<select id="selectYearly" parameterType="String"
+		resultType="sales">
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,4), SUM(totSales)
+		FROM SALES GROUP BY chainID, chainName, SUBSTR(salesRegDate,1,4) HAVING
+		chainID=#{chainID} ORDER BY chainID, SUBSTR(salesRegDate,1,4)
+	</select>
+
+	<select id="selectMonthly" parameterType="String"
+		resultType="sales">
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,6) AS salesRegDate,
+		SUM(totSales) AS totSales FROM SALES GROUP BY chainID, chainName,
+		SUBSTR(salesRegDate,1,6) HAVING chainID=#{chainID} ORDER BY chainID,
+		SUBSTR(salesRegDate,1,6)
+	</select>
+
+	<select id="selectbychain" parameterType="String"
+		resultType="sales">
+		SELECT * FROM (SELECT * FROM SALES WHERE chainID=#{chainID}
+		ORDER BY SALESID DESC) WHERE ROWNUM = 1
 	</select>
 	
-	<select id="selectMonthly" parameterType="String" resultType="sales">
-		SELECT chainID, SUBSTR(salesRegDate,1,6) AS salesRegDate, SUM(totSales) AS totSales FROM SALES GROUP BY chainID, SUBSTR(salesRegDate,1,6) HAVING chainID=#{chainID} ORDER BY chainID, SUBSTR(salesRegDate,1,6)
+	<select id="selectDailyAllChain" parameterType="String"
+		resultType="sales">
+		SELECT chainID, chainName, SUBSTR(salesRegDate,1,8) AS salesRegDate,
+		SUM(totSales) AS totSales FROM SALES GROUP BY chainID, chainName,
+		SUBSTR(salesRegDate,1,8) HAVING SUBSTR(salesRegDate,1,8)=#{salesRegDate} ORDER BY chainID,
+		SUBSTR(salesRegDate,1,8)
 	</select>
+	
+
 </mapper>

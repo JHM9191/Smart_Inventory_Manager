@@ -22,7 +22,7 @@
 //import org.springframework.web.servlet.ModelAndView;
 //
 //import top.frame.Biz;
-//import top.vo.WarehouseVO;
+//import top.com.example.chaintablet.vo.WarehouseVO;
 //
 //
 //public class MainController_temp {

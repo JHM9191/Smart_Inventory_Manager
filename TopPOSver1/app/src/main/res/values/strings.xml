@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TopBucks</string>
+    <string name="tab_text_1">메뉴</string>
+    <string name="tab_text_2">주문내역</string>
+    <string name="tab_text_3">정산</string>
+    <string name="tab_text_4">일별판매량</string>
+</resources>

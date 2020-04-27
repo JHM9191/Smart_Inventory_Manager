@@ -27,7 +27,7 @@ public class SalesDao implements Dao<String, SalesVO> {
 	public ArrayList<SalesVO> selectYear(String year) {
 		return salesmapper.selectYear(year);
 	}
-	
+
 	public ArrayList<SalesVO> selectMonth(String year, String chainID) {
 		return salesmapper.selectMonth(year, chainID);
 	}
@@ -38,6 +38,15 @@ public class SalesDao implements Dao<String, SalesVO> {
 
 	public ArrayList<SalesVO> selectMonthly(String salesID) {
 		return salesmapper.selectMonthly(salesID);
+	}
+
+	public SalesVO selectbychain(String chainID) {
+		return salesmapper.selectbychain(chainID);
+	}
+
+	@Override
+	public ArrayList<SalesVO> selectDailyAllChain(String salesRegDate) {
+		return salesmapper.selectDailyAllChain(salesRegDate);
 	}
 
 }

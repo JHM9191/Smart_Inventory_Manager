@@ -24,4 +24,17 @@ public class OrderDetailDao implements Dao<String, OrderDetailVO> {
 		return orderdetailmapper.selectall();
 	}
 
+	@Override
+	public ArrayList<OrderDetailVO> selectlistbyorderid(String id) {
+		return orderdetailmapper.selectlistbyorderid(id);
+	}
+
+	@Override
+	public void insert(OrderDetailVO orderdetail) {
+		orderdetailmapper.insert(orderdetail);
+	}
+	@Override
+	public void insertnew(OrderDetailVO orderdetail) {
+		orderdetailmapper.insertnew(orderdetail);
+	}
 }

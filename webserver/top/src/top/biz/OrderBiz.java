@@ -17,6 +17,16 @@ public class OrderBiz implements Biz<String, OrderVO> {
 	Dao<String, OrderVO> dao;
 
 	@Override
+	public void register(OrderVO order) {
+		dao.insert(order);
+	}
+
+	@Override
+	public void registertoday(OrderVO order) {
+		dao.inserttoday(order);
+	}
+
+	@Override
 	public OrderVO get(String orderID) {
 		return dao.select(orderID);
 	}
@@ -26,4 +36,18 @@ public class OrderBiz implements Biz<String, OrderVO> {
 		return dao.selectall();
 	}
 
+	@Override
+	public OrderVO getorderbychain(OrderVO order) {
+		return dao.selectorderbychain(order);
+	}
+
+	@Override
+	public OrderVO getbyorderid(String orderID) {
+		return dao.selectbyorderid(orderID);
+	}
+
+	@Override
+	public OrderVO getordertoday(OrderVO order) {
+		return dao.selectordertoday(order);
+	}
 }

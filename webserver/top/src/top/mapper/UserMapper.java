@@ -10,4 +10,6 @@ public interface UserMapper {
 
 	public ArrayList<UserVO> selectall();
 
+	public void insert(UserVO model);
+
 }
