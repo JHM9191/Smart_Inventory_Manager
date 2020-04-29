@@ -139,9 +139,8 @@
 								<div class="demo-icon justify-content-center">
 									<div class="icon-preview">
 										<div class="row justify-content-center">
-											<span class="h3 text-info">관리자 전용 앱 다운로드 링크
-												&nbsp;</span> <i class="fas fa-cloud-download-alt text-info">
-											</i>
+											<span class="h3 text-info">관리자 전용 앱 다운로드 링크 &nbsp;</span> <i
+												class="fas fa-cloud-download-alt text-info"> </i>
 										</div>
 										<div>
 											<img alt="" src="top_resource/top_QR.jpg" />
@@ -208,12 +207,12 @@
 											role="button">
 											<div class="card-body">
 
-												<p>1. 재고관리</p>
+												<p class="h3">1. 재고관리</p>
 												<ul>
 													<li></li>
 													<li></li>
 												</ul>
-												<p>2.재고관리</p>
+												<p class="h3">2.재고관리</p>
 												<ul>
 													<li></li>
 													<li></li>
@@ -240,14 +239,14 @@
 											aria-labelledby="headingTwo_manual" data-parent="#accordion">
 											<div class="card-body">
 
-												<p>1. 발주현황</p>
+												<p class="h3">1. 발주 및 주문</p>
 												<ul>
-													<li></li>
-													<li></li>
+													<li>경고 수준 이하로 내려간 재료는 자동으로 발주 리스트에 등록되는 서비스를 제공했습니다.</li>
+													<li>본사 혹은 가맹점 관리자가 주문을 추가 및 수정할 수 있습니다.</li>
 												</ul>
-												<p>2.발주현황</p>
+												<p class="h3">2. 주문 상태</p>
 												<ul>
-													<li></li>
+													<li>주문</li>
 													<li></li>
 												</ul>
 												<p>3.</p>
@@ -363,20 +362,22 @@
 											aria-labelledby="headingFour_manual" data-parent="#accordion"
 											role="button">
 											<div class="card-body">
-
-												<p>1. 가맹점 태블릿</p>
+												<p class="h3">1. 배송상태 확인하기</p>
 												<ul>
-													<li></li>
-													<li></li>
+													<li>배송확인 버튼을 클릭하여 주문한 재료의 배송 상태를 확인할 수 있습니다.</li>
 												</ul>
-												<p>2.가맹점 태블릿</p>
+												<p class="h3">2. 배송완료</p>
 												<ul>
-													<li></li>
-													<li></li>
+													<li>배송 트럭 전용 태블릿에서 배송완료된 주문건에 해당하여 배송완료 메세지를 수신하게 되며,<br>
+														가맹점 태블릿에서도 배송완료 버튼을 클릭하여 해당 주문건이 정상 배달 완료되었다는 상태를 저장할 수
+														있습니다.
+													</li>
 												</ul>
-												<p>3.</p>
-												<p>4.</p>
-												<p>5.</p>
+												<p class="h3">3. 실시간 컨테이너 정보 확인
+												<ul>
+													<li>IoT 컨테이너의 담겨 있는 재료의 무게를 실시간으로 확인할 수 있는 화면이 제공됩니다.</li>
+													<li>해당 정보는 가맹점주 전용 재고관리 사이트에서 확인할 수 있습니다.</li>
+												</ul>
 											</div>
 										</div>
 									</div>
@@ -399,19 +400,22 @@
 											role="button">
 											<div class="card-body">
 
-												<p>1. POS</p>
+												<p class="h3">1. 로그인</p>
+												<ul>
+													<li>회원가입이 이루어진 사용자만 접속할 수 있도록 설계되어 있습니다.</li>
+												</ul>
+												<p class="h3">2. 메뉴</p>
 												<ul>
 													<li></li>
 													<li></li>
 												</ul>
-												<p>2.POS</p>
+												<p class="h3">3. 주문내역</p>
 												<ul>
 													<li></li>
 													<li></li>
 												</ul>
-												<p>3.</p>
-												<p>4.</p>
-												<p>5.</p>
+												<p>4. 정산</p>
+												<p>5. 일별판매량</p>
 											</div>
 										</div>
 									</div>

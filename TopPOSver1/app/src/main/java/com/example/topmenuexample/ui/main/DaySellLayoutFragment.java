@@ -113,7 +113,7 @@ public class DaySellLayoutFragment extends Fragment {
 
         public getDataFromHttp(){
             try {
-                url = new URL("http://70.12.224.85/top/posgetdata.top");
+                url = new URL("http://" + MainActivity.IP + "/top/posgetdata.top");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

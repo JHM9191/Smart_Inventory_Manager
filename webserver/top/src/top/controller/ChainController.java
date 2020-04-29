@@ -175,11 +175,62 @@ public class ChainController {
 		con.setIngName(ingName);
 		saveConData(con, conID, chainID, conCurrWeight);
 		// if below warning, send noti to admin.
-		if ((conCurrWeight - conWarningWeight) < 0) {
+		if ((-1) < 0) {
 			String regDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 			System.out.println("Warning!  " + con);
-//			notibiz.register(new NotiVO(null, chainID, userID, null, regDate, "new"));
+			notibiz.register(new NotiVO(null, chainID, userID, null, regDate, "new".trim()));
+
+			// send notification to manageApp regardless of the said conditions above
+			URL url = null;
+			try {
+				url = new URL("https://fcm.googleapis.com/fcm/send");
+			} catch (MalformedURLException e) {
+				System.out.println("Error while creating Firebase URL | MalformedURLException");
+				e.printStackTrace();
+			}
+			HttpURLConnection conn = null;
+			try {
+				conn = (HttpURLConnection) url.openConnection();
+			} catch (IOException e) {
+				System.out.println("Error while createing connection with Firebase URL | IOException");
+				e.printStackTrace();
+			}
+			conn.setUseCaches(false);
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			// set my firebase server key
+			conn.setRequestProperty("Authorization", "key="
+					+ "AAAAoMmzl84:APA91bHIGDTXVb45_HKSfAFsr-IGf1K_gvHgQ4p9AMNUD77S5Pv7O4jGXSo-4XQ1aTS4ZDc1db8_8S0VHZsUAJfUwLXCINoPykcoKUJ3CVgUp4JdsD0KnigqqVWzm1ZfgZChI6cTCK1Q");
+
+			// create notification message into JSON format
+			JSONObject message = new JSONObject();
+//			message.put("to",
+//					"cmm9ME4d9Ss:APA91bGxP8xrtRCzEof13dArAAuJKGODYi7uejryVTxkdndEoUxC0NTw2LbNNhUizHS38syfGTmHRBRUzCXj5HLgkQcb2XYeE4eiyGG-kKHSU-OPbSet2AMU_yjv0gQMg0RDLhNy920d");
+			message.put("to", "/topics/chainTablet");
+			message.put("priority", "high");
+			JSONObject notification = new JSONObject();
+			notification.put("title", "재고알림");
+			notification.put("body", "재고(" + ingName + ")가 부족합니다.");
+			message.put("notification", notification);
+			JSONObject data_jo = new JSONObject();
+			data_jo.put("data", "all");
+			message.put("data", data_jo);
+
+			// send data to firebase (http method)
+			try {
+				OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+				out.write(message.toString());
+				out.flush();
+				conn.getInputStream();
+			} catch (IOException e) {
+				System.out.println("Error while writing outputstream to firebase sending to ManageApp | IOException");
+				e.printStackTrace();
+			}
+
 		}
+
 	}
 
 	@RequestMapping("/getAllRealTimeContainerData.top")

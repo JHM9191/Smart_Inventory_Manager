@@ -138,7 +138,7 @@ public class OrderLayoutFragment extends Fragment {
         public sendToHttpTaskOrder(JSONObject jo) {
             try {
                 this.jo = jo;
-                url = new URL("http://192.168.43.2:8080/top/posorder.top");
+                url = new URL("http://" + MainActivity.IP + "/top/posorder.top");
 
             } catch (MalformedURLException e) {
                 Log.d("---", "Error occured in urlconnection");
@@ -179,7 +179,7 @@ public class OrderLayoutFragment extends Fragment {
         public sendToHttpTaskOdlist(JSONObject jo) {
             try {
                 this.jo = jo;
-                url = new URL("http://192.168.43.2:8080/top/posorderdetail.top");
+                url = new URL("http://" + MainActivity.IP + "/top/posorderdetail.top");
 
             } catch (MalformedURLException e) {
                 Log.d("---", "Error occured in urlconnection");

@@ -75,7 +75,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
         String url;
 
         public HttpTask(String id, String pwd) {
-            url = "http://192.168.43.2:8080/top/loginChainTablet.top?";
+            url = "http://" + MainActivity.IP + "/top/loginChainTablet.top?";
             url += "id=" + id + "&pwd=" + pwd;
 
         }

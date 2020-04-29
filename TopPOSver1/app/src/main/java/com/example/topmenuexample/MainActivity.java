@@ -26,6 +26,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
 
+    public static String IP = "192.168.43.2:8080";
+
     public Order tempOrder = new Order();
     public ArrayList<OrderDetail> tempOdlist = new ArrayList<OrderDetail>();
     int tempPosition = 0;

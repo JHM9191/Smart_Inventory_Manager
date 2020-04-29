@@ -1,21 +1,28 @@
 package com.example.inventorywatcherapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
     WebView mWebView;
     WebSettings mWebSettings;
 
+    String TAG = "===";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
         setContentView(R.layout.activity_main);
@@ -41,6 +48,20 @@ public class MainActivity extends AppCompatActivity {
         mWebSettings.setDomStorageEnabled(true); // 로컬저장소 허용 여부
 
         mWebView.loadUrl("http://15.165.163.102/top/"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+
+        FirebaseMessaging.getInstance().subscribeToTopic("InventoryWatcherApp").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                String msg = "Subscribing to topic \"InventoryWatcherApp\" completed";
+                if (!task.isSuccessful()) {
+                    msg = "Subscription fail";
+                }
+
+                Log.d(TAG, msg);
+            }
+        });
+
 
     }
 }
