@@ -52,6 +52,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             return;
         }
 
+        if (!title.equals(MainActivity.chainID)) {
+            return;
+        } else {
+            conList = new ArrayList<>();
+        }
+
         list = remoteMessage.getData().get("list");
 
 

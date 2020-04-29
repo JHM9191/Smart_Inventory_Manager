@@ -51,6 +51,7 @@ public class ProgressActivity extends AppCompatActivity {
         progressItemAdapter = new ProgressItemAdapter(getApplicationContext());
 
         progressItemAdapter.addContainerList(conList);
+        progressItemAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(progressItemAdapter);
 
 

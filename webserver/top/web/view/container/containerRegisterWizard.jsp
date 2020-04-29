@@ -676,10 +676,10 @@
 											범위 선택</a></li>
 									<li class="step" style="width: 33.333333333333336%;"><a
 										class="nav-link" href="#account" data-toggle="tab"><i
-											class="fa fa-file mr-2"></i> 컨테이너 선택</a></li>
+											class="fa fa-file mr-2"></i>2. 컨테이너 선택 및 적용</a></li>
 									<li class="step" style="width: 33.333333333333336%;"><a
 										class="nav-link" href="#address" data-toggle="tab"><i
-											class="fa fa-map-signs mr-2"></i> 확인 및 적용</a></li>
+											class="fa fa-map-signs mr-2"></i>3. 적용된 컨테이너 확인</a></li>
 									<div class="moving-tab" style="width: 300px;"></div>
 								</ul>
 							</div>
@@ -687,15 +687,14 @@
 						<br> <br> <br>
 
 						<div class="tab-content">
-
 							<!-- #1 first page : choose -->
 							<div class="tab-pane active" id="about">
 								<div class="row justify-content-center align-items-center">
-									<div class="col-4 pl-md-0">
+									<div class="col-md-4 pl-md-0">
 										<div class="card card-pricing">
 											<div class="card-header">
 												<div class="card-price">
-													<span class="price">기본</span>
+													<span class="price text-primary">기본</span>
 													<!-- <span class="text">/년</span> -->
 												</div>
 											</div>
@@ -707,23 +706,23 @@
 														class="status-specification">예</span></li>
 
 												</ul>
-												<h4 class="text">단 한번의 등록으로 모든 가맹점의 컨테이너 사이즈 및 수량을 동일하게
-													적용시킬 수 있습니다.</h4>
+												<h4 class="text text-primary">단 한번의 등록으로 모든 가맹점의 컨테이너
+													사이즈 및 수량을 동일하게 적용시킬 수 있습니다.</h4>
 											</div>
 											<div class="card-footer">
-												<input type="button" class="btn btn-danger btn-block"
+												<input type="button" class="btn btn-info btn-block"
 													name="sameContainer" value="선택"
 													onclick="goToNext('sameContainer');" />
 											</div>
 
 										</div>
 									</div>
-									<div class="col-4 pl-md-0">
+									<div class="col-md-4 pr-md-0">
 										<div class="card card-pricing">
 											<div class="card-header">
 												<!-- <h4 class="card-title">커스터마이즈</h4> -->
 												<div class="card-price">
-													<span class="price">커스터마이즈</span>
+													<span class="price text-danger">커스터마이즈</span>
 													<!-- <span class="text">/년</span> -->
 												</div>
 											</div>
@@ -734,8 +733,8 @@
 													<li><span class="name-specification">수정 가능 여부</span> <span
 														class="status-specification">예</span></li>
 												</ul>
-												<h4 class="text">각 가맹점마다 각기 다른 컨테이너 사이즈 및 수량을 직접 지정할 수
-													있습니다.</h4>
+												<h4 class="text text-danger">각 가맹점마다 각기 다른 컨테이너 사이즈 및
+													수량을 직접 지정할 수 있습니다.</h4>
 											</div>
 											<div class="card-footer">
 												<input type="button" class="btn btn-danger btn-block"
@@ -897,9 +896,9 @@
 												<i class="fa fa-plus"></i> Add Row
 											</button> -->
 											<div class="card-body">
-												<div class="responsive">
+												<div class="table-responsive">
 													<table id="addContainerTable_sameContainer"
-														class="table table-head-bg-default mt-4 table-hover table-striped">
+														class="table table-head-bg-default mt-4 table-hover table-striped  dataTables_wrapper container-fluid dt-bootstrap4">
 														<thead>
 															<tr>
 																<th>No.</th>
@@ -1119,9 +1118,9 @@
 												<i class="fa fa-plus"></i> Add Row
 											</button> -->
 											<div class="card-body">
-												<div class="responsive">
+												<div class="table-responsive">
 													<table id="addContainerTable_diffContainer"
-														class="table table-head-bg-default mt-4 table-hover table-striped">
+														class="table table-head-bg-default mt-4 table-hover table-striped  dataTables_wrapper container-fluid dt-bootstrap4">
 														<thead>
 															<tr>
 																<th>No.</th>

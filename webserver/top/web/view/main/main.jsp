@@ -77,8 +77,8 @@
 	<div class="wrapper">
 
 		<c:choose>
-			<c:when test="${loginId == null }">
-				<jsp:include page="../user/login.jsp" />
+			<c:when test="${loginId != null }">
+				<%-- <jsp:include page="../user/login.jsp" /> --%>
 			</c:when>
 
 			<c:otherwise>

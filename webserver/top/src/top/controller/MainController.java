@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import top.frame.Biz;
 import top.vo.ChainVO;
+import top.vo.IngredientVO;
 import top.vo.SalesVO;
 
 @Controller
@@ -28,6 +29,9 @@ public class MainController {
 
 	@Resource(name = "salesbiz")
 	Biz<String, SalesVO> salesbiz;
+
+	@Resource(name = "ingbiz")
+	Biz<String, IngredientVO> ingbiz;
 
 	// Show main page
 	@RequestMapping("/")
@@ -44,7 +48,7 @@ public class MainController {
 		return mv;
 	}
 
-	@RequestMapping("/mainStat.top")
+	@RequestMapping("/main.top")
 	public ModelAndView mainStat(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("Entered main.top");
 		HttpSession session = req.getSession();
@@ -52,8 +56,35 @@ public class MainController {
 		String who = (String) session.getAttribute("who");
 		System.out.println(who);
 		System.out.println(u_id);
+
+		ArrayList<IngredientVO> ingList = ingbiz.get();
+		System.out.println("ingList : " + ingList);
+
 		session.setAttribute("loginId", u_id);
+		mv.addObject("ingList", ingList);
 		mv.addObject("center", "../main/statMain");
+		mv.setViewName("main/main");
+		res.setContentType("text/html; charset=UTF-8");
+
+		return mv;
+
+	}
+
+	@RequestMapping("/about.top")
+	public ModelAndView about(ModelAndView mv, HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("Entered main.top");
+		HttpSession session = req.getSession();
+		String u_id = (String) session.getAttribute("loginid");
+		String who = (String) session.getAttribute("who");
+		System.out.println(who);
+		System.out.println(u_id);
+
+		ArrayList<IngredientVO> ingList = ingbiz.get();
+		System.out.println("ingList : " + ingList);
+
+		session.setAttribute("loginId", u_id);
+		mv.addObject("ingList", ingList);
+		mv.addObject("center", "../main/about");
 		mv.setViewName("main/main");
 		res.setContentType("text/html; charset=UTF-8");
 
@@ -169,11 +200,4 @@ public class MainController {
 		return mv;
 	}
 
-	// show About page
-	@RequestMapping("about.top")
-	public ModelAndView showAbout(ModelAndView mv) {
-		mv.addObject("center", "../main/about");
-		mv.setViewName("main/main");
-		return mv;
-	}
 }

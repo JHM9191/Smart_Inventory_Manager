@@ -54,8 +54,8 @@
 			<ul class="nav">
 
 				<!-- HOME -->
-				<li class="nav-item active"><a onclick="location.href='mainStat.top'"> <i
-						class="fas fa-home"></i>
+				<li class="nav-item active"><a
+					onclick="location.href='main.top'"> <i class="fas fa-home"></i>
 						<p>홈</p> <!-- <span class="badge badge-count">5</span> -->
 				</a></li>
 
@@ -112,10 +112,10 @@
 					</div></li>
 
 
-				<!-- A/S Center -->
-				<li class="nav-item"><a href="widgets.html"> <i
+				<!-- about TOP -->
+				<li class="nav-item"><a onclick="location.href='about.top'"> <i
 						class="fas fa-desktop"></i>
-						<p>고객센터</p>
+						<p>TOP 회사</p>
 				</a></li>
 			</ul>
 		</div>

@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="#B1D5C2"
             android:gravity="center"
-            android:text="역삼2호점"
+            android:text="역삼1호점"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold" />

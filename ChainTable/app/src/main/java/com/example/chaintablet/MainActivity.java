@@ -48,12 +48,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public static ArrayList<ContainerVO> conList = new ArrayList<>();
     public static String userID = "user0001";
-    public static String orderID = "orderID_1000020";
-    public static String chainID = "chainID_1000001";
-    public static String chainName = "카페 TOP(역삼 2호점)";
-//    public static String orderID = "orderID_1000000";
-//    public static String chainID = "chainID_1000000";
-//    public static String chainName = "카페 TOP(역삼 1호점)";
+//    public static String orderID = "";
+//    public static String chainID = "chainID_1000001";
+//    public static String chainName = "카페 TOP(역삼 2호점)";
+    public static String orderID = "orderID_1000040";
+    public static String chainID = "chainID_1000000";
+    public static String chainName = "카페 TOP(역삼 1호점)";
 
 
     public static String deliverStatusFromServer = "no response";

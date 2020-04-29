@@ -124,7 +124,7 @@
 	
 	 */
 
-	/* function makeChart(chartname, i, maxWeight, currWeight, warningWeight) {
+	function makeChart(chartname, i, maxWeight, currWeight, warningWeight) {
 		var doughnutChart = document.getElementById((chartname + i))
 				.getContext('2d');
 		var myDoughnutchart = new Chart((chartname + i), {
@@ -158,7 +158,7 @@
 			}
 		});
 
-	} */
+	}
 </script>
 
 <h4 class="page-title">재고현황('${chainID }')</h4>

@@ -170,9 +170,9 @@
 
 <div class="tab-pane" id="containerUpdateList">
 	<div class="card-body">
-		<div class="responsive">
+		<div class="table-responsive">
 			<table id="containerUpdateListTable"
-				class="table table-head-bg-default mt-4 table-hover table-striped">
+				class="table table-head-bg-default mt-4 table-hover table-striped dataTables_wrapper container-fluid dt-bootstrap4">
 				<thead>
 					<tr>
 						<th>No.</th>
