@@ -119,7 +119,7 @@ public class MainController {
 //		return mv;
 //	}
 
-	@RequestMapping(value = "/getSalesData.top", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/getSalesData.top")
 	@ResponseBody
 	public void getSalesData(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("Entered getSalesData.top");
@@ -143,7 +143,7 @@ public class MainController {
 				JSONObject jo_inin = new JSONObject();
 				jo_inin.put("name", salesList.get(i).getChainName());
 				jo_inin.put("y", salesList.get(i).getTotSales() / 10000);
-				jo_inin.put("drilldown", salesList.get(i).getChainName());
+				jo_inin.put("drilldown", salesList.get(i).getChainID());
 				data.add(jo_inin);
 			}
 			ja.add(data);
@@ -174,7 +174,7 @@ public class MainController {
 			ja.add(ja_drilldown);
 
 			System.out.println(ja.toString());
-			res.setCharacterEncoding("UTF-8");
+//			res.setCharacterEncoding("UTF-8");
 			res.setContentType("application/json; charset=UTF-8");
 //			res.setCharacterEncoding("EUC-KR");
 //			res.setContentType("text/json; charset=EUC-KR");
