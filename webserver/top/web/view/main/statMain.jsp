@@ -304,8 +304,9 @@
 				//console.log(typeof (data[0]));
 
 				for (var i = 0; i < data.length; i++) {
+					var shiftFlag = chart.series[i].data.length > 4;
 
-					chart.series[i].addPoint(data[i].data, true, false);
+					chart.series[i].addPoint(data[i].data, true, shiftFlag);
 
 				}
 
