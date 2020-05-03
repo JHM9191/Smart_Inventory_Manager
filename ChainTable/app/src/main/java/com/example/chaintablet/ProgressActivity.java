@@ -83,15 +83,18 @@ public class ProgressActivity extends AppCompatActivity {
     class FetchData implements Runnable {
 
         //        String urlstr = "http://70.12.231.236:8080/top/fetchContainerData.top?chainID=";
-        String urlstr = "http://192.168.43.2:8080/top/fetchContainerData.top?chainID=";
+        String urlstr;
+
 
         public FetchData(String chainID) {
+            urlstr = "http://" + MainActivity.IP + "/top/fetchContainerData2.top?chainID=";
             urlstr += chainID;
         }
 
         @Override
         public void run() {
             Log.d(TAG, "fetching data");
+
 
             URL url = null;
             try {
@@ -200,7 +203,7 @@ public class ProgressActivity extends AppCompatActivity {
     class SendContainerInfoToWebServer implements Runnable {
 
         //        String urlstr = "http://192.168.43.2:8080/top/realtimecontainerdata.top?";
-        String urlstr = "http://192.168.43.2:8080/top/realtimecontainerdata.top?";
+        String urlstr = "http://" + MainActivity.IP + "/top/realtimecontainerdata.top?";
 
         public SendContainerInfoToWebServer(String conID, double conFullWeight, double conCurrWeight, double conWarningWeight, String ingID, String ingName, String chainID, String userID) {
             urlstr += "conID=" + conID + "&conFullWeight=" + conFullWeight + "&conCurrWeight="

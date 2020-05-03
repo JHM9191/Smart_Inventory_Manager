@@ -45,10 +45,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         title = remoteMessage.getNotification().getTitle();
         body = remoteMessage.getNotification().getBody();
+        list = remoteMessage.getData().get("list");
+
         Log.d(TAG, "title : " + title);
         Log.d(TAG, "body : " + body);
-        if (title.equals("truck1")) {
-            MainActivity.orderID = body;
+        if (title.equals("배송이 완료되었습니다.")) {
+            MainActivity.orderID = title;
             return;
         }
 
@@ -58,7 +60,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             conList = new ArrayList<>();
         }
 
-        list = remoteMessage.getData().get("list");
 
 
         Log.d(TAG, "list : " + list);

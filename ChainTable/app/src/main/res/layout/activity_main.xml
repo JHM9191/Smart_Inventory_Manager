@@ -50,7 +50,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:background="#B1D5C2"
+            android:background="#CECECE"
             android:gravity="center"
             android:text="배송상태: "
             android:textColor="@android:color/black"

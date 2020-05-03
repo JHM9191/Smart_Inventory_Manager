@@ -51,9 +51,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //    public static String orderID = "";
 //    public static String chainID = "chainID_1000001";
 //    public static String chainName = "카페 TOP(역삼 2호점)";
-    public static String orderID = "orderID_1000040";
+    public static String orderID = "";
     public static String chainID = "chainID_1000000";
     public static String chainName = "카페 TOP(역삼 1호점)";
+
+//    public static String IP = "15.165.163.102";
+    public static String IP = "192.168.43.2:8080";
 
 
     public static String deliverStatusFromServer = "no response";
@@ -83,18 +86,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         initUI();
         showCurrentTime();
         serverReadyThread = new ServerReadyThread();
-        serverReadyThread.start();
+//        serverReadyThread.start();
 
 
         FirebaseMessaging.getInstance().subscribeToTopic("chainTablet").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
-                String msg = "Subscribing to topic \"chainTablet\" completed";
+                String msg = "Subscribing to topic chainTablet completed";
                 if (!task.isSuccessful()) {
                     msg = "Subscription fail";
                 }
-
                 Log.d(TAG, msg);
             }
         });
@@ -166,7 +167,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txt_deliverStatus.setText("배송상태: " + deliverStatusFromServer);
+                            txt_deliverStatus.setText(deliverStatusFromServer);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -186,7 +187,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txt_deliverStatus.setText("배송상태: " + deliverStatusFromServer);
+                            txt_deliverStatus.setText(deliverStatusFromServer);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -436,205 +437,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return (float) Math.sin(2.0f * mCycles * Math.PI * input);
         }
     }
-
-
-    //------------------- CLIENT MODULE -------------------//
-
-
-    String serverIP = "192.168.43.2";
-
-    int serverPort = 8888;
-
-
-    Socket sSocket;
-
-
-//    class ConnectThread implements Runnable {
-//
-//        String ip;
-//        int port;
-//        String id;
-//
-//
-//        public ConnectThread() {
-//
-//        }
-//
-//        public ConnectThread(String ip, int port, String id) {
-//            this.ip = ip;
-//            this.port = port;
-//            this.id = id;
-//
-//        }
-//
-//        @Override
-//        public void run() {
-//
-//
-//            try {
-//                Thread.sleep(500);
-//                sSocket = new Socket(ip, port);
-//
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        tv_server_state.setText("Server Connected.\n" + "(" + sSocket.getInetAddress() + ")");
-//                        try {
-//                            Thread.sleep(2000);
-//
-//
-//
-//                            frameLayout.setVisibility(View.GONE);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//            } catch (Exception e) {
-////                e.printStackTrace();
-//
-//                int i = 0;
-//
-//                while (true) {
-//                    i++;
-//
-//
-//                    int finalI = i;
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            tv_server_state.setText("Retry Connecting to Server ... " + finalI);
-//                        }
-//                    });
-//
-//                    try {
-//                        Thread.sleep(500);
-//                        sSocket = new Socket(ip, port);
-//
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                tv_server_state.setText("Server Connected.\n" + "(" + sSocket.getInetAddress() + ")");
-//                                try {
-//                                    Thread.sleep(2000);
-//                                    frameLayout.setVisibility(View.GONE);
-//                                } catch (InterruptedException e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//                            }
-//                        });
-//                        break;
-//
-//                    } catch (Exception ex) {
-//                        Log.d(TAG, "failed to connect to server");
-////                        ex.printStackTrace();
-//                    }
-//                    try {
-//                        Thread.sleep(500);
-//                    } catch (InterruptedException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }
-//            ServerReceiver serverReceiver = null;
-//            try {
-//                serverReceiver = new ServerReceiver(sSocket);
-//                serverReceiver.execute();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//        } // run End
-//    } // ConnectThread End
-//
-//
-//    class ServerReceiver extends AsyncTask<Void, ContainerMsg, Void> {
-//
-//        Socket socket;
-//        InputStream is;
-//        ObjectInputStream ois;
-//        OutputStream os;
-//        ObjectOutputStream oos;
-//
-//
-//        public ServerReceiver(Socket socket) throws IOException {
-//            this.socket = socket;
-//            is = socket.getInputStream();
-//            ois = new ObjectInputStream(is);
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//
-//            try {
-//                os = socket.getOutputStream();
-//                oos = new ObjectOutputStream(os);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            ContainerMsg msg = new ContainerMsg("chainID_1000000", "hello", "/192.168.43.2");
-//
-//            try {
-//                oos.writeObject(msg);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//
-//            while (ois != null) {
-//                ContainerMsg msg = null;
-//
-//
-//                try {
-//                    msg = (ContainerMsg) ois.readObject();
-//                    Log.d(TAG, msg.getChainID() + " | " + msg.getIngID() + " | " + msg.getConID());
-//                    publishProgress(msg);
-//
-//                } catch (Exception e) {
-////                    e.printStackTrace();
-//                    msg = new ContainerMsg("System", "Server disconnected", null);
-//                    publishProgress(msg);
-//
-//
-//                    break;
-//                }
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(ContainerMsg... values) {
-//
-//            String id = values[0].getConID();
-//            // 위에서 에러가 나면 id 에 system 이라는 값을 주었다. //
-//            if (id.equals("System")) {
-//                if (sSocket != null) {
-//                    try {
-//                        sSocket.close();
-//                    } catch (IOException e) {
-////                        e.printStackTrace();
-//                    }
-//                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        //------ Client UI ---//
-//                        tv_server_state.setText("Server Disconnected..");
-//                        frameLayout.setVisibility(View.VISIBLE);
-//                    }
-//                });
-//                new Thread(new ConnectThread(serverIP, serverPort, chainID)).start();
-//                return;
-//            }
-//
-//
-//        }
-//    }
 
 }

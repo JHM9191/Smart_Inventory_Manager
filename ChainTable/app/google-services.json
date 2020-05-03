@@ -34,6 +34,64 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690578757582:android:adedecb20cc6e26123bd9f",
+        "android_client_info": {
+          "package_name": "com.example.inventorywatcherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Jbmk3gWWyvHzeaviKDh9apuwObk9HSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690578757582:android:33bd660e4236704823bd9f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Jbmk3gWWyvHzeaviKDh9apuwObk9HSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690578757582-2p6v4nnugnqsnak8f2m0tkmg9r9ougvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
