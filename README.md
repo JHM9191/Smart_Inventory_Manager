@@ -35,7 +35,9 @@
 - 훈련과정명: 빅데이터를 활용한 IoT 시스템 개발(feat. 스마트시티 프로젝트)
 
 - 운영기관: 멀티캠퍼스 역삼
+  
 
+# 
 
 
 ### 프로젝트 소개
@@ -76,7 +78,11 @@
   
 
   
+  
 
+#   
+
+# 
   
 
 4. **서비스로직 설명**
@@ -84,25 +90,33 @@
   ![서비스로직](./img/서비스로직.png)
 
   
-
   
 
-  
+#   
+
+# 
+    
+
+    
 
 5. **개발환경 및 적용기술**
 
   ![개발환경 및 적용기술](./img/개발환경및적용기술.png)
 
-  | IDE                                                          | 개발 언어                                        | UI                                                           |
-  | ------------------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
-  | Eclipse IDE ver 2019-03(4.11.0) <br/>Spring Tool Suite ver 4.5.1 <br/>Android Studio ver 3.5 <br/>R Studio ver 1.8.2 <br/>Arduino ver 1.8.12 | Oracle Java 1.8.u241 <br/>R prgramming ver 3.6.3 | JavaFx ver 8 <br/>Boostrap 4 - Azzara 4 <br/>HTML5 <br />CSS3.0 <br />JavaScript <br />Highcharts |
+| IDE                                                          | 개발 언어                                            | UI                                                           |
+| ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------ |
+| - Eclipse IDE ver 2019-03(4.11.0) <br/>- Spring Tool Suite ver 4.5.1 <br/>- Android Studio ver 3.5 <br/>- R Studio ver 1.8.2 <br/>- Arduino ver 1.8.12 | - Oracle Java 1.8.u241 <br/>- R prgramming ver 3.6.3 | - JavaFx ver 8 <br/>- Boostrap 4 - Azzara 4 <br/>- HTML5 <br />- CSS3.0 <br />- JavaScript <br />- Highcharts |
 
-  | 데이터베이스                                                 | API & Service                                        | 프로젝트 관리                   | 하드웨어                                                     |
-  | ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------------- | :----------------------------------------------------------- |
-  | Oracle DB 11g <br />(APEX & SQL Developer)<br/> Hadoop ver 2.6.1<br/>Hive ver 1.2.1 | AWS EC2  <br />Google Firebase <br />Apache Tomcat 9 | Github <br />Slack <br />Notion | LattePanda <br />Arduino Uno <br />LoadCell Weight Detection Sensors <br />CanPro |
+| 데이터베이스                                                 | API & Service                                              | 프로젝트 관리                         | 하드웨어                                                     |
+| ------------------------------------------------------------ | ---------------------------------------------------------- | ------------------------------------- | :----------------------------------------------------------- |
+| - Oracle DB 11g <br />  (APEX & SQL Developer)<br/> - Hadoop ver 2.6.1<br/>- Hive ver 1.2.1 | - AWS EC2  <br />- Google Firebase <br />- Apache Tomcat 9 | - Github <br />- Slack <br />- Notion | - LattePanda <br />- Arduino Uno <br />- LoadCell Weight Detection Sensors <br />- CanPro |
 
   
+  
 
+#   
+
+# 
   
 
   
@@ -114,7 +128,11 @@
   
 
   
+  
 
+#   
+
+# 
   
 
   
@@ -126,14 +144,16 @@
   
 
   
+  
 
+#   
+
+# 
   
 
   
 
 8. **프로젝트 결과물**
-
-  
 
   1. 자체 제작한 무게 감지 하드웨서 "IoT 컨테이너"
 
@@ -145,25 +165,25 @@
 
      - 메인페이지
 
-     ![](./img/관리자웹페이지_메인페이지.png)
+      ![](./img/관리자웹페이지_메인페이지.png)
 
      
 
      - IoT 컨테이너 관리 페이지
 
-     ![](./img/관리자웹페이지_컨테이너.png)
+      ![](./img/관리자웹페이지_컨테이너.png)
 
      
 
      - 재료 관리 페이지
 
-     ![](./img/관리자웹페이지_재료.png)
+       ![](./img/관리자웹페이지_재료.png)
 
      
 
      - 주문 발주 페이지
 
-     ![](./img/관리자웹페이지_주문발주.png)
+      ![](./img/관리자웹페이지_주문발주.png)
 
      
 
@@ -191,7 +211,11 @@
 
      ![](./img/운반트럭태블릿.png)
 
-  
+    
+
+#   
+
+# 
 
   
 
