@@ -2,9 +2,11 @@
 
 (feat. Spring Framework, Arduino, CAN, Latte Panda, Hadoop, R Programming, Oracle DB, TCP/IP, FCM,  AWS) 
 
-###
-###
-###
+### 
+
+ 
+
+
 
 ### 팀 소개
 - 팀명: TOP (**T**eam **O**verflowed with **P**assion)
@@ -38,6 +40,7 @@
 
 - 운영기관: 멀티캠퍼스 역삼
   
+
 ###
 ###
 ###
@@ -81,25 +84,25 @@
   
 
   
-  
+
 ###
 ###
 ###
-  
+
 
 4. **서비스로직 설명**
 
   ![서비스로직](./img/서비스로직.png)
 
   
-  
+
 
 ###
 ###
 ###
     
 
-    
+​    
 
 5. **개발환경 및 적용기술**
 
@@ -114,14 +117,14 @@
 | - Oracle DB 11g <br />  (APEX & SQL Developer)<br/> - Hadoop ver 2.6.1<br/>- Hive ver 1.2.1 | - AWS EC2  <br />- Google Firebase <br />- Apache Tomcat 9 | - Github <br />- Slack <br />- Notion | - LattePanda <br />- Arduino Uno <br />- LoadCell Weight Detection Sensors <br />- CanPro |
 
   
-  
+
 
 ###
 ###
 ###
-  
 
-  
+
+
 
 6. **시스템 아키텍쳐**
 
@@ -130,14 +133,14 @@
   
 
   
-  
+
 
 ###
 ###
 ###
-  
 
-  
+
+
 
 7. **ERD 설계**
 
@@ -146,18 +149,18 @@
   
 
   
-  
+
 
 ###
 ###
 ###
-  
 
-  
+
+
 
 8. **프로젝트 결과물**
 
-    1. 자체 제작한 무게 감지 하드웨서 "IoT 컨테이너"
+    1. 자체 제작한 로드셀 무게 감지 하드웨어 "IoT 컨테이너"
 
        ![IoT컨테이너](./img/IoT컨테이너.png)
 
@@ -214,6 +217,7 @@
        ![](./img/운반트럭태블릿.png)
 
     
+
 ###
 ###
 ###
